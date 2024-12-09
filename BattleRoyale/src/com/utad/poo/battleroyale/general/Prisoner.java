@@ -6,7 +6,7 @@ public class Prisoner extends Player{
 	public static final String CLASS_NAME="Prisoner";
 	
 	
-	public Prisoner(String name,String weapon){
+	public Prisoner(String name,Weapon weapon){
 		super(name,weapon);
 	}
 

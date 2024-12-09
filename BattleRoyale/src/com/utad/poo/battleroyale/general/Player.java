@@ -3,16 +3,16 @@ package com.utad.poo.battleroyale.general;
 public class Player {
 	
 	protected String name;
-	protected String weapon;
+	protected Weapon weapon;
 	public static final String DEF_NAME="Player";
-	public static final String DEF_WEAPON="Sword";
+	//public static final Weapon DEF_WEAPON;
 	
-	
-	public Player(){
+	public Player(String name,Weapon weapon){
 		
-		this(Player.DEF_NAME,Player.DEF_WEAPON);
+		this.name=name;
+		this.weapon=weapon;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -21,20 +21,13 @@ public class Player {
 		this.name = name;
 	}
 
-	public String getWeapon() {
+	public Weapon getWeapon() {
 		return weapon;
 	}
 
-	public void setWeapon(String weapon) {
+	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 	}
-
-	public Player(String name,String weapon){
-		
-		this.name=name;
-		this.weapon=weapon;
-	}
-	
 	
 	@Override
 	public String toString() {
