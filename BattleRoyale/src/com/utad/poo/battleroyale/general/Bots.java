@@ -1,4 +1,4 @@
-package com.utad.poo.battleroyale;
+package com.utad.poo.battleroyale.general;
 
 import java.io.BufferedReader;
 import java.io.File;
