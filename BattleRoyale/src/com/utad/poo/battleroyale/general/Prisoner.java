@@ -11,12 +11,12 @@ public class Prisoner extends Player{
 	}
 
 
-	public static Integer getPrisonerHealth() {
+	public Integer getPrisonerHealth() {
 		return PRISONER_HEALTH;
 	}
 
 
-	public static String getClassName() {
+	public String getClassName() {
 		return CLASS_NAME;
 	}
 

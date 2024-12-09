@@ -13,8 +13,6 @@ public class Player {
 		this(Player.DEF_NAME,Player.DEF_WEAPON);
 	}
 
-	
-
 	public String getName() {
 		return name;
 	}
