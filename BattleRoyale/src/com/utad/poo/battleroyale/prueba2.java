@@ -1,5 +1,5 @@
 package com.utad.poo.battleroyale;
 
-public class clase2 {
+public class prueba2 {
 
-}ayudaddadada
+}
