@@ -9,6 +9,8 @@ public class Sword extends Weapon{
 	
 	public Sword(Double damage, Integer level) {
 		super();
+		this.damage = damage;
+		this.level = level;
 	}
 	
 	public Double getDamage() {
@@ -23,7 +25,11 @@ public class Sword extends Weapon{
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
-
+	@Override
+	public String toString() {
+		return "Sword [damage=" + damage + ", level=" + level + "]";
+	}
+	
 	
 	
 }
