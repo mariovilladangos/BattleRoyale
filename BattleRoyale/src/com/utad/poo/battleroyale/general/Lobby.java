@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lobby {
-	private final static Integer DEF_PLAYERS = 10;
+	public final static Integer DEF_PLAYERS = 10;
 	
 	public static void main(String[] args) throws Exception {
 		Scanner scanner = new Scanner(System.in);

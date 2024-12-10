@@ -1,4 +1,6 @@
 package com.utad.poo.battleroyale.ui;
+import com.utad.poo.battleroyale.general.Lobby;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -6,14 +8,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CharacterMenu {
+	
     public static void main(String[] args) {
-        // Crear la ventana principal
+        // VENTANA PRINCIPAL
         JFrame frame = new JFrame("Menú de Personajes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 600);
         frame.setLayout(new BorderLayout());
-
-        // Panel para la lista de personajes guardados
+        
+        // PERSONAJES LISTOS
+        JLabel lobbyFill = new JLabel("0/" + Lobby.DEF_PLAYERS);
+        lobbyFill.setBorder(new EmptyBorder(0, 0, 0, 10));
+        lobbyFill.setHorizontalAlignment(JLabel.RIGHT);
+        frame.add(lobbyFill, BorderLayout.NORTH);
+        
+        // LISTA PERSONAJES
         DefaultListModel<String> listModel = new DefaultListModel<>();
         JList<String> characterList = new JList<>(listModel);
         characterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -21,12 +30,12 @@ public class CharacterMenu {
         scrollPane.setBorder(BorderFactory.createTitledBorder("Personajes Guardados"));
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        // Panel inferior para agregar un nuevo personaje
+        // PANEL ABAJO
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
         bottomPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Campo de texto para el nombre del personaje
+        // * NOMBRE
         JPanel namePanel = new JPanel(new BorderLayout());
         JLabel nameLabel = new JLabel("Nombre:");
         JTextField nameField = new JTextField();
@@ -34,10 +43,11 @@ public class CharacterMenu {
         namePanel.add(nameField, BorderLayout.CENTER);
         bottomPanel.add(namePanel);
 
-        // Grupo de botones para clase y arma
+        // * CLASE Y ARMA
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 3, 5, 5));
-
+        
+        // * * GRUPO CLASES
         ButtonGroup classGroup = new ButtonGroup();
         JRadioButton warriorButton = new JRadioButton("Guerrero");
         JRadioButton healerButton = new JRadioButton("Sanador");
@@ -45,7 +55,8 @@ public class CharacterMenu {
         classGroup.add(warriorButton);
         classGroup.add(healerButton);
         classGroup.add(prisonerButton);
-
+        
+        // * * GRUPO ARMAS
         ButtonGroup weaponGroup = new ButtonGroup();
         JRadioButton swordButton = new JRadioButton("Espada");
         JRadioButton spearButton = new JRadioButton("Lanza");
@@ -62,9 +73,24 @@ public class CharacterMenu {
         buttonPanel.add(claymoreButton);
         bottomPanel.add(buttonPanel);
 
-        // Botón para guardar el personaje
-        JButton saveButton = new JButton("+");
+        // * BOTONERA
+        // * * BOTON -
         JButton removeButton = new JButton("-");
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+                if (listModel.size() > 0) {
+                    listModel.remove(listModel.size() - 1);
+                    lobbyFill.setText(listModel.size() + "/" + Lobby.DEF_PLAYERS);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No hay personajes que eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
+        // * * BOTON +
+        JButton saveButton = new JButton("+");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,23 +113,32 @@ public class CharacterMenu {
                 } else if (claymoreButton.isSelected()) {
                     weapon = "Claymore";
                 }
-
-                if (!name.isEmpty() && characterClass != null && weapon != null) {
+                
+                if (listModel.size() >= Lobby.DEF_PLAYERS) {
+                	// Nada puto
+                }
+                else if (!name.isEmpty() && characterClass != null && weapon != null) {
                     listModel.addElement(name + " - " + characterClass + " - " + weapon);
                     nameField.setText("");
                     classGroup.clearSelection();
                     weaponGroup.clearSelection();
+                    
+                    lobbyFill.setText(listModel.size() + "/" + Lobby.DEF_PLAYERS);
+                    if (listModel.size() >= Lobby.DEF_PLAYERS) {/* Empieza */};
+                    
                 } else {
                     JOptionPane.showMessageDialog(frame, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-        JPanel actionPanel = new JPanel();
+        
+        // * AGRUPAR BOTONES BOTONERA
+        JPanel actionPanel = new JPanel(); 
         actionPanel.setLayout(new GridLayout(1, 2, 5, 5));
         actionPanel.add(saveButton);
         actionPanel.add(removeButton);
         bottomPanel.add(actionPanel);
-
+        
         frame.add(bottomPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
     }
