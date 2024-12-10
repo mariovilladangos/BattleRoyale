@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.List;
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Bots {
 	
 	public List<Player> ReadBotFiles() throws Exception {
 				
-		List<Player> AllBots = new ArrayList();
+		List<Player> allBots = new ArrayList();
 		File currentDir = new File(System.getProperty("user.dir"));
 		File ejemplo1File = new File(currentDir.getCanonicalPath() + "\\files\\BotPresets");
 		
@@ -30,19 +31,35 @@ public class Bots {
 			else if (atributos[1] == "Healer") bot = new Healer(atributos[0], weapon);
 			else  bot = new Prisoner(atributos[0], weapon);
 			
-			AllBots.add(bot);
+			allBots.add(bot);
 		}
 		
 		br.close();
-		return AllBots;
+		return allBots;
 	}
 	
-	public List<Player> GetBots(Integer n) {
+	public List<Player> GetBots(Integer n) throws Exception {
 		
+		List<Player> allBots = this.ReadBotFiles();
 		List<Player> bots = new ArrayList();
 		
 		for (int i = 0; i < n; i++) {
-			
+			Random rand = new Random();
+	        Integer index = rand.nextInt(allBots.size());
+	        
+	        Boolean found = false;
+	        while(!found) {
+	        	found = true;
+		        for (int j = 0; j < bots.size(); j++) {
+		        	if (bots.get(i).getName() == allBots.get(index).getName()) {
+		        		index++;
+		        		if (index >= allBots.size()) index = 0;
+		        		found = false;
+		        		break;
+		        	}
+		        }
+	        }
+	        bots.add(allBots.get(index));
 		}
 		
 		return bots;

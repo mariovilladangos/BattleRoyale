@@ -66,6 +66,4 @@ public class Player {
     	this.hp+=40;
     }
 
-    }
-    
-
+}
