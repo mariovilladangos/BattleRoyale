@@ -1,5 +1,7 @@
 package com.utad.poo.battleroyale.general;
 
+import java.util.Arrays;
+
 public class Claymore extends Weapon{
 	
 	//public static final Integer DEF_LEVEL = 1;
@@ -10,22 +12,11 @@ public class Claymore extends Weapon{
 		public Claymore (Integer[] damage) {
 			super(damage);
 		}
-	//Getters and setters
-	public Integer[] getDamage() {
-		return damage;
-	}
-	public void setDamage(Integer[] damage) {
-		this.damage = damage;
-	}
-	public Integer getLevel() {
-		return level;
-	}
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+	
 	@Override
 	public String toString() {
-		return "Claymore damage=" + damage + ", level=" + level + " ";
+		return "Claymore [damage=" + Arrays.toString(damage) + ", level=" + level + "]";
 	}
+	
 	
 }
