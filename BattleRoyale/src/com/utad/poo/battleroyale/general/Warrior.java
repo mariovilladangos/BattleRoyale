@@ -12,6 +12,11 @@ public class Warrior extends Player {
 		super(name, weapon, Warrior.WARRIOR_HEALTH, Warrior.DEF_PROB);
 		
 	}
+	
+	@Override
+	public String getClassType() {
+		return CLASS_NAME;
+	}
 
 	@Override
 	public String toString() {
