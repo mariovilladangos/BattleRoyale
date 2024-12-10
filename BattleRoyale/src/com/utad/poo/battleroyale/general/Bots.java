@@ -38,31 +38,41 @@ public class Bots {
 		return allBots;
 	}
 	
-	public static List<Player> getBots(Integer n) throws Exception {
+	public static List<Player> getBots(Integer n){
 		
-		List<Player> allBots = Bots.ReadBotFiles();
-		List<Player> bots = new ArrayList();
-		
-		for (int i = 0; i < n; i++) {
-			Random rand = new Random();
-	        Integer index = rand.nextInt(allBots.size());
-	        
-	        Boolean found = false;
-	        while(!found) {
-	        	found = true;
-	        	for (Player bot: bots) {
-		        	if (bot.getName().equals(allBots.get(index).getName())) {
-		        		index++;
-		        		if (index >= allBots.size()) index = 0;
-		        		found = false;
-		        		break;
-		        	}
-		        }
-	        }
-
-	        bots.add(allBots.get(index));
+		List<Player> allBots = null;
+		try {
+			allBots = Bots.ReadBotFiles();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		return bots;
+		if (allBots != null) {
+			List<Player> bots = new ArrayList();
+			
+			for (int i = 0; i < n; i++) {
+				Random rand = new Random();
+		        Integer index = rand.nextInt(allBots.size());
+		        
+		        Boolean found = false;
+		        while(!found) {
+		        	found = true;
+		        	for (Player bot: bots) {
+			        	if (bot.getName().equals(allBots.get(index).getName())) {
+			        		index++;
+			        		if (index >= allBots.size()) index = 0;
+			        		found = false;
+			        		break;
+			        	}
+			        }
+		        }
+	
+		        bots.add(allBots.get(index));
+			}
+			
+			return bots;
+		}
+		else return null;
 	}
 }

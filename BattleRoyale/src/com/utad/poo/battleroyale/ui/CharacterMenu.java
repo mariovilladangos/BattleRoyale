@@ -1,5 +1,7 @@
 package com.utad.poo.battleroyale.ui;
+import com.utad.poo.battleroyale.general.Bots;
 import com.utad.poo.battleroyale.general.Lobby;
+import com.utad.poo.battleroyale.general.Player;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -7,14 +9,23 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class CharacterMenu {
+	
+	public static final Integer FWIDTH = 400;
+	public static final Integer FHEIGHT = 600;
 	
     public static void main(String[] args) {
         // VENTANA PRINCIPAL
         JFrame frame = new JFrame("Menú de Personajes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 600);
+        
+        frame.setSize(FWIDTH, FHEIGHT);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Integer sWidth = screenSize.width;
+        Integer sHeight = screenSize.height;
+        frame.setLocation(((sWidth / 2) - (FWIDTH / 2)), ((sHeight / 2) - (FHEIGHT / 2)));
         frame.setLayout(new BorderLayout());
         
         // PERSONAJES LISTOS
@@ -43,7 +54,6 @@ public class CharacterMenu {
         nameLabel.setBorder(new EmptyBorder(0, 0, 0, 6));
         
         JTextField nameField = new JTextField();
-        nameLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 0, false));
         		
         namePanel.add(nameLabel, BorderLayout.WEST);
         namePanel.add(nameField, BorderLayout.CENTER);
@@ -136,12 +146,24 @@ public class CharacterMenu {
                 }
             }
         });
+     // * * BOTON +
+        JButton fillButton = new JButton("fill");
+        saveButton.addActionListener(new ActionListener() {
+        	@Override
+            public void actionPerformed(ActionEvent e){
+	        	Integer playersLeft = Lobby.DEF_PLAYERS - listModel.size();
+				List<Player> bots = Bots.getBots(playersLeft);
+				for (Player bot: bots) listModel.addElement(bot.getName() + " - " + bot.getClassType() + " - " + bot.getWeapon());
+				lobbyFill.setText(listModel.size() + "/" + Lobby.DEF_PLAYERS);
+        	}
+        });
         
         // * AGRUPAR BOTONES BOTONERA
-        JPanel actionPanel = new JPanel(); 
-        actionPanel.setLayout(new GridLayout(1, 2, 5, 5));
-        actionPanel.add(saveButton);
+        JPanel actionPanel = new JPanel();
+        actionPanel.setLayout(new GridLayout(1, 3, 5, 5));
         actionPanel.add(removeButton);
+        actionPanel.add(saveButton);
+        actionPanel.add(fillButton);
         bottomPanel.add(actionPanel);
         
         frame.add(bottomPanel, BorderLayout.SOUTH);

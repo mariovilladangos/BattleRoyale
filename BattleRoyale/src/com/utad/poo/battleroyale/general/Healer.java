@@ -11,7 +11,11 @@ public class Healer extends Player {
 	public Healer(String name, Weapon weapon) {
 		super(name, weapon, Healer.HEALER_HEALTH, Healer.DEF_PROB);
 	}
-
+	
+	@Override
+	public String getClassType() {
+		return CLASS_NAME;
+	}
 
 	@Override
 	public String toString() {
