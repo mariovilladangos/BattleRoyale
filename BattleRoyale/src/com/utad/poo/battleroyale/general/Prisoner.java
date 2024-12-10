@@ -7,7 +7,7 @@ public class Prisoner extends Player{
 	
 	
 	public Prisoner(String name,Weapon weapon){
-		super(name,weapon, PRISONER_HEALTH);
+		super(name,weapon, Prisoner.PRISONER_HEALTH);
 	}
 
 
