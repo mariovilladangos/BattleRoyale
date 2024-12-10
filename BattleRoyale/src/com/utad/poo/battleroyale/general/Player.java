@@ -1,6 +1,6 @@
 package com.utad.poo.battleroyale.general;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Random;
 
 public class Player {

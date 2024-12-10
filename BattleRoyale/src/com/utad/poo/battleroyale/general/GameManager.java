@@ -11,6 +11,7 @@ public class GameManager {
         Integer day=0;
         List<Player> players = new ArrayList<Player>();
         List<Player> eliminados = new ArrayList<Player>();
+        Random randomNumber = new Random();
         // La inicializacion de jugadores esta hecha en el lobby 
 
         	do{
@@ -27,6 +28,8 @@ public class GameManager {
         	for(Player player:players) {
         		// AQUI DENTRO LOS COMBATES QUE SON ALEATORIOS ENTRE LOS JUGADORES
         	}
+        	
+        	// utiliar el collections.shufle para randomiar la lista y asi poder hacer los combates
         	//Cada jugador pelea aleatoriamente con otro
         	//el que gane obteendra una mejora en el arma de 1 
         	//el que pierda sera eliminado
@@ -34,6 +37,7 @@ public class GameManager {
         	
         	
         	}while(!endgame);
+        	System.out.println("#1 Victory Royale jugador: " + players.get(0).getName());
     }
 }
         	//dia++
