@@ -60,6 +60,11 @@ public class Player {
         }
         // Si no cae en ninguna de las anteriores, no pasa nada
     }
+    
+    
+    public void heal() {
+    	this.hp+=40;
+    }
 
     }
     

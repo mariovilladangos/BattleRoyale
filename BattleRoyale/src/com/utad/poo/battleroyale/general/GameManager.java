@@ -6,19 +6,23 @@ import java.util.Random;
 
 public class GameManager {
     public static void main(String[] args) {
-        List<Player> jugadoresVivos = new ArrayList<>();
+        List<Player> jugadoresVivos = new ArrayList<Player>();
         boolean finPartida = false;
+        private Integer day=0;
 
         // Inicialización dejugadores
         jugadoresVivos.add(new Warrior("Warrior1", new Sword()));
-        jugadoresVivos.add(new Healer("Healer1", new Spear()));
-        jugadoresVivos.add(new Prisoner("Prisoner1", new Claymore()));
 
         do {
+        	
+        	//dia:
             // Cada jugador realiza su acción de lootear
-            for (Player jugador : jugadoresVivos) {
-                lootear(jugador);
-            }
+        	//tarde:
+            //Cada jugador pelea aleatoriamente con otro
+        	//el que gane obteendra una mejora en el arma de 1 
+        	//el que pierda sera eliminado
+        	//dia++
+        	//dia n se volvera a hacer este bucle hasta que solo quede 1 
 
             // Fase de combate
             List<Player> eliminados = new ArrayList<>();
