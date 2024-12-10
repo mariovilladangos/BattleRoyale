@@ -75,12 +75,18 @@ public class Player {
     
     public void combat(Player enemigo) {
     	Integer damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
+    	Integer enemyDamage=enemigo.getWeapon().getDamage()[this.weapon.getLevel()-1];
     	System.out.println("Jugador: "+this.getName()+ " ataca a: "+ enemigo.getName() + "causandole: "+ damage+ "hp de daño");
     	enemigo.hp-=damage;
+    	System.out.println("Enemigo: "+ enemigo.getName() + " ataca a: "+ this.getName() + "causandole: "+ enemyDamage+ "hp de daño");
     	if(enemigo.hp<0) {
         	System.out.println("Jugador: "+ enemigo.getName() + "ha sido eliminado ");
 
+    	}else if(this.hp<0) {
+    		System.out.println("Jugador: "+ this.getName() + "ha sido eliminado ");
     	}
+    	
+    	// retornar el eliminado y eliminarlo de la lista
     }
 
     
