@@ -41,6 +41,13 @@ public class Player {
 		this.weapon = weapon;
 	}
 	
+	
+	public Integer getHp() {
+		return hp;
+	}
+	public void setHp(Integer hp) {
+		this.hp = hp;
+	}
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", weapon=" + weapon + ", hp=" + hp + " ";
@@ -65,5 +72,22 @@ public class Player {
     public void heal() {
     	this.hp+=40;
     }
+    
+    public void combatir(Player enemigo,Weapon weapon) {
+    	Double damage=weapon.getDamage();
+    	
+    	System.out.println("Jugador: "+this.getName()+ " ataca a: "+ enemigo.getName() + "causandole: "+ damage+ "hp de daño");
+    	enemigo.hp-=damage;
+    }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
