@@ -7,14 +7,14 @@ public class Claymore extends Weapon{
 		public Claymore() {
 			this(DEF_DAMAGE);
 		}
-		public Claymore (Double damage) {
+		public Claymore (Integer[] damage) {
 			super(damage);
 		}
 	//Getters and setters
-	public Double getDamage() {
+	public Integer[] getDamage() {
 		return damage;
 	}
-	public void setDamage(Double damage) {
+	public void setDamage(Integer[] damage) {
 		this.damage = damage;
 	}
 	public Integer getLevel() {

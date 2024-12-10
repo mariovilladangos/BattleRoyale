@@ -8,14 +8,14 @@ public class Spear extends Weapon{
 	public Spear() {
 		this(DEF_DAMAGE);
 	}
-	public Spear (Integer damage) {
+	public Spear (Integer[] damage) {
 		super(damage);
 	}
 	//Getters and setters
-	public Double getDamage() {
+	public Integer[] getDamage() {
 		return damage;
 	}
-	public void setDamage(Double damage) {
+	public void setDamage(Integer[] damage) {
 		this.damage = damage;
 	}
 	public Integer getLevel() {
