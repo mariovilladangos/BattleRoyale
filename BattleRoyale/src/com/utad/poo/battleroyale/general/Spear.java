@@ -4,19 +4,18 @@ public class Spear extends Weapon{
 	
 	
 	//public static final Integer DEF_LEVEL = 1;
-	public static final Double DEF_DAMAGE = 20.0;
-	
+	public static final Integer[] DEF_DAMAGE = {20, 40, 70};	
 	public Spear() {
 		this(DEF_DAMAGE);
 	}
-	public Spear (Double damage) {
+	public Spear (Integer[] damage) {
 		super(damage);
 	}
 	//Getters and setters
-	public Double getDamage() {
+	public Integer[] getDamage() {
 		return damage;
 	}
-	public void setDamage(Double damage) {
+	public void setDamage(Integer[] damage) {
 		this.damage = damage;
 	}
 	public Integer getLevel() {

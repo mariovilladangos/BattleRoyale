@@ -4,19 +4,20 @@ public class Sword extends Weapon{
 	
 	
 	//public static final Integer DEF_LEVEL = 1;
-	public static final Double DEF_DAMAGE = 30.0;
-		
+	//public static final Double[] DEF_DAMAGE = {}
+	public static final Integer[] DEF_DAMAGE = {30, 50, 65};
+	
 	public Sword() {
 		this(DEF_DAMAGE);
 	}
-	public Sword (Double damage) {
+	public Sword (Integer[] damage) {
 		super(damage);
 	}
 	//Getters and setters
-	public Double getDamage() {
+	public Integer[] getDamage() {
 		return damage;
 	}
-	public void setDamage(Double damage) {
+	public void setDamage(Integer[] damage) {
 		this.damage = damage;
 	}
 	public Integer getLevel() {
