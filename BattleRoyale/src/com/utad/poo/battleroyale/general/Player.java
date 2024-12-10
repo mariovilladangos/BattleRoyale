@@ -90,6 +90,7 @@ public class Player {
     	}
     	
     	// retornar el eliminado y eliminarlo de la lista
+    	//mario te quiero
     }
 
     
