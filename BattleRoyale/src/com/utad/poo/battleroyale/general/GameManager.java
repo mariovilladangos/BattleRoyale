@@ -50,29 +50,6 @@ public class GameManager {
         }
     }
 
-    // Método para que un jugador 'lootee' algo durante su turno
-    private static void lootear(Player jugador) {
-        Random rand = new Random();
-        int probabilidad = rand.nextInt(100);
-
-        int curaProbabilidad = 25;
-        int mejoraProbabilidad = 25;
-        int nadaProbabilidad = 50;
-
-        // Ajusta las probabilidades para cada clase
-        if (jugador instanceof Healer) {
-            curaProbabilidad = 50;
-        } else if (jugador instanceof Warrior) {
-            mejoraProbabilidad = 50;
-        }
-
-        if (probabilidad < curaProbabilidad) {
-            jugador.recibirCuracion(); // Implementar este método
-        } else if (probabilidad < curaProbabilidad + mejoraProbabilidad) {
-            jugador.mejorarArma(); // Método a implementar
-        }
-        // Si no cae en ninguna de las anteriores, no pasa nada
-    }
 }
 
 
