@@ -37,4 +37,9 @@ public class Weapon {
 		return "Weapon [damage=" + damage + ", level=" + level + "]";
 	}
 	
+	//Método para mejorar el arma
+	public void upgrade() {
+    	this.level += 1;
+    }
+	
 }
