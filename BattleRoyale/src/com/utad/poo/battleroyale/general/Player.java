@@ -73,11 +73,14 @@ public class Player {
     	this.hp+=40;
     }
     
-    public void combatir(Player enemigo,Weapon weapon) {
-    	Double damage=weapon.getDamage();
-    	
+    public void combatir(Player enemigo) {
+    	Integer damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
     	System.out.println("Jugador: "+this.getName()+ " ataca a: "+ enemigo.getName() + "causandole: "+ damage+ "hp de daño");
     	enemigo.hp-=damage;
+    	if(enemigo.hp<0) {
+        	System.out.println("Jugador: "+ enemigo.getName() + "ha sido eliminado ");
+
+    	}
     }
 
     
