@@ -9,7 +9,7 @@ public class Warrior extends Player {
 	//{Prob. de cura, Prob. de mejora, Prob. de nada}
 	
 	public Warrior(String name, Weapon weapon) {
-		super(name, weapon, WARRIOR_HEALTH, DEF_PROB);
+		super(name, weapon, Warrior.WARRIOR_HEALTH, Warrior.DEF_PROB);
 		
 	}
 

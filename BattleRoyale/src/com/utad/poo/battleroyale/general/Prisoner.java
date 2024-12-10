@@ -16,6 +16,4 @@ public class Prisoner extends Player{
 	public String toString() {
 		return super.toString()+ " ClassName=" + Prisoner.CLASS_NAME;
 	}
-	
-	//cambio para subir
 }
