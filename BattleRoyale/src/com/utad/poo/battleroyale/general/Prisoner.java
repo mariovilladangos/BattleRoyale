@@ -23,7 +23,7 @@ public class Prisoner extends Player{
 
 	@Override
 	public String toString() {
-		return super.toString()+ "ClassName= " + this.getClassName() + "Health= "+ this.getPrisonerHealth();
+		return super.toString()+ " ClassName=" + this.getClassName() + " Health="+ this.getPrisonerHealth();
 	}
 	
 	

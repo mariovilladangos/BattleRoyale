@@ -19,7 +19,7 @@ public class Healer extends Player {
 
 	@Override
 	public String toString() {
-		return super.toString()+"ClassName= " + this.getClassName() +" Healer= " + this.getHealerHealth();
+		return super.toString()+" ClassName=" + this.getClassName() +" Healer=" + this.getHealerHealth();
 	}
 	
 	

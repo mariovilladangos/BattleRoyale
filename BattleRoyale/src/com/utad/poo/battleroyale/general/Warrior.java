@@ -20,7 +20,7 @@ public class Warrior extends Player {
 
 	@Override
 	public String toString() {
-		return super.toString()+"Classname= "+ this.getClassName()+"Health= "+this.getWarriorHealth();
+		return super.toString() + " Classname=" + this.getClassName() + " Health=" + this.getWarriorHealth();
 	}
 
 		

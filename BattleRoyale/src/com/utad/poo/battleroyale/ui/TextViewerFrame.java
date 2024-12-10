@@ -20,7 +20,7 @@ public class TextViewerFrame extends BasicSwingFrame{
 	public TextViewerFrame(String title, int frameWidth, int frameHeight) {
 		 super(title, frameWidth, frameHeight);
 	
-	     this.textArea = new JTextArea();  
+	     this.textArea = new JTextArea();
 	     this.scrollPane = new JScrollPane(textArea);
 	     this.southPanel = new JPanel(new GridLayout(1,2)); //
 	     this.southTextField = new JTextField();
