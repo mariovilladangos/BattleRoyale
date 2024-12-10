@@ -2,6 +2,7 @@ package com.utad.poo.battleroyale.ui;
 import com.utad.poo.battleroyale.general.Lobby;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,8 +38,13 @@ public class CharacterMenu {
 
         // * NOMBRE
         JPanel namePanel = new JPanel(new BorderLayout());
+        
         JLabel nameLabel = new JLabel("Nombre:");
+        nameLabel.setBorder(new EmptyBorder(0, 0, 0, 6));
+        
         JTextField nameField = new JTextField();
+        nameLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 0, false));
+        		
         namePanel.add(nameLabel, BorderLayout.WEST);
         namePanel.add(nameField, BorderLayout.CENTER);
         bottomPanel.add(namePanel);
@@ -114,20 +120,19 @@ public class CharacterMenu {
                     weapon = "Claymore";
                 }
                 
-                if (listModel.size() >= Lobby.DEF_PLAYERS) {
-                	// Nada puto
-                }
-                else if (!name.isEmpty() && characterClass != null && weapon != null) {
-                    listModel.addElement(name + " - " + characterClass + " - " + weapon);
-                    nameField.setText("");
-                    classGroup.clearSelection();
-                    weaponGroup.clearSelection();
-                    
-                    lobbyFill.setText(listModel.size() + "/" + Lobby.DEF_PLAYERS);
-                    if (listModel.size() >= Lobby.DEF_PLAYERS) {/* Empieza */};
-                    
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                if (listModel.size() < Lobby.DEF_PLAYERS) {
+	                if (!name.isEmpty() && characterClass != null && weapon != null) {
+	                    listModel.addElement(name + " - " + characterClass + " - " + weapon);
+	                    nameField.setText("");
+	                    classGroup.clearSelection();
+	                    weaponGroup.clearSelection();
+	                    
+	                    lobbyFill.setText(listModel.size() + "/" + Lobby.DEF_PLAYERS);
+	                    if (listModel.size() >= Lobby.DEF_PLAYERS) {/* Empieza */};
+	                    
+	                } else {
+	                    JOptionPane.showMessageDialog(frame, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+	                }
                 }
             }
         });
