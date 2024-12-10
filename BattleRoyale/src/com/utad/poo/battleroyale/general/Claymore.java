@@ -3,8 +3,7 @@ package com.utad.poo.battleroyale.general;
 public class Claymore extends Weapon{
 	
 	//public static final Integer DEF_LEVEL = 1;
-		public static final Double DEF_DAMAGE = 40.0;
-			
+		public static final Integer[] DEF_DAMAGE = {40, 50, 55};		
 		public Claymore() {
 			this(DEF_DAMAGE);
 		}
