@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Bots {
 	
-	public List<Player> ReadBotFiles() throws Exception {
+	private static List<Player> ReadBotFiles() throws Exception {
 				
 		List<Player> allBots = new ArrayList();
 		File currentDir = new File(System.getProperty("user.dir"));
@@ -38,9 +38,9 @@ public class Bots {
 		return allBots;
 	}
 	
-	public List<Player> GetBots(Integer n) throws Exception {
+	public static List<Player> getBots(Integer n) throws Exception {
 		
-		List<Player> allBots = this.ReadBotFiles();
+		List<Player> allBots = Bots.ReadBotFiles();
 		List<Player> bots = new ArrayList();
 		
 		for (int i = 0; i < n; i++) {
@@ -50,8 +50,8 @@ public class Bots {
 	        Boolean found = false;
 	        while(!found) {
 	        	found = true;
-		        for (int j = 0; j < bots.size(); j++) {
-		        	if (bots.get(i).getName() == allBots.get(index).getName()) {
+	        	for (Player bot: bots) {
+		        	if (bot.getName().equals(allBots.get(index).getName())) {
 		        		index++;
 		        		if (index >= allBots.size()) index = 0;
 		        		found = false;
@@ -59,6 +59,7 @@ public class Bots {
 		        	}
 		        }
 	        }
+
 	        bots.add(allBots.get(index));
 		}
 		
