@@ -11,19 +11,10 @@ public class Prisoner extends Player{
 	}
 
 
-	public Integer getPrisonerHealth() {
-		return PRISONER_HEALTH;
-	}
-
-
-	public String getClassName() {
-		return CLASS_NAME;
-	}
-
 
 	@Override
 	public String toString() {
-		return super.toString()+ " ClassName=" + this.getClassName() + " Health="+ this.getPrisonerHealth();
+		return super.toString()+ " ClassName=" + this.CLASS_NAME;
 	}
 	
 	

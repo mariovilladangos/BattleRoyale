@@ -13,17 +13,9 @@ public class Warrior extends Player {
 		
 	}
 
-	public Integer getWarriorHealth() {
-		return WARRIOR_HEALTH;
-	}
-
-	public String getClassName() {
-		return CLASS_NAME;
-	}
-
 	@Override
 	public String toString() {
-		return super.toString() + " Classname=" + this.getClassName() + " Health=" + this.getWarriorHealth();
+		return super.toString() + " Classname=" + Warrior.CLASS_NAME;
 	}
 
 		

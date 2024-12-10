@@ -12,17 +12,10 @@ public class Healer extends Player {
 		super(name, weapon, HEALER_HEALTH, DEF_PROB);
 	}
 
-	public  Integer getHealerHealth() {
-		return HEALER_HEALTH;
-	}
-
-	public String getClassName() {
-		return CLASS_NAME;
-	}
 
 	@Override
 	public String toString() {
-		return super.toString()+" ClassName=" + this.getClassName() +" Healer=" + this.getHealerHealth();
+		return super.toString()+" ClassName=" + Healer.CLASS_NAME;
 	}
 	
 	
