@@ -7,7 +7,7 @@ import java.util.List;
 public class Lobby {
 	public final static Integer DEF_PLAYERS = 10;
 	
-	public List<Player> fillLobby() throws Exception {
+	public static List<Player> fillLobby() throws Exception {
 		Scanner scanner = new Scanner(System.in);
 		List<Player> players = new ArrayList();
 		while (players.size() < DEF_PLAYERS) {

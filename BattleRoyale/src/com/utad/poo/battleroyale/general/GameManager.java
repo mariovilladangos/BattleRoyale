@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GameManager {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
        
         boolean endgame = false;
         Integer day=0;
@@ -14,16 +14,21 @@ public class GameManager {
         Random randomNumber = new Random();
         // La inicializacion de jugadores esta hecha en el lobby 
 
+        //Iniciamos la creacion de los jugadores
+        Lobby.fillLobby();
         	do{
-        	
-        	//dia:
+        		//PASA AL SIGUIENTE DIA (empieza en el uno)
+        		day++;
+        		
+        		// PRIMERA PARTE DEL DIA        		
             // Cada jugador realiza su acción de lootear
         	
         	for(Player player:players) {
         		player.lootear();
         	}
-        	//tarde
-        	//pelean
+        		// SEGUNDA PARTE DEL DIA:
+        	
+        	// Los jugadores pueden (o no) encontrarse y luchar.
         	
         	for(Player player:players) {
         		// AQUI DENTRO LOS COMBATES QUE SON ALEATORIOS ENTRE LOS JUGADORES
