@@ -33,6 +33,10 @@ public class Weapon {
 		this.level = level;
 	}
 	
+	public String getWeaponType() {
+		return "[-]";
+	}
+	
 	//ToString
 	@Override
 	public String toString() {
