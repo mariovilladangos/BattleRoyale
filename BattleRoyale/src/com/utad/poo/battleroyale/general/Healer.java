@@ -9,7 +9,7 @@ public class Healer extends Player {
 	//{Prob. de cura, Prob. de mejora, Prob. de nada}
 	
 	public Healer(String name, Weapon weapon) {
-		super(name, weapon, HEALER_HEALTH, DEF_PROB);
+		super(name, weapon, Healer.HEALER_HEALTH, Healer.DEF_PROB);
 	}
 
 
