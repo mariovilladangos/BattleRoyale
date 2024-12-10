@@ -22,13 +22,13 @@ public class Bots {
 			String[] atributos = lineaDeFichero.split(";");
 			
 			Weapon weapon;
-			if (atributos[2] == "Sword") weapon = new Sword();
-			else if (atributos[2] == "Spear") weapon = new Spear();
+			if (atributos[2].equals("Sword")) weapon = new Sword();
+			else if (atributos[2].equals("Spear")) weapon = new Spear();
 			else weapon = new Claymore();
 			
 			Player bot;
-			if (atributos[1] == "Warrior") bot = new Warrior(atributos[0], weapon);
-			else if (atributos[1] == "Healer") bot = new Healer(atributos[0], weapon);
+			if (atributos[1].equals("Warrior")) bot = new Warrior(atributos[0], weapon);
+			else if (atributos[1].equals("Healer")) bot = new Healer(atributos[0], weapon);
 			else  bot = new Prisoner(atributos[0], weapon);
 			
 			allBots.add(bot);
