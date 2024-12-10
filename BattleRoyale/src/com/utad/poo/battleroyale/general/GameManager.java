@@ -25,7 +25,9 @@ public class GameManager {
         	//tarde
         	//pelean
         	
-        	combate();
+        	for(Player player:players) {
+        		// AQUI DENTRO LOS COMBATES QUE SON ALEATORIOS ENTRE LOS JUGADORES
+        	}
         	
         	// utiliar el collections.shufle para randomiar la lista y asi poder hacer los combates
         	//Cada jugador pelea aleatoriamente con otro
@@ -35,15 +37,11 @@ public class GameManager {
         	
         	
         	}while(!endgame);
-        	System.out.println("#1 Victory Royale jugador: " + players.get(0).getName());
+        	System.out.println("#1 Victory Royale jugador:" + players.get(0).getName());
     }
     
     
-   public void combate() {
-	   for(Player player:players) {
-   		// AQUI DENTRO LOS COMBATES QUE SON ALEATORIOS ENTRE LOS JUGADORES
-   	} 
-   }
+   
     
     
     
