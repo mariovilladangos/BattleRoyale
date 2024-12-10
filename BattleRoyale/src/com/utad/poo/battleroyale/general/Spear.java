@@ -2,17 +2,17 @@ package com.utad.poo.battleroyale.general;
 
 public class Spear extends Weapon{
 	
-	private Double damage;
-	private Integer level;
 	
+	//public static final Integer DEF_LEVEL = 1;
 	public static final Double DEF_DAMAGE = 20.0;
-
-	public Spear(Double damage, Integer level) {
-		super();
-		this.damage = damage;
-		this.level = level;
+	
+	public Spear() {
+		this(DEF_DAMAGE);
 	}
-
+	public Spear (Double damage) {
+		super(damage);
+	}
+	//Getters and setters
 	public Double getDamage() {
 		return damage;
 	}

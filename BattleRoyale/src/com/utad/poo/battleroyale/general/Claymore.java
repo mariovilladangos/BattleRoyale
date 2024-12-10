@@ -2,17 +2,16 @@ package com.utad.poo.battleroyale.general;
 
 public class Claymore extends Weapon{
 	
-	private Double damage;
-	private Integer level;
-	
-	public static final Double DEF_DAMAGE = 40.0;
-	
-	public Claymore(Double damage, Integer level) {
-		super();
-		this.damage = damage;
-		this.level = level;
-	}
-
+	//public static final Integer DEF_LEVEL = 1;
+		public static final Double DEF_DAMAGE = 40.0;
+			
+		public Claymore() {
+			this(DEF_DAMAGE);
+		}
+		public Claymore (Double damage) {
+			super(damage);
+		}
+	//Getters and setters
 	public Double getDamage() {
 		return damage;
 	}

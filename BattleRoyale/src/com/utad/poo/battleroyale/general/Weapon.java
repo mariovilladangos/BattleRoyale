@@ -5,9 +5,16 @@ public class Weapon {
 	protected Double damage;
 	protected Integer level;
 	
-	public static final Double DEF_DAMAGE = 10.0;
+	//public static final Double DEF_DAMAGE = 10.0;
 	public static final Integer DEF_LEVEL = 1;
-	
+	//Constructor
+	public Weapon(Double damage) {
+		this(damage, DEF_LEVEL);
+	}
+	public Weapon(Double damage, Integer level) {
+		this.damage = damage;
+		this.level = level;
+	}
 	//Getters and setters
 	public Double getDamage() {
 		return damage;
