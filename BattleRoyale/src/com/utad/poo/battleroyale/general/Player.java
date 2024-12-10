@@ -41,6 +41,9 @@ public class Player {
 		this.weapon = weapon;
 	}
 	
+	public String getClassType() {
+		return "[No class asigned]";
+	}
 	
 	public Integer getHp() {
 		return hp;
