@@ -9,19 +9,18 @@ public class GameManager {
         List<Player> jugadoresVivos = new ArrayList<>();
         boolean finPartida = false;
 
-        // Inicialización de los player
-        jugadoresVivos.add(new Warrior("Warrior1", new Weapon("Sword")));
-        jugadoresVivos.add(new Wretch("Wretch1", new Weapon("Sword")));
-        jugadoresVivos.add(new Prisoner("Prisoner1", new Weapon("Sword")));
+        // Inicialización de jugadores
+        jugadoresVivos.add(new Warrior("Warrior1", new Sword()));
+        jugadoresVivos.add(new Healer("Healer1", new Spear()));
+        jugadoresVivos.add(new Prisoner("Prisoner1", new Claymore()));
 
         do {
-            // Cada jugador coge loot, definir método de lootear?
+            // Cada jugador realiza su acción de lootear
             for (Player jugador : jugadoresVivos) {
-                jugador.lootear();
-                jugador.setWeapon(jugadorLootearWeapon());
+                lootear(jugador);
             }
 
-            // Fase de combate entre jugadores, queda definir método combatir?
+            // Fase de combate
             List<Player> eliminados = new ArrayList<>();
             for (int i = 0; i < jugadoresVivos.size(); i++) {
                 for (int j = i + 1; j < jugadoresVivos.size(); j++) {
@@ -29,34 +28,50 @@ public class GameManager {
                     Player defensor = jugadoresVivos.get(j);
                     atacante.combatir(defensor);
 
-                    // Eliminar jugadores si se quedan sin vida, falta método que compruebe si no le queda vida
+                    // Eliminar jugadores si quedan sin vida
                     if (!atacante.estaVivo()) eliminados.add(atacante);
                     if (!defensor.estaVivo()) eliminados.add(defensor);
                 }
             }
             jugadoresVivos.removeAll(eliminados);
 
-            // Comprobar si ha acabado la partida y cierra bucle
+            // Comprobar condición de fin de partida
             if (jugadoresVivos.size() <= 1) {
                 finPartida = true;
             }
 
         } while (!finPartida);
 
-        // Resultado final de la partida con el ganador o si hay empate
+        // Resultado final
         if (jugadoresVivos.size() == 1) {
-            System.out.println("El ganador es: " + jugadoresVivos.get(0).getName());
+            System.out.println("¡El ganador es: " + jugadoresVivos.get(0).getName() + "!");
         } else {
-            System.out.println("No hay ganadores");
+            System.out.println("¡No hay ganadores!");
         }
     }
 
-//Metodo de lootear provisional???????
-    private static Weapon jugadorLootearWeapon() {
-        String[] armas = { "Sword", "Spear", "Claymore" };
+    // Método para que un jugador 'lootee' algo durante su turno
+    private static void lootear(Player jugador) {
         Random rand = new Random();
-        String armaAleatoria = armas[rand.nextInt(armas.length)];
-        return new Weapon(armaAleatoria);
+        int probabilidad = rand.nextInt(100);
+
+        int curaProbabilidad = 25;
+        int mejoraProbabilidad = 25;
+        int nadaProbabilidad = 50;
+
+        // Ajusta las probabilidades para cada clase
+        if (jugador instanceof Healer) {
+            curaProbabilidad = 50;
+        } else if (jugador instanceof Warrior) {
+            mejoraProbabilidad = 50;
+        }
+
+        if (probabilidad < curaProbabilidad) {
+            jugador.recibirCuracion(); // Implementar este método
+        } else if (probabilidad < curaProbabilidad + mejoraProbabilidad) {
+            jugador.mejorarArma(); // Método a implementar
+        }
+        // Si no cae en ninguna de las anteriores, no pasa nada
     }
 }
 
