@@ -43,7 +43,7 @@ public class Player {
 	
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", weapon=" + weapon + ", hp=" + hp + "]";
+		return "Player [name=" + name + ", weapon=" + weapon + ", hp=" + hp + " ";
 	}
 	
 	 

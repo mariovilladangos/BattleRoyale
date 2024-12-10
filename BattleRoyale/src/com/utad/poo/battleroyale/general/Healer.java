@@ -15,7 +15,7 @@ public class Healer extends Player {
 
 	@Override
 	public String toString() {
-		return super.toString()+" ClassName=" + Healer.CLASS_NAME;
+		return super.toString()+" ClassName=" + Healer.CLASS_NAME+ " ]";
 	}
 	
 	

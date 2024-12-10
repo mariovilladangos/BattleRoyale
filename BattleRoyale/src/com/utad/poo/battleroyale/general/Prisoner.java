@@ -14,6 +14,6 @@ public class Prisoner extends Player{
 
 	@Override
 	public String toString() {
-		return super.toString()+ " ClassName=" + Prisoner.CLASS_NAME;
+		return super.toString()+ " ClassName=" + Prisoner.CLASS_NAME + " ]";
 	}
 }

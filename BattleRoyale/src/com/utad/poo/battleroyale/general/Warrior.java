@@ -15,7 +15,7 @@ public class Warrior extends Player {
 
 	@Override
 	public String toString() {
-		return super.toString() + " Classname=" + Warrior.CLASS_NAME;
+		return super.toString() + " Classname=" + Warrior.CLASS_NAME +" ]";
 	}
 
 		

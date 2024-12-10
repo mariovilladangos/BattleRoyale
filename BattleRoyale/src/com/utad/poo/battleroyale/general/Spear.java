@@ -27,7 +27,7 @@ public class Spear extends Weapon{
 	}
 	@Override
 	public String toString() {
-		return "Spear [damage=" + damage + ", level=" + level + "]";
+		return "Spear damage=" + damage + ", level=" + level + " ";
 	}
 	
 }

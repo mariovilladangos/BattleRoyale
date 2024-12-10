@@ -34,7 +34,7 @@ public class Weapon {
 	//ToString
 	@Override
 	public String toString() {
-		return "Weapon [damage=" + damage + ", level=" + level + "]";
+		return "Weapon damage=" + damage + ", level=" + level + " ";
 	}
 	
 	//Método para mejorar el arma

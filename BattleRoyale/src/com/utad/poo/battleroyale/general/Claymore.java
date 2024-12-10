@@ -26,7 +26,7 @@ public class Claymore extends Weapon{
 	}
 	@Override
 	public String toString() {
-		return "Claymore [damage=" + damage + ", level=" + level + "]";
+		return "Claymore damage=" + damage + ", level=" + level + " ";
 	}
 	
 }
