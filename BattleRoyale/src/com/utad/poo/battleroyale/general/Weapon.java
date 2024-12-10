@@ -42,4 +42,9 @@ public class Weapon {
     	this.level += 1;
     }
 	
+	//Tabla de armas
+	// Nivel -> 1   2   3
+	// Lanza -> 20  40  70
+	// Espada-> 30  50 65
+	// Claymore->40 50 55
 }
