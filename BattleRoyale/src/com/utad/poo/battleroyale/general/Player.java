@@ -1,5 +1,6 @@
 package com.utad.poo.battleroyale.general;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Player {
@@ -42,7 +43,7 @@ public class Player {
 	
 	@Override
 	public String toString() {
-		return "Player [ Name=" + this.name + ", Weapon=" + this.weapon + " ]";
+		return "Player [name=" + name + ", weapon=" + weapon + ", hp=" + hp + "]";
 	}
 	
 	 
@@ -59,9 +60,30 @@ public class Player {
         }
         // Si no cae en ninguna de las anteriores, no pasa nada
     }
+<<<<<<< 
+Updated upstream
     
     public void heal() {
     	this.hp += 40;
+=======
+    // Método par que un jugador consiga objetos durante su turno
+    private static void lootear() {
+    	Random rand = new Random();
+    	//Generamos un número del 1 al 100 (una probabilidad)
+    	Integer probabilidad = rand.nextInt(100);
+    	//
+    	if(Player instanceof Healer) {
+    		Integer curaProbabilidad = 50;
+    		Integer mejoraProbabilidad = 25;
+    		Integer nadaProbabilidad = 25;
+    	}
+    	if(jugador instanceof Warrior) {
+    		Integer curaProbabilidad = 25;
+    		Integer mejoraProbabilidad = 50;
+    		Integer nadaProbabilidad = 25;
+    	}
+    	if()
+>>>>>>> Stashed changes
     }
     
 }
