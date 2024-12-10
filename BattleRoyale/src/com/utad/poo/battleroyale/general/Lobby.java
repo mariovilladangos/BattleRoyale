@@ -7,7 +7,7 @@ import java.util.List;
 public class Lobby {
 	private final static Integer DEF_PLAYERS = 10;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Scanner scanner = new Scanner(System.in);
 		List<Player> players = new ArrayList();
 		while (players.size() < DEF_PLAYERS) {
@@ -45,12 +45,9 @@ public class Lobby {
 				else { players.add(new Prisoner(name, weapon)); } // type == 3
 			}
 			else if (opt == 2) {
-				// hacer un for de 0 a DEF_PLAYERS-players
 				Integer playersLeft = DEF_PLAYERS - players.size();
-				for (int i = 0; i < playersLeft; i++) {
-					// BOTS
-					players.add(new Warrior("Bot"+i, new Sword()));
-				}
+				List<Player> bots = Bots.getBots(playersLeft);
+				for (Player bot: bots) players.add(bot);
 			}
 			else {
 				System.out.println("Elige una opcion válida");
