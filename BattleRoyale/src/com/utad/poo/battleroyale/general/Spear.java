@@ -1,5 +1,7 @@
 package com.utad.poo.battleroyale.general;
 
+import java.util.Arrays;
+
 public class Spear extends Weapon{
 	
 	
@@ -11,22 +13,10 @@ public class Spear extends Weapon{
 	public Spear (Integer[] damage) {
 		super(damage);
 	}
-	//Getters and setters
-	public Integer[] getDamage() {
-		return damage;
-	}
-	public void setDamage(Integer[] damage) {
-		this.damage = damage;
-	}
-	public Integer getLevel() {
-		return level;
-	}
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
 	@Override
 	public String toString() {
-		return "Spear damage=" + damage + ", level=" + level + " ";
+		return "Spear [damage=" + Arrays.toString(damage) + ", level=" + level + "]";
 	}
+	
 	
 }
