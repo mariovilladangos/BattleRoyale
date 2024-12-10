@@ -9,7 +9,7 @@ public class GameManager {
         List<Player> jugadoresVivos = new ArrayList<>();
         boolean finPartida = false;
 
-        // Inicialización de jugadores
+        // Inicialización dejugadores
         jugadoresVivos.add(new Warrior("Warrior1", new Sword()));
         jugadoresVivos.add(new Healer("Healer1", new Spear()));
         jugadoresVivos.add(new Prisoner("Prisoner1", new Claymore()));
