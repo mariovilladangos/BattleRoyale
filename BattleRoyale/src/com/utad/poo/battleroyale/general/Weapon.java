@@ -46,10 +46,10 @@ public class Weapon {
 	
 	//Método para mejorar el arma
 	public void upgrade(String playerName) {
-		System.out.println("\n" + playerName.toUpperCase() + " ha encontrado una piedra de mejora");
+		System.out.println("\n 🪨 " + playerName.toUpperCase() + " ha encontrado una piedra de mejora");
     	if (this.level < MAX_LEVEL) {
     		this.level += 1;
-        	System.out.println("  🪨 " + playerName + " ha encontrado una pocion de vida");
+        	System.out.println("  🪨 " + playerName + " ha mejorado el arma");
     	}
     	else System.out.println("  🚫 Pero " + playerName + " ya tiene su arma a nivel máximo");
     }
