@@ -67,9 +67,9 @@ public class Player {
     	Random rand = new Random();
         Integer probabilidad = rand.nextInt(100);
     	
-        if (probabilidad < probabilidades[0]) {
+        if (probabilidad > probabilidades[0]) {
             this.heal(); // Implementar este método
-        } else if (probabilidad < probabilidades[0] + probabilidades[1]) {
+        } else if (probabilidad > probabilidades[0] && probabilidad < probabilidades[0] + probabilidades[1]) {
             weapon.upgrade(this.getName()); // Método a implementar
         }
         // Si no cae en ninguna de las anteriores, no pasa nada
