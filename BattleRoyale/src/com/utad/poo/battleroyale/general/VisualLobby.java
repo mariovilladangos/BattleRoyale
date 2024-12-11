@@ -9,11 +9,22 @@ public class VisualLobby {
 	public static void main(String[] args) {
 		CharacterMenu menu = new CharacterMenu();
 		while(!menu.isLobbyReady()) {
-			System.out.println("Not Ready");
+			System.out.print(""); // Relleno para que siga comprobando
 		}
+		menu.hide();
+		
 		List<Player> totalPlayers = new ArrayList();
-		for(Player p: menu.getPlayers()) totalPlayers.add(p);
-		for(Player p: menu.getBotPlayers()) totalPlayers.add(p);
-		for(Player p: totalPlayers) System.out.println(p);
+		List<Player> realPlayers = new ArrayList();
+		List<Player> botPlayers = new ArrayList();
+		
+		for(Player p: menu.getPlayers()) {
+			realPlayers.add(p);
+			totalPlayers.add(p);
+		}
+		for(Player p: menu.getBotPlayers()) {
+			botPlayers.add(p);
+			totalPlayers.add(p);
+		}
+		
 	}
 }

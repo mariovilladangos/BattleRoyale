@@ -1,19 +1,12 @@
 package com.utad.poo.battleroyale.ui;
-import com.utad.poo.battleroyale.general.Bots;
-import com.utad.poo.battleroyale.general.Claymore;
-import com.utad.poo.battleroyale.general.Healer;
-import com.utad.poo.battleroyale.general.Player;
-import com.utad.poo.battleroyale.general.Prisoner;
-import com.utad.poo.battleroyale.general.Spear;
-import com.utad.poo.battleroyale.general.Sword;
-import com.utad.poo.battleroyale.general.Warrior;
-import com.utad.poo.battleroyale.general.Weapon;
 
+import com.utad.poo.battleroyale.general.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +18,7 @@ public class CharacterMenu {
 	
 	private List<Player> players = new ArrayList();
 	private List<Player> botPlayers = new ArrayList();
+	private JFrame frame = new JFrame("Menú de Personajes");;
 	
 	public CharacterMenu() {
 		this.visualMenuWindow();
@@ -41,28 +35,23 @@ public class CharacterMenu {
 		else return false;
 	}
 
-
-
 	public void visualMenuWindow(){
-    	// VARIABLES
-    	
-    	
+		
         // VENTANA PRINCIPAL
-        JFrame frame = new JFrame("Menú de Personajes");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        frame.setSize(FWIDTH, FHEIGHT);
+        this.frame.setSize(FWIDTH, FHEIGHT);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Integer sWidth = screenSize.width;
         Integer sHeight = screenSize.height;
-        frame.setLocation(((sWidth / 2) - (FWIDTH / 2)), ((sHeight / 2) - (FHEIGHT / 2)));
-        frame.setLayout(new BorderLayout());
+        this.frame.setLocation(((sWidth / 2) - (FWIDTH / 2)), ((sHeight / 2) - (FHEIGHT / 2)));
+        this.frame.setLayout(new BorderLayout());
         
         // PERSONAJES LISTOS
         JLabel lobbyFill = new JLabel("0/" + NPLAYERS);
         lobbyFill.setBorder(new EmptyBorder(0, 0, 0, 10));
         lobbyFill.setHorizontalAlignment(JLabel.RIGHT);
-        frame.add(lobbyFill, BorderLayout.NORTH);
+        this.frame.add(lobbyFill, BorderLayout.NORTH);
         
         // LISTA PERSONAJES
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -70,7 +59,7 @@ public class CharacterMenu {
         characterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(characterList);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Personajes Guardados"));
-        frame.add(scrollPane, BorderLayout.CENTER);
+        this.frame.add(scrollPane, BorderLayout.CENTER);
 
         // PANEL ABAJO
         JPanel bottomPanel = new JPanel();
@@ -110,7 +99,7 @@ public class CharacterMenu {
         weaponGroup.add(swordButton);
         weaponGroup.add(spearButton);
         weaponGroup.add(claymoreButton);
-
+        
         buttonPanel.add(warriorButton);
         buttonPanel.add(healerButton);
         buttonPanel.add(prisonerButton);
@@ -118,7 +107,7 @@ public class CharacterMenu {
         buttonPanel.add(spearButton);
         buttonPanel.add(claymoreButton);
         bottomPanel.add(buttonPanel);
-
+        
         // * BOTONERA
         // * * BOTON  [-]
         JButton removeButton = new JButton("-");
@@ -210,10 +199,18 @@ public class CharacterMenu {
         actionPanel.add(fillButton);
         bottomPanel.add(actionPanel);
         
-        frame.add(bottomPanel, BorderLayout.SOUTH);
-        frame.setVisible(true);
-        
-
-        if (listModel.size() >= NPLAYERS) {/* Empieza */};
+        this.frame.add(bottomPanel, BorderLayout.SOUTH);
+        this.frame.setVisible(true);
     }
+	
+	public void show() {
+		this.frame.setVisible(true);
+	}
+	public void hide() {
+		this.frame.setVisible(false);
+	}
+	
+	public void close() {
+		this.frame.dispatchEvent(new WindowEvent(this.frame, WindowEvent.WINDOW_CLOSING));
+	}
 }
