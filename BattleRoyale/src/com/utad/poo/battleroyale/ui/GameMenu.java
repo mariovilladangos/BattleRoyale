@@ -18,22 +18,19 @@ public class GameMenu extends MenusBasic{
 	private Integer nPlayers;
 	
 	private JFrame frame = new JFrame("Battle Royale");
-	private List<Player> players = new ArrayList();
-	private List<Player> eliminated = new ArrayList();
-	
-	public static void main(String[] args) {
-		GameMenu game = new GameMenu();
-	}
+	private JScrollPane terminal;
+	private JScrollPane live;
+	private Integer pendingAction = 0;
 	
 	public GameMenu() {
 		this(CharacterMenu.NPLAYERS);
 	}
 	public GameMenu(Integer nPlayers) {
 		this.nPlayers = nPlayers;
-		this.visualMenuWindow();
+		this.visualGameWindow();
 	}
 
-	public void visualMenuWindow(){
+	public void visualGameWindow(){
 		
         // VENTANA PRINCIPAL
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,16 +50,16 @@ public class GameMenu extends MenusBasic{
         DefaultListModel<String> listModelTerminal = new DefaultListModel<>();
         JList<String> terminalList = new JList<>(listModelTerminal);
         terminalList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane terminal = new JScrollPane(terminalList);
-        terminal.setBorder(BorderFactory.createTitledBorder("Eventos"));
-        centerPanel.add(terminal, BorderLayout.CENTER);
+        this.terminal = new JScrollPane(terminalList);
+        this.terminal.setBorder(BorderFactory.createTitledBorder("Eventos"));
+        centerPanel.add(this.terminal, BorderLayout.CENTER);
         
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        JList<String> characterList = new JList<>(listModel);
-        characterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(characterList);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Vivos (" + this.players.size() + "\\" + this.nPlayers + ")"));
-        centerPanel.add(scrollPane, BorderLayout.EAST);
+        DefaultListModel<String> listModelLive = new DefaultListModel<>();
+        JList<String> liveList = new JList<>(listModelLive);
+        liveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.live = new JScrollPane(liveList);
+        this.live.setBorder(BorderFactory.createTitledBorder("Vivos (" + this.nPlayers + "\\" + this.nPlayers + ")"));
+        centerPanel.add(this.live, BorderLayout.EAST);
         
         this.frame.add(centerPanel, BorderLayout.CENTER);
 
@@ -73,30 +70,30 @@ public class GameMenu extends MenusBasic{
         bottomPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         
         // * BOTONERA
-        // * * BOTON  [-]
-        JButton removeButton = new JButton("Sig. Acción");
+        // * * BOTON  [▶️]
+        JButton removeButton = new JButton("▶️");
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	//
+            	performAction(1);
             }
         });
         
-        // * * BOTON [+]
-        JButton saveButton = new JButton("Saltar Evento");
+        // * * BOTON [▶️▶️]
+        JButton saveButton = new JButton("▶️▶️");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	//
+            	performAction(2);
             }
         });
         
-        // * * BOTON [fill]
-        JButton fillButton = new JButton("Sig. Día");
+        // * * BOTON [☀️]
+        JButton fillButton = new JButton("☀️");
         fillButton.addActionListener(new ActionListener() {
         	@Override
             public void actionPerformed(ActionEvent e){
-	        	//
+	        	performAction(3);
         	}
         });
         
@@ -111,6 +108,18 @@ public class GameMenu extends MenusBasic{
         this.frame.add(bottomPanel, BorderLayout.SOUTH);
         this.frame.setVisible(true);
     }
+	
+	
+	public void performAction(Integer action) {
+		if (this.pendingAction == 0)
+			this.pendingAction = action;
+	}
+	public Integer listenAction() {
+		Integer action = this.pendingAction;
+		this.pendingAction = 0;
+		return action;
+	}
+	
 	
 	
 	// FRAME IMPLEMENTS

@@ -12,6 +12,8 @@ public class VisualLobby {
 			System.out.print(""); // Relleno para que siga comprobando
 		}
 		menu.hide();
+		
+		
 		return menu;
 	}
 }
