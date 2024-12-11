@@ -114,41 +114,7 @@ public class GameManager {
     
     
 }
-        	//dia++
-        	//dia n se volvera a hacer este bucle hasta que solo quede 1 
-
-
-			//IMPORTANTE EL CODIGO DE ABAJO COGERLO CON PINZAS AUN PARA LO DE ARRIBA 
-			
-            // Fase de combate
-            /*
-            for (int i = 0; i < jugadoresVivos.size(); i++) {
-                for (int j = i + 1; j < jugadoresVivos.size(); j++) {
-                    Player atacante = jugadoresVivos.get(i);
-                    Player defensor = jugadoresVivos.get(j);
-                    atacante.combatir(defensor);
-
-                    // Eliminar jugadores si quedan sin vida
-                    if (!atacante.estaVivo()) eliminados.add(atacante);
-                    if (!defensor.estaVivo()) eliminados.add(defensor);
-                }
-            }
-            jugadoresVivos.removeAll(eliminados);
-
-            // Comprobar condición de fin de partida
-            if (jugadoresVivos.size() <= 1) {
-                finPartida = true;
-            }
-
-        } while (!finPartida);
-
-        // Resultado final
-        if (jugadoresVivos.size() == 1) {
-            System.out.println("¡El ganador es: " + jugadoresVivos.get(0).getName() + "!");
-        } else {
-            System.out.println("¡No hay ganadores!");
-        }
-    }*/
+        	
 
 
 
