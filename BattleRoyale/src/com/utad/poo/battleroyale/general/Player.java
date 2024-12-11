@@ -70,35 +70,44 @@ public class Player {
         if (probabilidad < probabilidades[0]) {
             this.heal(); // Implementar este método
         } else if (probabilidad < probabilidades[0] + probabilidades[1]) {
-            weapon.upgrade(); // Método a implementar
+            weapon.upgrade(this.getName()); // Método a implementar
         }
         // Si no cae en ninguna de las anteriores, no pasa nada
     }
     
     
     public void heal() {
-    	this.hp+=40;
+    	Integer heal = 50;
+    	System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida");
+    	System.out.println("  ❤️‍🩹 " + this.getName() + " recupera " + heal + "ps");
+    	this.hp += heal;
     }
     
     public void combat(Player enemigo) {
     	Integer damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
     	Integer enemyDamage=enemigo.getWeapon().getDamage()[this.weapon.getLevel()-1];
-    	do {
-    	System.out.println("Jugador: "+this.getName()+ " ataca a: "+ enemigo.getName() + " causandole: "+ damage+ "hp de daño");
-    	enemigo.hp-=damage;
-    	System.out.println("Enemigo: "+ enemigo.getName() + " ataca a: "+ this.getName() + " causandole: "+ enemyDamage+ "hp de daño");
-    	this.hp-=enemyDamage;
-    	}while (enemigo.hp >= 0 && this.hp >= 0);
-
-    	if(enemigo.hp<=0) {
-        	System.out.println("Jugador: "+ enemigo.getName() + " ha sido eliminado ");
-
-    	}else if(this.hp<=0) {
-    		System.out.println("Jugador: "+ this.getName() + " ha sido eliminado ");
-    	}
+    	Boolean activeCombat = true;
     	
+    	System.out.println("\n" + this.getName().toUpperCase() + " ⚔️ " + enemigo.getName().toUpperCase());
+    	while (activeCombat){
+	    	System.out.println("  → " + this.getName() + " ataca a " + enemigo.getName() + " causandole " + damage + "hp de daño");
+	    	enemigo.hp -= damage;
+	    	
+	    	if(enemigo.hp <= 0) {
+	        	System.out.println("  💀 " + enemigo.getName() + " ha sido eliminado");
+	        	activeCombat = false;
+	    	}else{
+	    		System.out.println("  → " + enemigo.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "hp de daño");
+		    	this.hp -= enemyDamage;
+	    		
+		    	if(this.hp <= 0) {
+		    		System.out.println("  💀 " + this.getName() + " ha sido eliminado");
+		    		activeCombat = false;
+		    	}
+	    	}
+    	}
     	// retornar el eliminado y eliminarlo de la lista
-    	//mario te quiero
+    	// mario te quiero
     }
     
     public void autoDamage() {
@@ -109,7 +118,7 @@ public class Player {
     	// el jugador se hace daño a sí mismo
     	if(probAutoDamage <= 50) {
     		System.out.println("El jugador " + this.getName() + "se ha clavado su " + this.weapon.getWeaponType()+ " :| " +
-    							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel()-1] + "puntos de vida");
+    							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + "puntos de vida");
     		this.hp -= this.weapon.getDamage()[this.weapon.getLevel()-1];
     	}
     }

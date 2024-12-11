@@ -9,6 +9,7 @@ public class Weapon {
 	
 	//public static final Double DEF_DAMAGE = 10.0;
 	public static final Integer DEF_LEVEL = 1;
+	public static final Integer MAX_LEVEL = 3;
 	
 	//Constructor
 	public Weapon(Integer[] damage) {
@@ -44,7 +45,12 @@ public class Weapon {
 	}
 	
 	//Método para mejorar el arma
-	public void upgrade() {
-    	this.level += 1;
+	public void upgrade(String playerName) {
+		System.out.println("\n" + playerName.toUpperCase() + " ha encontrado una piedra de mejora");
+    	if (this.level < MAX_LEVEL) {
+    		this.level += 1;
+        	System.out.println("  🪨 " + playerName + " ha encontrado una pocion de vida");
+    	}
+    	else System.out.println("  🚫 Pero " + playerName + " ya tiene su arma a nivel máximo");
     }
 }
