@@ -1,6 +1,6 @@
 package com.utad.poo.battleroyale.general;
 
-public class Prisoner extends Player{
+public final class Prisoner extends Player{
 	
 	public static final Integer PRISONER_HEALTH=120;
 	public static final String CLASS_NAME="Prisoner";

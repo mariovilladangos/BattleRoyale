@@ -1,6 +1,6 @@
 package com.utad.poo.battleroyale.general;
 
-public class Warrior extends Player {
+public final class Warrior extends Player {
 	
 	public static final Integer WARRIOR_HEALTH=150;
 	public static final String CLASS_NAME="Warrior";

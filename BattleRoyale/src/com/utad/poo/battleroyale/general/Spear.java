@@ -2,7 +2,7 @@ package com.utad.poo.battleroyale.general;
 
 import java.util.Arrays;
 
-public class Spear extends Weapon{
+public final class Spear extends Weapon{
 	
 	//public static final Integer DEF_LEVEL = 1;
 	public static final Integer[] DEF_DAMAGE = {20, 40, 70};	
