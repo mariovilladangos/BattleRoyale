@@ -18,9 +18,12 @@ public class GameMenu extends MenusBasic{
 	private Integer nPlayers;
 	
 	private JFrame frame = new JFrame("Battle Royale");
+	private DefaultListModel<String> listModelTerminal;
+	private DefaultListModel<String> listModelLive;
 	private JScrollPane terminal;
 	private JScrollPane live;
 	private Integer pendingAction = 0;
+	public ButtonListener buttonListener = new ButtonListener();
 	
 	public GameMenu() {
 		this(CharacterMenu.NPLAYERS);
@@ -28,6 +31,17 @@ public class GameMenu extends MenusBasic{
 	public GameMenu(Integer nPlayers) {
 		this.nPlayers = nPlayers;
 		this.visualGameWindow();
+	}
+	
+	
+	public class ButtonListener implements ActionListener {
+		
+		public Integer pendingAction = 0;
+		@Override
+        public void actionPerformed(ActionEvent e) {
+			if (this.pendingAction == 0)
+			this.pendingAction = action;
+        }
 	}
 
 	public void visualGameWindow(){
@@ -47,18 +61,18 @@ public class GameMenu extends MenusBasic{
         centerPanel.setLayout(new BorderLayout());
         
         // LISTA PERSONAJES
-        DefaultListModel<String> listModelTerminal = new DefaultListModel<>();
-        JList<String> terminalList = new JList<>(listModelTerminal);
+        this.listModelTerminal = new DefaultListModel<>();
+        JList<String> terminalList = new JList<>(this.listModelTerminal);
         terminalList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.terminal = new JScrollPane(terminalList);
         this.terminal.setBorder(BorderFactory.createTitledBorder("Eventos"));
         centerPanel.add(this.terminal, BorderLayout.CENTER);
         
-        DefaultListModel<String> listModelLive = new DefaultListModel<>();
-        JList<String> liveList = new JList<>(listModelLive);
+        this.listModelLive = new DefaultListModel<>();
+        JList<String> liveList = new JList<>(this.listModelLive);
         liveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.live = new JScrollPane(liveList);
-        this.live.setBorder(BorderFactory.createTitledBorder("Vivos (" + this.nPlayers + "\\" + this.nPlayers + ")"));
+        this.live.setBorder(BorderFactory.createTitledBorder("Vivos (" + this.nPlayers + "/" + this.nPlayers + ")"));
         centerPanel.add(this.live, BorderLayout.EAST);
         
         this.frame.add(centerPanel, BorderLayout.CENTER);
@@ -72,12 +86,14 @@ public class GameMenu extends MenusBasic{
         // * BOTONERA
         // * * BOTON  [▶️]
         JButton removeButton = new JButton("▶️");
-        removeButton.addActionListener(new ActionListener() {
+        removeButton.addActionListener(this.buttonListener);
+        		/*new ActionListener() {
+        	
             @Override
             public void actionPerformed(ActionEvent e) {
             	performAction(1);
             }
-        });
+        });*/
         
         // * * BOTON [▶️▶️]
         JButton saveButton = new JButton("▶️▶️");
@@ -109,15 +125,19 @@ public class GameMenu extends MenusBasic{
         this.frame.setVisible(true);
     }
 	
-	
-	public void performAction(Integer action) {
-		if (this.pendingAction == 0)
-			this.pendingAction = action;
-	}
 	public Integer listenAction() {
 		Integer action = this.pendingAction;
 		this.pendingAction = 0;
 		return action;
+	}
+	
+	// MODIFIERS
+	public void addTerminalLine(String line) {
+		this.listModelTerminal.addElement(line);
+	}
+	
+	public void addBoardLine(String line) {
+		this.listModelLive.addElement(line);
 	}
 	
 	
@@ -128,6 +148,12 @@ public class GameMenu extends MenusBasic{
 		this.frame.setVisible(true);
 	}
 	
+	public DefaultListModel<String> getListModelTerminal() {
+		return listModelTerminal;
+	}
+	public DefaultListModel<String> getListModelLive() {
+		return listModelLive;
+	}
 	public void hide() {
 		this.frame.setVisible(false);
 	}

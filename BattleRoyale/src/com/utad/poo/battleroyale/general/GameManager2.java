@@ -37,11 +37,59 @@ public class GameManager2 {
 		Integer action = 0;
 		
 		while(!endgame) {
-			this.wait(game, action, 3);
+
+	        System.out.println(game.buttonListener.p);
+			//wait(game, action, 2);
+			//System.out.println(action);
+			
+			/*day++;
+			System.out.println("Día " + day);
+			
+			for(Player player:players) {
+				player.lootear();
+			}
+			wait(game, action, 2);
+			
+    		Collections.shuffle(players);
+    		Integer length = players.size();
+    		if(length % 2 != 0) {
+    			length -= 1;
+    			players.get(length).autoDamage();
+    			wait(game, action, 2);
+    		}
+    		
+    		for(int i=0;i<length; i+=2) {
+				Random rand = new Random();
+				Integer probLucha = rand.nextInt(100);
+				if(probLucha <= 50) {
+					players.get(i).combat(players.get(i+1));
+	    			wait(game, action, 2);
+				}
+			}
+    		
+    		List<Player> deadPlayers = new ArrayList();
+    		for(Player player : players) {
+    			if(player.getHp() <= 0) {
+    				deadPlayers.add(player);
+    			}
+    		}
+    		
+	    	players.removeAll(deadPlayers);
+	    	eliminated.addAll(deadPlayers);
+	    	deadPlayers.clear();
+
+			wait(game, action, 1);
+	    	if (players.size() <= 1) {
+	    		endgame = true;
+	    	}
+	    	else {
+		    	System.out.println("Jugadores vivos: " + players.size());
+    			wait(game, action, 3);
+	    	}*/
 		}
 	}
 	
-	public Integer wait(GameMenu game, Integer actualAction, Integer StopAction) {
+	public static Integer wait(GameMenu game, Integer actualAction, Integer StopAction) {
 
 		if (actualAction <= StopAction) actualAction = 0;
 		
