@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharacterMenu {
+public class CharacterMenu extends MenusBasic {
 	
 	public static final Integer FWIDTH = 400;
 	public static final Integer FHEIGHT = 600;
@@ -203,9 +203,13 @@ public class CharacterMenu {
         this.frame.setVisible(true);
     }
 	
+	
+	// FRAME IMPLEMENTS
+	
 	public void show() {
 		this.frame.setVisible(true);
 	}
+	
 	public void hide() {
 		this.frame.setVisible(false);
 	}

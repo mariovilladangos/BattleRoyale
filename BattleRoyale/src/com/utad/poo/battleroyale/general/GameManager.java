@@ -11,7 +11,7 @@ import com.utad.poo.battleroyale.ui.CharacterMenu;
 
 
 public class GameManager {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
     	Scanner scanner = new Scanner(System.in);
         Boolean endgame = false;
         Integer day=0;
