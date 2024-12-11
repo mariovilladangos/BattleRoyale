@@ -120,22 +120,23 @@ public class CharacterMenu {
         bottomPanel.add(buttonPanel);
 
         // * BOTONERA
-        // * * BOTON -
+        // * * BOTON  [-]
         JButton removeButton = new JButton("-");
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
-                if (listModel.size() > 0) {
-                    listModel.remove(listModel.size() - 1);
-                    lobbyFill.setText(listModel.size() + "/" + NPLAYERS);
-                } else {
-                    JOptionPane.showMessageDialog(frame, "No hay personajes que eliminar", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            	if (listModel.size() < NPLAYERS) {
+	                if (listModel.size() > 0) {
+	                    listModel.remove(listModel.size() - 1);
+	                    lobbyFill.setText(listModel.size() + "/" + NPLAYERS);
+	                } else {
+	                    JOptionPane.showMessageDialog(frame, "No hay personajes que eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+	                }
+            	}
             }
         });
         
-        // * * BOTON +
+        // * * BOTON [+]
         JButton saveButton = new JButton("+");
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -186,7 +187,7 @@ public class CharacterMenu {
             }
         });
         
-        // * * BOTON +
+        // * * BOTON [fill]
         JButton fillButton = new JButton("fill");
         fillButton.addActionListener(new ActionListener() {
         	@Override
