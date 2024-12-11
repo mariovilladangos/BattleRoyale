@@ -67,9 +67,9 @@ public class Player {
     	Random rand = new Random();
         Integer probabilidad = rand.nextInt(100);
     	
-        if (probabilidad > probabilidades[0]) {
+        if (probabilidad < probabilidades[0]) {
             this.heal(); // Implementar este método
-        } else if (probabilidad > probabilidades[0] && probabilidad < probabilidades[0] + probabilidades[1]) {
+        } else if (probabilidad < probabilidades[0] + probabilidades[1]) {
             weapon.upgrade(this.getName()); // Método a implementar
         }
         // Si no cae en ninguna de las anteriores, no pasa nada
@@ -123,11 +123,14 @@ public class Player {
     	}
     }
     public void showStats() {
+    	System.out.println("---------------------------------------------------------------------------------");
     	System.out.println(" - " + this.name);
     	System.out.println("    Salud restante: " + this.getHp());
     	System.out.println("    Clase: " + this.getClassType());
-    	System.out.println("    -Arma: "+ this.getWeapon());
-    	System.out.println("      Nivel del arma: "+this.weapon.getLevel());
+    	System.out.println("    -Arma: "+ this.getWeaponType());
+    	System.out.println("       Nivel del arma: "+this.weapon.getLevel());
+    	System.out.println("       Daño del arma: "+this.weapon.getDamage()[this.weapon.getLevel()-1]);
+    	System.out.println("---------------------------------------------------------------------------------");
     }
     
     

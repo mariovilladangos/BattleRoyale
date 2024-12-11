@@ -88,8 +88,14 @@ public class GameManager {
 	    	}
 	    	else {
 		    	System.out.println("Jugadores vivos: " + players.size());
+		    	System.out.println("Pulsa la tecla 's' para ver las estadísticas e ir al día siguiente: ");
 		    	System.out.println("Pulsa ENTER para ir al día siguiente: ");
 		    	String pulsaTecla = scanner.nextLine();
+		    	if(pulsaTecla.equals("s")) {
+		    		for(Player player:players) {
+		    			player.showStats();
+		    		}
+		    	}
 		    	// utiliar el collections.shufle para randomiar la lista y asi poder hacer los combates
 		    	//Cada jugador pelea aleatoriamente con otro
 		    	//el que gane obteendra una mejora en el arma de 1 
@@ -104,10 +110,51 @@ public class GameManager {
 		}
 		System.out.println("Pulsa ENTER para cerrar");
     	String pulsaTecla = scanner.nextLine();
-    	
     }
+    
+    
+   
+    
+    
+    
+    
+    
 }
-        	
+        	//dia++
+        	//dia n se volvera a hacer este bucle hasta que solo quede 1 
+
+
+			//IMPORTANTE EL CODIGO DE ABAJO COGERLO CON PINZAS AUN PARA LO DE ARRIBA 
+			
+            // Fase de combate
+            /*
+            for (int i = 0; i < jugadoresVivos.size(); i++) {
+                for (int j = i + 1; j < jugadoresVivos.size(); j++) {
+                    Player atacante = jugadoresVivos.get(i);
+                    Player defensor = jugadoresVivos.get(j);
+                    atacante.combatir(defensor);
+
+                    // Eliminar jugadores si quedan sin vida
+                    if (!atacante.estaVivo()) eliminados.add(atacante);
+                    if (!defensor.estaVivo()) eliminados.add(defensor);
+                }
+            }
+            jugadoresVivos.removeAll(eliminados);
+
+            // Comprobar condición de fin de partida
+            if (jugadoresVivos.size() <= 1) {
+                finPartida = true;
+            }
+
+        } while (!finPartida);
+
+        // Resultado final
+        if (jugadoresVivos.size() == 1) {
+            System.out.println("¡El ganador es: " + jugadoresVivos.get(0).getName() + "!");
+        } else {
+            System.out.println("¡No hay ganadores!");
+        }
+    }*/
 
 
 
