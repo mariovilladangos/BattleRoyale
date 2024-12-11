@@ -122,7 +122,13 @@ public class Player {
     		this.hp -= this.weapon.getDamage()[this.weapon.getLevel()-1];
     	}
     }
-
+    public void showStats() {
+    	System.out.println(" - " + this.name);
+    	System.out.println("    Salud restante: " + this.getHp());
+    	System.out.println("    Clase: " + this.getClassType());
+    	System.out.println("    -Arma: "+ this.getWeapon());
+    	System.out.println("      Nivel del arma: "+this.weapon.getLevel());
+    }
     
     
     
