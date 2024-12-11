@@ -29,7 +29,7 @@ public class Bots {
 			Player bot;
 			if (atributos[1].equals("Warrior")) bot = new Warrior(atributos[0], weapon);
 			else if (atributos[1].equals("Healer")) bot = new Healer(atributos[0], weapon);
-			else  bot = new Prisoner(atributos[0], weapon);
+			else bot = new Prisoner(atributos[0], weapon);
 			
 			allBots.add(bot);
 		}

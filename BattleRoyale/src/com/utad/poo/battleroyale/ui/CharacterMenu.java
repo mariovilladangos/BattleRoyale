@@ -1,22 +1,52 @@
 package com.utad.poo.battleroyale.ui;
 import com.utad.poo.battleroyale.general.Bots;
-import com.utad.poo.battleroyale.general.Lobby;
+import com.utad.poo.battleroyale.general.Claymore;
+import com.utad.poo.battleroyale.general.Healer;
 import com.utad.poo.battleroyale.general.Player;
+import com.utad.poo.battleroyale.general.Prisoner;
+import com.utad.poo.battleroyale.general.Spear;
+import com.utad.poo.battleroyale.general.Sword;
+import com.utad.poo.battleroyale.general.Warrior;
+import com.utad.poo.battleroyale.general.Weapon;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterMenu {
 	
 	public static final Integer FWIDTH = 400;
 	public static final Integer FHEIGHT = 600;
+	public static final Integer NPLAYERS = 10;
 	
-    public static void main(String[] args) {
+	private List<Player> players = new ArrayList();
+	private List<Player> botPlayers = new ArrayList();
+	
+	public CharacterMenu() {
+		this.visualMenuWindow();
+	}
+	
+    public List<Player> getPlayers() {
+		return this.players;
+	}
+	public List<Player> getBotPlayers() {
+		return this.botPlayers;
+	}
+	public boolean isLobbyReady() {
+		if (this.players.size() + this.botPlayers.size() >= NPLAYERS) return true;
+		else return false;
+	}
+
+
+
+	public void visualMenuWindow(){
+    	// VARIABLES
+    	
+    	
         // VENTANA PRINCIPAL
         JFrame frame = new JFrame("Menú de Personajes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +59,7 @@ public class CharacterMenu {
         frame.setLayout(new BorderLayout());
         
         // PERSONAJES LISTOS
-        JLabel lobbyFill = new JLabel("0/" + Lobby.DEF_PLAYERS);
+        JLabel lobbyFill = new JLabel("0/" + NPLAYERS);
         lobbyFill.setBorder(new EmptyBorder(0, 0, 0, 10));
         lobbyFill.setHorizontalAlignment(JLabel.RIGHT);
         frame.add(lobbyFill, BorderLayout.NORTH);
@@ -98,7 +128,7 @@ public class CharacterMenu {
             	
                 if (listModel.size() > 0) {
                     listModel.remove(listModel.size() - 1);
-                    lobbyFill.setText(listModel.size() + "/" + Lobby.DEF_PLAYERS);
+                    lobbyFill.setText(listModel.size() + "/" + NPLAYERS);
                 } else {
                     JOptionPane.showMessageDialog(frame, "No hay personajes que eliminar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -112,7 +142,7 @@ public class CharacterMenu {
             public void actionPerformed(ActionEvent e) {
             	String name = nameField.getText().trim();
                 String characterClass = null;
-                String weapon = null;
+                Weapon weapon = null;
 
                 if (warriorButton.isSelected()) {
                     characterClass = "Guerrero";
@@ -123,22 +153,31 @@ public class CharacterMenu {
                 }
 
                 if (swordButton.isSelected()) {
-                    weapon = "Espada";
+                	weapon = new Sword();
                 } else if (spearButton.isSelected()) {
-                    weapon = "Lanza";
+                	weapon = new Spear();
                 } else if (claymoreButton.isSelected()) {
-                    weapon = "Claymore";
+                	weapon = new Claymore();
                 }
                 
-                if (listModel.size() < Lobby.DEF_PLAYERS) {
+                if (listModel.size() < NPLAYERS) {
 	                if (!name.isEmpty() && characterClass != null && weapon != null) {
-	                    listModel.addElement(name + " - " + characterClass + " - " + weapon);
+	                	
+	                	// Create player
+	                	Player player;
+	        			if (characterClass.equals("Warrior")) player = new Warrior(name, weapon);
+	        			else if (characterClass.equals("Healer")) player = new Healer(name, weapon);
+	        			else player = new Prisoner(name, weapon);
+	        			
+	        			players.add(player);
+	                	
+	        			// Update UI
+	                    listModel.addElement(name + " (" + characterClass + " : " + weapon.getWeaponType() + ")");
 	                    nameField.setText("");
 	                    classGroup.clearSelection();
 	                    weaponGroup.clearSelection();
 	                    
-	                    lobbyFill.setText(listModel.size() + "/" + Lobby.DEF_PLAYERS);
-	                    if (listModel.size() >= Lobby.DEF_PLAYERS) {/* Empieza */};
+	                    lobbyFill.setText(listModel.size() + "/" + NPLAYERS);
 	                    
 	                } else {
 	                    JOptionPane.showMessageDialog(frame, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -146,15 +185,19 @@ public class CharacterMenu {
                 }
             }
         });
-     // * * BOTON +
+        
+        // * * BOTON +
         JButton fillButton = new JButton("fill");
-        saveButton.addActionListener(new ActionListener() {
+        fillButton.addActionListener(new ActionListener() {
         	@Override
             public void actionPerformed(ActionEvent e){
-	        	Integer playersLeft = Lobby.DEF_PLAYERS - listModel.size();
+	        	Integer playersLeft = NPLAYERS - listModel.size();
 				List<Player> bots = Bots.getBots(playersLeft);
-				for (Player bot: bots) listModel.addElement(bot.getName() + " - " + bot.getClassType() + " - " + bot.getWeapon());
-				lobbyFill.setText(listModel.size() + "/" + Lobby.DEF_PLAYERS);
+				for (Player bot: bots) {
+					botPlayers.add(bot);
+					listModel.addElement(bot.getName() + " (" + bot.getClassType() + " : " + bot.getWeaponType() + ")");
+				}
+				lobbyFill.setText(listModel.size() + "/" + NPLAYERS);
         	}
         });
         
@@ -168,5 +211,8 @@ public class CharacterMenu {
         
         frame.add(bottomPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
+        
+
+        if (listModel.size() >= NPLAYERS) {/* Empieza */};
     }
 }

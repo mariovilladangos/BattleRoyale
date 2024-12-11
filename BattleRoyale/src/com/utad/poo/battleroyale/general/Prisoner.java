@@ -12,7 +12,7 @@ public class Prisoner extends Player{
 
 	@Override
 	public String getClassType() {
-		return CLASS_NAME;
+		return "Prisionero";
 	}
 	
 	@Override

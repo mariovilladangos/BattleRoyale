@@ -15,7 +15,7 @@ public class Warrior extends Player {
 	
 	@Override
 	public String getClassType() {
-		return CLASS_NAME;
+		return "Guerrero";
 	}
 
 	@Override

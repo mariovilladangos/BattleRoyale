@@ -14,7 +14,7 @@ public class Healer extends Player {
 	
 	@Override
 	public String getClassType() {
-		return CLASS_NAME;
+		return "Sanador";
 	}
 
 	@Override
