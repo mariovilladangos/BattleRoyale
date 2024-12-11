@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+
+
 
 public class GameManager {
     public static void main(String[] args) throws Exception {
-       
+    	Scanner scanner = new Scanner(System.in);
         boolean endgame = false;
         Integer day=0;
         List<Player> players = new ArrayList<Player>();
@@ -56,6 +59,7 @@ public class GameManager {
         	}
         	System.out.println("Jugadores vivos: "+players.get(length));
         	System.out.println("Pulsa cualquier tecla para ir al día siguiente: ");
+        	Integer pulsaTecla = scanner.nextInt();
         	// utiliar el collections.shufle para randomiar la lista y asi poder hacer los combates
         	//Cada jugador pelea aleatoriamente con otro
         	//el que gane obteendra una mejora en el arma de 1 
