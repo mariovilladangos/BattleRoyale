@@ -99,6 +99,19 @@ public class Player {
     	// retornar el eliminado y eliminarlo de la lista
     	//mario te quiero
     }
+    
+    public void autoDamage() {
+    	//Cada vez que se llama a la funcion, se genera una nueva probabilidad
+    	Random seed = new Random();
+    	Integer probAutoDamage = seed.nextInt(100);
+    	//Si la probabilidad es menor o igual a 50, 
+    	// el jugador se hace daño a sí mismo
+    	if(probAutoDamage <= 50) {
+    		System.out.println("El jugador " + this.getName() + "se ha clavado su " + this.weapon.getWeaponType()+ " :| " +
+    							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel()-1] + "puntos de vida");
+    		this.hp -= this.weapon.getDamage()[this.weapon.getLevel()-1];
+    	}
+    }
 
     
     
