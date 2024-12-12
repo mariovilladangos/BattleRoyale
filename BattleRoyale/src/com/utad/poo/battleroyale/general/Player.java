@@ -182,10 +182,29 @@ public class Player {
     	//Si la probabilidad es menor o igual a 50, 
     	// el jugador se hace daño a sí mismo
     	if(probAutoDamage < 50) {
-    		game.addTerminalLine(this.getName() + " se ha clavado su " + this.weapon.getWeaponType()+ ":(" +
+    		Integer damage = 0;
+    		Random prob = new Random();
+    		Integer chance = prob.nextInt(4);
+    			if(chance == 0) {
+    			game.addTerminalLine(this.getName() + " se ha clavado su " + this.weapon.getWeaponType()+ ":(" +
     							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + " puntos de vida");
-    		this.hp -= this.weapon.getDamage()[this.weapon.getLevel()-1];
-    		game.addTerminalLine(" ");
+    			damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
+    			}else if(chance == 1) {
+    				game.addTerminalLine(this.getName() + " se ha cegado mirando al sol y se ha tropezado perdiendo: 20 puntos de vida");
+    				damage=20;
+    			}else if(chance == 2) {
+    				game.addTerminalLine(this.getName() + " le ha atacado un dragón de la nada y ha escapado perdiendo: 70 puntos de vida");
+    				damage=70;
+    			}else if(chance == 3) {
+    				game.addTerminalLine("A " + this.getName() + " le ha dado un chungo y ha perdido la mitad de sus puntos de vida :,v : " + this.getHp()/2);
+    				damage=this.getHp()/2;
+    			}
+    			    			
+    			this.hp -= damage;
+    			if(this.getHp()<=0) {
+    				game.addTerminalLine("  💀 Lamentablemente " + this.getName() + "no lo logró ");
+    			}
+    			game.addTerminalLine(" ");
     	}
     }
     
