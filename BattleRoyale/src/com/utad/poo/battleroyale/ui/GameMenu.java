@@ -136,7 +136,13 @@ public class GameMenu extends MenusBasic{
                     	}
                     }
                     if (p != null) {
-                    	//print stats
+                    	addStatsLine(p.getName() + "");
+                    	addStatsLine("  → Muertes a sus manos: " + p.getKills());
+                    	addStatsLine("  → Daño realizado: " + p.getDamageDeal());
+                    	addStatsLine("  → Daño recibido: " + p.getDamageReceived());
+                    	addStatsLine("  → Vida restaurada: " + p.getHpRestored());
+                    	addStatsLine("  → Incidentes ocurridos: " + p.getIncidentsOcurred());
+                    	printStatsLines();
                     }
                 }
             }

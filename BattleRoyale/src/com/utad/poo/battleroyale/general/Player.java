@@ -16,7 +16,12 @@ public class Player {
 	public static final Integer[] DEF_PROB = {25,25,50};
 	//{Prob. de cura, Prob. de mejora, Prob. de nada}
 	
-	//public static final Weapon DEF_WEAPON;
+	private Integer kills = 0;
+	private Integer damageDeal = 0;
+	private Integer damageReceived = 0;
+	private Integer hpRestored = 0;
+	private Integer incidentsOcurred = 0;
+	
 	public Player(String name,Weapon weapon, Integer hp){
 		this(name, weapon, hp, DEF_PROB);
 	}
@@ -77,18 +82,22 @@ public class Player {
         }
         // Si no cae en ninguna de las anteriores, no pasa nada
     }
-    public void lootear(GameMenu game) {
+    public Integer lootear(GameMenu game, List<Player> players, Integer action) {
     	
     	Random rand = new Random();
         Integer probabilidad = rand.nextInt(100);
     	
         if (probabilidad < probabilidades[0]) {
+        	action = GameManager2.wait(game, players, action, 1);
             this.heal(game);
             game.addTerminalLine(" ");
         } else if (probabilidad < probabilidades[0] + probabilidades[1]) {
+        	action = GameManager2.wait(game, players, action, 1);
             weapon.upgrade(game, this.getName());
             game.addTerminalLine(" ");
         }
+        
+        return action;
     }
     
     
@@ -103,6 +112,7 @@ public class Player {
     	game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida");
     	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
     	this.hp += heal;
+    	this.addHpRestored(heal);
     }
     
     public void combat(Player enemigo) {
@@ -131,28 +141,34 @@ public class Player {
     	// retornar el eliminado y eliminarlo de la lista
     	// mario te quiero
     }
-    public int combat(GameMenu game, Integer action, List<Player> players, Player enemigo) {
+    public int combat(GameMenu game, Integer action, List<Player> players, Player enemy) {
     	Integer damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
-    	Integer enemyDamage=enemigo.getWeapon().getDamage()[this.weapon.getLevel()-1];
+    	Integer enemyDamage=enemy.getWeapon().getDamage()[this.weapon.getLevel()-1];
     	Boolean activeCombat = true;
     	
-    	game.addTerminalLine("\n" + this.getName().toUpperCase() + " ⚔️ " + enemigo.getName().toUpperCase());
+    	game.addTerminalLine("\n" + this.getName().toUpperCase() + " ⚔️ " + enemy.getName().toUpperCase());
 		
     	while (activeCombat){
     		action = GameManager2.wait(game, players, action, 1);
-    		if (action <= 1) game.addTerminalLine("  → " + this.getName() + " ataca a " + enemigo.getName() + " causandole " + damage + "hp de daño");
-	    	enemigo.hp -= damage;
+    		if (action <= 1) game.addTerminalLine("  → " + this.getName() + " ataca a " + enemy.getName() + " causandole " + damage + "puntos de daño");
+    		enemy.hp -= damage;
+    		this.addDamageDeal(damage);
+    		enemy.addDamageReceived(damage);
 	    	
-	    	if(enemigo.hp <= 0) {
-	    		game.addTerminalLine("  💀 " + enemigo.getName() + " ha sido eliminado");
+	    	if(enemy.hp <= 0) {
+	    		game.addTerminalLine("  💀 " + enemy.getName() + " ha sido eliminado");
+	    		this.addKills();
 	        	activeCombat = false;
 	    	}else{
 	    		action = GameManager2.wait(game, players, action, 1);
-	    		if (action <= 1) game.addTerminalLine("  → " + enemigo.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "hp de daño");
+	    		if (action <= 1) game.addTerminalLine("  → " + enemy.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "puntos de daño");
 		    	this.hp -= enemyDamage;
+	    		enemy.addDamageDeal(enemyDamage);
+	    		this.addDamageReceived(enemyDamage);
 	    		
 		    	if(this.hp <= 0) {
 		    		game.addTerminalLine("  💀 " + this.getName() + " ha sido eliminado");
+		    		enemy.addKills();
 		    		activeCombat = false;
 		    	}
 	    	}
@@ -186,21 +202,24 @@ public class Player {
     		Random prob = new Random();
     		Integer chance = prob.nextInt(4);
     			if(chance == 0) {
-    			game.addTerminalLine(this.getName() + " se ha clavado su " + this.weapon.getWeaponType()+ ":(" +
-    							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + " puntos de vida");
+    			game.addTerminalLine(this.getName() + " se ha clavado su " + this.weapon.getWeaponType() +
+    							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + "ps");
     			damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
     			}else if(chance == 1) {
-    				game.addTerminalLine(this.getName() + " se ha cegado mirando al sol y se ha tropezado perdiendo: 20 puntos de vida");
+    				game.addTerminalLine(this.getName() + " se ha cegado mirando al sol y se ha tropezado perdiendo: 20ps");
     				damage=20;
     			}else if(chance == 2) {
-    				game.addTerminalLine(this.getName() + " le ha atacado un dragón de la nada y ha escapado perdiendo: 70 puntos de vida");
+    				game.addTerminalLine(this.getName() + " ha sido atacado de la nada por un dragón, logrando escapar, pero ha escapado perdiendo: 70ps");
     				damage=70;
     			}else if(chance == 3) {
-    				game.addTerminalLine("A " + this.getName() + " le ha dado un chungo y ha perdido la mitad de sus puntos de vida :,v : " + this.getHp()/2);
+    				game.addTerminalLine("A " + this.getName() + " le ha dado un chungo, perdiendo la mitad de sus puntos de vida: " + this.getHp()/2 + "ps");
     				damage=this.getHp()/2;
     			}
     			    			
     			this.hp -= damage;
+    			this.addIncidentsOcurred();
+    			this.addDamageReceived(damage);
+    			
     			if(this.getHp()<=0) {
     				game.addTerminalLine("  💀 Lamentablemente " + this.getName() + "no lo logró ");
     			}
@@ -222,15 +241,47 @@ public class Player {
     	game.addStatsLine(this.name + "[(" + this.getClassType() + " | " + this.getHp() + "ps) : ("
     		+ this.getWeaponType() + " Lvl." + this.weapon.getLevel() + " | DMG:" + this.weapon.getDamage()[this.weapon.getLevel()-1] + ")]");
     }
-
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+    // GETTET / ADDERS :v
+	public Integer getKills() {
+		return kills;
+	}
+	public void addKills() {
+		this.kills++;
+	}
+	public void addKills(Integer kills) {
+		this.kills += kills;
+	}
+	
+	public Integer getDamageDeal() {
+		return damageDeal;
+	}
+	public void addDamageDeal(Integer damageDeal) {
+		this.damageDeal += damageDeal;
+	}
+	
+	public Integer getDamageReceived() {
+		return damageReceived;
+	}
+	public void addDamageReceived(Integer damageReceived) {
+		this.damageReceived += damageReceived;
+	}
+	
+	public Integer getHpRestored() {
+		return hpRestored;
+	}
+	public void addHpRestored(Integer hpRestored) {
+		this.hpRestored += hpRestored;
+	}
+	
+	public Integer getIncidentsOcurred() {
+		return incidentsOcurred;
+	}
+	public void addIncidentsOcurred() {
+		this.incidentsOcurred++;
+	}
+	public void addIncidentsOcurred(Integer incidentsOcurred) {
+		this.incidentsOcurred += incidentsOcurred;
+	}
 }

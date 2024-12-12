@@ -40,17 +40,15 @@ public class GameManager2 {
 		
 		GameMenu game = new GameMenu();
 		Integer action = 0;
-		
 		while(!endgame) {
 			
 			day++;
 			game.addTerminalLine("Día " + day);
-			System.out.println("Día " + day);
 			
 			GameManager.saveStats(players, day);
 			
 			for(Player player:shufflePlayers) {
-				player.lootear(game);
+				action = player.lootear(game, players, action);
 			}
 			action = wait(game, players, action, 2);
 			
@@ -85,13 +83,13 @@ public class GameManager2 {
 	    	
 	    	if (players.size() <= 1) {
 	    		endgame = true;
-	    		wait(game, players, action, 3);
+	    		action = wait(game, players, action, 3);
 
 	    	}
 	    	else {
 	    		game.addTerminalLine("Jugadores vivos: " + players.size());
 		    	System.out.println("Jugadores vivos: " + players.size());
-		    	wait(game, players, action, 3);
+		    	action = wait(game, players, action, 3);
 		    	/*String pulsaTecla = scanner.nextLine();
 		    	if(pulsaTecla.equals("s")) {
 		    		for(Player player:players) {
@@ -120,7 +118,7 @@ public class GameManager2 {
 					game.addBoardLine(" ");
 				}
 			}
-			
+			game.setPlayers(players);
 			game.printAllLines();
 			game.setShowStats(0);
 			game.setPendingAction(0);
@@ -140,7 +138,6 @@ public class GameManager2 {
 			}
 			System.out.print("");
 		}
-		
 		return actualAction;
 	}
 }
