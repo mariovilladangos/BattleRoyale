@@ -1,0 +1,6 @@
+Estadísticas de jugadores - Día 5
+Jugador: Fénix Errante
+Vida: 70
+Arma: Claymore [damage=[40, 50, 55], level=1]
+------------------------------
+

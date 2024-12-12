@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import com.utad.poo.battleroyale.ui.CharacterMenu;
 
@@ -39,6 +43,7 @@ public class GameManager {
 		players = totalPlayers;
 		
     	do{
+    		saveStats(players, day);
 			//PASA AL SIGUIENTE DIA (empieza en el uno)
 			day++;
 			System.out.println("Día " + day);
@@ -85,6 +90,8 @@ public class GameManager {
 	    	
 	    	if (players.size() <= 1) {
 	    		endgame = true;
+		    	
+
 	    	}
 	    	else {
 		    	System.out.println("Jugadores vivos: " + players.size());
@@ -112,52 +119,49 @@ public class GameManager {
     	String pulsaTecla = scanner.nextLine();
     }
     
+    public static void saveStats(List<Player> players, Integer day) {
+    	try {
+			statsLogAdd(players, day);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    private static void statsLogAdd(List<Player> players, Integer day) throws Exception{
+        String nombreArchivo = "statsLog.txt";  // Nombre del archivo
+
+        File currentDir = new File(System.getProperty("user.dir"));
+		File statsLog = new File(currentDir.getCanonicalPath() + "\\files\\statsLog");
+        
+        
+    	try (BufferedWriter writer = new BufferedWriter(new FileWriter(statsLog, true))) {
     
-   
+    		writer.write("- Día " + (day) + "\n");
+            for (Player player : players) {
+            	writer.write("---------------------------------------------------------------------------------\n");
+                writer.write(" -  " + player.getName() + "\n");
+                writer.write("    Salud restante: " + player.getHp() + "\n");
+                writer.write("    Clase: " + player.getClassType() + "\n");
+                writer.write("    Arma: " + player.getWeaponType() + "\n");
+                writer.write("       Nivel del arma: " + player.weapon.getLevel()+"\n");
+                writer.write("       Daño del arma: " + player.weapon.getDamage()[player.weapon.getLevel()-1]+"\n");
+                writer.write("---------------------------------------------------------------------------------\n");
+                System.out.println("Las estadísticas han sido guardadas en '" + nombreArchivo + "'");	
+            }  
+    	}catch (IOException e) {
+    		System.out.println("Error al guardar las estadísticas: " + e.getMessage());
+    	}
+    }
+        
     
-    
+    /*try {
+		guardarEstadisticas(players, day);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}*/
     
     
     
 }
-        	//dia++
-        	//dia n se volvera a hacer este bucle hasta que solo quede 1 
-
-
-			//IMPORTANTE EL CODIGO DE ABAJO COGERLO CON PINZAS AUN PARA LO DE ARRIBA 
-			
-            // Fase de combate
-            /*
-            for (int i = 0; i < jugadoresVivos.size(); i++) {
-                for (int j = i + 1; j < jugadoresVivos.size(); j++) {
-                    Player atacante = jugadoresVivos.get(i);
-                    Player defensor = jugadoresVivos.get(j);
-                    atacante.combatir(defensor);
-
-                    // Eliminar jugadores si quedan sin vida
-                    if (!atacante.estaVivo()) eliminados.add(atacante);
-                    if (!defensor.estaVivo()) eliminados.add(defensor);
-                }
-            }
-            jugadoresVivos.removeAll(eliminados);
-
-            // Comprobar condición de fin de partida
-            if (jugadoresVivos.size() <= 1) {
-                finPartida = true;
-            }
-
-        } while (!finPartida);
-
-        // Resultado final
-        if (jugadoresVivos.size() == 1) {
-            System.out.println("¡El ganador es: " + jugadoresVivos.get(0).getName() + "!");
-        } else {
-            System.out.println("¡No hay ganadores!");
-        }
-    }*/
-
-
-
-
-
-
+      
