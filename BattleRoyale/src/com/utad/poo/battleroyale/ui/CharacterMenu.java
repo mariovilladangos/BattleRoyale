@@ -209,7 +209,7 @@ public class CharacterMenu extends MenusBasic {
         	@Override
             public void actionPerformed(ActionEvent e){
 	        	Integer playersLeft = NPLAYERS - listModel.size();
-				List<Player> bots = Bots.getBots(players, playersLeft);
+				List<Player> bots = Ficheros.getBots(players, playersLeft);
 				for (Player bot: bots) {
 					botPlayers.add(bot);
 					listModel.addElement(bot.getName() + " (" + bot.getClassType() + " : " + bot.getWeaponType() + ")");

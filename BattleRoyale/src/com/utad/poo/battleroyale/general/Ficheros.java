@@ -14,7 +14,7 @@ import com.utad.poo.battleroyale.players.*;
 
 import java.util.ArrayList;
 
-public class Bots {
+public class Ficheros {
 	
 	private static List<Player> ReadBotFiles() throws Exception {
 				
@@ -49,7 +49,7 @@ public class Bots {
 		
 		List<Player> allBots = null;
 		try {
-			allBots = Bots.ReadBotFiles();
+			allBots = Ficheros.ReadBotFiles();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

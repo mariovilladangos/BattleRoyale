@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
-import com.utad.poo.battleroyale.general.Bots;
+import com.utad.poo.battleroyale.general.Ficheros;
 import com.utad.poo.battleroyale.weapons.Claymore;
 import com.utad.poo.battleroyale.weapons.Spear;
 import com.utad.poo.battleroyale.weapons.Sword;

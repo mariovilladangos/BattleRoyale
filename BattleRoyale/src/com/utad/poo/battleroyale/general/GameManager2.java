@@ -53,7 +53,7 @@ public class GameManager2 {
 				day++;
 				game.addTerminalLine("Día " + day);
 				
-				Bots.saveStats(players, day);
+				Ficheros.saveStats(players, day);
 				
 				for(Player player:shufflePlayers) {
 					action = player.lootear(game, players, action);
