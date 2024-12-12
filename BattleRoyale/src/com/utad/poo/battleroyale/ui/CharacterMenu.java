@@ -1,6 +1,9 @@
 package com.utad.poo.battleroyale.ui;
 
 import com.utad.poo.battleroyale.general.*;
+import com.utad.poo.battleroyale.weapons.*;
+import com.utad.poo.battleroyale.players.*;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -179,8 +182,8 @@ public class CharacterMenu extends MenusBasic {
 	                	if (validName) {
 		                	// Create player
 		                	Player player;
-		        			if (characterClass.equals("Warrior")) player = new Warrior(name, weapon);
-		        			else if (characterClass.equals("Healer")) player = new Healer(name, weapon);
+		        			if (characterClass.equals("Guerrero")) player = new Warrior(name, weapon);
+		        			else if (characterClass.equals("Sanador")) player = new Healer(name, weapon);
 		        			else player = new Prisoner(name, weapon);
 		        			
 		        			players.add(player);

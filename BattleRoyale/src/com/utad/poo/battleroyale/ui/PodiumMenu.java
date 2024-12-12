@@ -27,14 +27,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import com.utad.poo.battleroyale.general.Bots;
-import com.utad.poo.battleroyale.general.Claymore;
-import com.utad.poo.battleroyale.general.Healer;
-import com.utad.poo.battleroyale.general.Player;
-import com.utad.poo.battleroyale.general.Prisoner;
-import com.utad.poo.battleroyale.general.Spear;
-import com.utad.poo.battleroyale.general.Sword;
-import com.utad.poo.battleroyale.general.Warrior;
-import com.utad.poo.battleroyale.general.Weapon;
+import com.utad.poo.battleroyale.weapons.Claymore;
+import com.utad.poo.battleroyale.weapons.Spear;
+import com.utad.poo.battleroyale.weapons.Sword;
+import com.utad.poo.battleroyale.weapons.Weapon;
+
+import com.utad.poo.battleroyale.players.*;
 
 public class PodiumMenu extends MenusBasic {
 	public static final Integer FWIDTH = 400;

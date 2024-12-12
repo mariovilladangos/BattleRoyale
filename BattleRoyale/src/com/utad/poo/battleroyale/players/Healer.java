@@ -1,4 +1,6 @@
-package com.utad.poo.battleroyale.general;
+package com.utad.poo.battleroyale.players;
+
+import com.utad.poo.battleroyale.weapons.Weapon;
 
 public final class Healer extends Player {
 	

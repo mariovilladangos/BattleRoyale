@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 
 import com.utad.poo.battleroyale.ui.*;
 
+import com.utad.poo.battleroyale.players.Player;
+
 public class GameManager2 {
 	public static void main(String[] args) {
 		
@@ -41,6 +43,7 @@ public class GameManager2 {
 			for(Player p: totalPlayers) {
 				players.add(p);
 				shufflePlayers.add(p);
+				System.out.println(p);
 			}
 			
 			GameMenu game = new GameMenu();
@@ -50,7 +53,7 @@ public class GameManager2 {
 				day++;
 				game.addTerminalLine("Día " + day);
 				
-				GameManager.saveStats(players, day);
+				Bots.saveStats(players, day);
 				
 				for(Player player:shufflePlayers) {
 					action = player.lootear(game, players, action);
@@ -88,7 +91,7 @@ public class GameManager2 {
 		    	
 		    	if (players.size() <= 1) {
 		    		endgame = true;
-		    		game.addTerminalLine("\n🥇 Victory Royale jugador:" + players.get(0).getName());
+		    		game.addTerminalLine("🥇 Victory Royale: " + players.get(0).getName());
 		    		action = wait(game, players, action, 3);
 	
 		    	}
@@ -102,7 +105,7 @@ public class GameManager2 {
 	    	game.hide();
 	    	
 	    	List<String> podiumList = new ArrayList();
-	    	podiumList.add("\n🥇 Victory Royale jugador:" + players.get(0).getName());
+	    	podiumList.add("  🥇  " + players.get(0).getName());
 	    	for (int i = eliminated.size() - 1; i >= 0; i--) {
 	    		podiumList.add("  #" + (CharacterMenu.NPLAYERS - i) + " " + eliminated.get(i).getName());
 	    	}
@@ -119,8 +122,8 @@ public class GameManager2 {
 			for(Player player: players) {
 				if (player.getHp() > 0) {
 					game.addBoardLine(player.getName() + " (" + player.getClassType() + ": " + player.getHp() + "ps)");
-					game.addBoardLine("  → " + player.getWeaponType() + " lvl." + player.weapon.getLevel() + ": " +
-							player.weapon.getDamage()[player.weapon.getLevel() - 1] + "dmg");
+					game.addBoardLine("  → " + player.getWeaponType() + " lvl." + player.getWeapon().getLevel() + ": " +
+							player.getWeapon().getDamage()[player.getWeapon().getLevel() - 1] + "dmg");
 					game.addBoardLine(" ");
 				}
 			}
@@ -160,6 +163,8 @@ public class GameManager2 {
 	
 	public static Integer podium(List<String> podiumList){
 		PodiumMenu podium = new PodiumMenu();
+		podium.printPodium(podiumList);
+		
 		Boolean saved = false;
 		Integer option = 0;
 		while(option == 0) {

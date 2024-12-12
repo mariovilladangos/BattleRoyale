@@ -1,10 +1,12 @@
-package com.utad.poo.battleroyale.general;
+package com.utad.poo.battleroyale.players;
 
 import java.util.List;
 //import java.util.Arrays;
 import java.util.Random;
 
+import com.utad.poo.battleroyale.general.GameManager2;
 import com.utad.poo.battleroyale.ui.*;
+import com.utad.poo.battleroyale.weapons.Weapon;
 
 public class Player {
 	
@@ -121,16 +123,13 @@ public class Player {
 				heal=50;
 				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida grande");
 				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
-			}else if(chanci == 3) {
-				heal=70;
-				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida gigante");
-				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
 			}
+			
     	this.hp += heal;
     }
     public void heal(GameMenu game) {
     	Random probi = new Random();
-		Integer chanci = probi.nextInt(4);
+		Integer chanci = probi.nextInt(5);
 		Integer heal = 0;
 			if(chanci == 0) {
 				heal=20;
@@ -148,30 +147,31 @@ public class Player {
 				heal=50;
 				game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida grande");
 		    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
-			}else if(chanci == 3) {
+			}else if(chanci == 4) {
 				heal=70;
 				game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida gigante");
 		    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
 			}
+			
     	this.hp += heal;
     	this.addHpRestored(heal);
     }
     
-    public void combat(Player enemigo) {
+    public void combat(Player enemy) {
     	Integer damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
-    	Integer enemyDamage=enemigo.getWeapon().getDamage()[this.weapon.getLevel()-1];
+    	Integer enemyDamage=enemy.getWeapon().getDamage()[enemy.weapon.getLevel() - 1];
     	Boolean activeCombat = true;
     	
-    	System.out.println("\n" + this.getName().toUpperCase() + " ⚔️ " + enemigo.getName().toUpperCase());
+    	System.out.println("\n" + this.getName().toUpperCase() + " ⚔️ " + enemy.getName().toUpperCase());
     	while (activeCombat){
-	    	System.out.println("  → " + this.getName() + " ataca a " + enemigo.getName() + " causandole " + damage + "hp de daño");
-	    	enemigo.hp -= damage;
+	    	System.out.println("  → " + this.getName() + " ataca a " + enemy.getName() + " causandole " + damage + "hp de daño");
+	    	enemy.hp -= damage;
 	    	
-	    	if(enemigo.hp <= 0) {
-	        	System.out.println("  💀 " + enemigo.getName() + " ha sido eliminado");
+	    	if(enemy.hp <= 0) {
+	        	System.out.println("  💀 " + enemy.getName() + " ha sido eliminado");
 	        	activeCombat = false;
 	    	}else{
-	    		System.out.println("  → " + enemigo.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "hp de daño");
+	    		System.out.println("  → " + enemy.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "hp de daño");
 		    	this.hp -= enemyDamage;
 	    		
 		    	if(this.hp <= 0) {
@@ -285,7 +285,9 @@ public class Player {
     }
     
     
-    // GETTET / ADDERS :v
+    
+    
+    // GETTER / ADDERS :v
 	public Integer getKills() {
 		return kills;
 	}

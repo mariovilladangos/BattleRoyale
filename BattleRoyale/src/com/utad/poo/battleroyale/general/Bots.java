@@ -1,10 +1,17 @@
 package com.utad.poo.battleroyale.general;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+
+import com.utad.poo.battleroyale.weapons.*;
+import com.utad.poo.battleroyale.players.*;
+
 import java.util.ArrayList;
 
 public class Bots {
@@ -83,4 +90,39 @@ public class Bots {
 		}
 		else return null;
 	}
+	
+	public static void saveStats(List<Player> players, Integer day) {
+    	try {
+			statsLogAdd(players, day);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+	
+    private static void statsLogAdd(List<Player> players, Integer day) throws Exception{
+        String nombreArchivo = "statsLog.txt";  // Nombre del archivo
+
+        File currentDir = new File(System.getProperty("user.dir"));
+		File statsLog = new File(currentDir.getCanonicalPath() + "\\files\\statsLog");
+        
+        
+    	try (BufferedWriter writer = new BufferedWriter(new FileWriter(statsLog, true))) {
+    
+    		writer.write("- Día " + (day) + "\n");
+            for (Player player : players) {
+            	writer.write("---------------------------------------------------------------------------------\n");
+                writer.write(" -  " + player.getName() + "\n");
+                writer.write("    Salud restante: " + player.getHp() + "\n");
+                writer.write("    Clase: " + player.getClassType() + "\n");
+                writer.write("    Arma: " + player.getWeaponType() + "\n");
+                writer.write("       Nivel del arma: " + player.getWeapon().getLevel()+"\n");
+                writer.write("       Daño del arma: " + player.getWeapon().getDamage()[player.getWeapon().getLevel()-1]+"\n");
+                writer.write("---------------------------------------------------------------------------------\n");
+            }  
+            System.out.println("Las estadísticas han sido guardadas en '" + nombreArchivo + "'");	
+    	}catch (IOException e) {
+    		System.out.println("Error al guardar las estadísticas: " + e.getMessage());
+    	}
+    }
 }

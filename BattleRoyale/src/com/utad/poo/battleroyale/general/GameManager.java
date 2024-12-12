@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.utad.poo.battleroyale.ui.CharacterMenu;
+import com.utad.poo.battleroyale.players.Player;
 
 
 
@@ -23,7 +24,7 @@ public class GameManager {
         List<Player> eliminated = new ArrayList<Player>();
         Random randomNumber = new Random();
 
-        CharacterMenu menu = VisualLobby.fillLobby();
+        CharacterMenu menu = lobby();
         List<Player> totalPlayers = new ArrayList();
 		List<Player> realPlayers = new ArrayList();
 		List<Player> botPlayers = new ArrayList();
@@ -143,8 +144,8 @@ public class GameManager {
                 writer.write("    Salud restante: " + player.getHp() + "\n");
                 writer.write("    Clase: " + player.getClassType() + "\n");
                 writer.write("    Arma: " + player.getWeaponType() + "\n");
-                writer.write("       Nivel del arma: " + player.weapon.getLevel()+"\n");
-                writer.write("       Daño del arma: " + player.weapon.getDamage()[player.weapon.getLevel()-1]+"\n");
+                writer.write("       Nivel del arma: " + player.getWeapon().getLevel()+"\n");
+                writer.write("       Daño del arma: " + player.getWeapon().getDamage()[player.getWeapon().getLevel()-1]+"\n");
                 writer.write("---------------------------------------------------------------------------------\n");
             }  
             System.out.println("Las estadísticas han sido guardadas en '" + nombreArchivo + "'");	
@@ -152,16 +153,15 @@ public class GameManager {
     		System.out.println("Error al guardar las estadísticas: " + e.getMessage());
     	}
     }
-        
     
-    /*try {
-		guardarEstadisticas(players, day);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}*/
-    
-    
-    
+    public static CharacterMenu lobby(){
+		CharacterMenu menu = new CharacterMenu();
+		while(!menu.isLobbyReady()) {
+			System.out.print("");
+		}
+		menu.hide();
+		
+		return menu;
+	}
 }
       

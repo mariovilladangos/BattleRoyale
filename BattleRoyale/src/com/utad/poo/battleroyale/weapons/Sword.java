@@ -1,4 +1,4 @@
-package com.utad.poo.battleroyale.general;
+package com.utad.poo.battleroyale.weapons;
 
 import java.util.Arrays;
 
