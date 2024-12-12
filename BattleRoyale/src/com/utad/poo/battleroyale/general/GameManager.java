@@ -146,8 +146,8 @@ public class GameManager {
                 writer.write("       Nivel del arma: " + player.weapon.getLevel()+"\n");
                 writer.write("       Daño del arma: " + player.weapon.getDamage()[player.weapon.getLevel()-1]+"\n");
                 writer.write("---------------------------------------------------------------------------------\n");
-                System.out.println("Las estadísticas han sido guardadas en '" + nombreArchivo + "'");	
             }  
+            System.out.println("Las estadísticas han sido guardadas en '" + nombreArchivo + "'");	
     	}catch (IOException e) {
     		System.out.println("Error al guardar las estadísticas: " + e.getMessage());
     	}

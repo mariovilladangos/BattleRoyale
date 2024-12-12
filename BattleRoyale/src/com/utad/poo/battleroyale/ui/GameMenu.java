@@ -7,9 +7,12 @@ import com.utad.poo.battleroyale.general.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GameMenu extends MenusBasic{
 	
@@ -20,10 +23,26 @@ public class GameMenu extends MenusBasic{
 	private JFrame frame = new JFrame("Battle Royale");
 	private DefaultListModel<String> listModelTerminal;
 	private DefaultListModel<String> listModelLive;
+	private DefaultListModel<String> listModelStats;
+	
+	private JList<String> terminalList;
+	private JList<String> liveList;
+	private JList<String> statsList;
+	//private JScrollBar verticalBar;
+	
 	private JScrollPane terminal;
 	private JScrollPane live;
+	private JScrollPane stats;
+	
+	private JPanel sidePanel;
+	
 	private Integer pendingAction = 0;
-	public ButtonListener buttonListener = new ButtonListener();
+	private Integer showStats = 0;
+	
+	public ButtonListener button1Listener = new ButtonListener();
+	public ButtonListener button2Listener = new ButtonListener();
+	public ButtonListener button3Listener = new ButtonListener();
+	public StatsButtonListener statsListener = new StatsButtonListener();
 	
 	public GameMenu() {
 		this(CharacterMenu.NPLAYERS);
@@ -36,13 +55,33 @@ public class GameMenu extends MenusBasic{
 	
 	public class ButtonListener implements ActionListener {
 		
-		public Integer pendingAction = 0;
+		public Integer action = 0;
+		
 		@Override
         public void actionPerformed(ActionEvent e) {
-			if (this.pendingAction == 0)
-			this.pendingAction = action;
+			if (this == button1Listener) {
+				action = 1;
+			}
+			else if (this == button2Listener) {
+				action = 2;
+			}
+			else if (this == button3Listener) {
+				action = 3;
+			}
+			
+			if (pendingAction == 0) pendingAction = action;
+			action = 0;
         }
 	}
+	
+	public class StatsButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			showStats = 1;
+		}
+	}
+	
 
 	public void visualGameWindow(){
 		
@@ -62,56 +101,69 @@ public class GameMenu extends MenusBasic{
         
         // LISTA PERSONAJES
         this.listModelTerminal = new DefaultListModel<>();
-        JList<String> terminalList = new JList<>(this.listModelTerminal);
-        terminalList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.terminal = new JScrollPane(terminalList);
+        this.terminalList = new JList<>(this.listModelTerminal);
+        this.terminalList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.terminal = new JScrollPane(this.terminalList);
         this.terminal.setBorder(BorderFactory.createTitledBorder("Eventos"));
         centerPanel.add(this.terminal, BorderLayout.CENTER);
+        //this.verticalBar = this.terminal.getVerticalScrollBar();
+		/*verticalBar.addAdjustmentListener(new AdjustmentListener() {
+			@Override
+			public void adjustmentValueChanged(AdjustmentEvent e) {
+				if (pendingAction == 0) {
+					Adjustable adjustable = e.getAdjustable();
+				    adjustable.setValue(adjustable.getMaximum());
+				}
+			}
+		});*/
         
         this.listModelLive = new DefaultListModel<>();
-        JList<String> liveList = new JList<>(this.listModelLive);
-        liveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.live = new JScrollPane(liveList);
+        this.liveList = new JList<>(this.listModelLive);
+        this.liveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.live = new JScrollPane(this.liveList);
         this.live.setBorder(BorderFactory.createTitledBorder("Vivos (" + this.nPlayers + "/" + this.nPlayers + ")"));
-        centerPanel.add(this.live, BorderLayout.EAST);
+        //centerPanel.add(this.live, BorderLayout.EAST);
+        this.liveList.setVisibleRowCount(100000);
+        
+        this.listModelStats = new DefaultListModel<>();
+        this.statsList = new JList<>(this.listModelStats);
+        this.statsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.stats = new JScrollPane(this.statsList);
+        this.stats.setBorder(BorderFactory.createTitledBorder("Stats"));
+        //centerPanel.add(this.stats, BorderLayout.EAST);
+        
+        sidePanel = new JPanel();
+        sidePanel.setLayout(new BorderLayout());
+        sidePanel.add(this.live, BorderLayout.CENTER);
+        sidePanel.add(this.stats, BorderLayout.SOUTH);
+        sidePanel.setBorder(new EmptyBorder(0, 4, 0, 0));
+        centerPanel.add(sidePanel, BorderLayout.EAST);
         
         this.frame.add(centerPanel, BorderLayout.CENTER);
 
         
         // PANEL ABAJO
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
+        //bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
+        bottomPanel.setLayout(new BorderLayout());
         bottomPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         
         // * BOTONERA
         // * * BOTON  [▶️]
         JButton removeButton = new JButton("▶️");
-        removeButton.addActionListener(this.buttonListener);
-        		/*new ActionListener() {
-        	
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	performAction(1);
-            }
-        });*/
+        removeButton.addActionListener(this.button1Listener);
         
         // * * BOTON [▶️▶️]
         JButton saveButton = new JButton("▶️▶️");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	performAction(2);
-            }
-        });
+        saveButton.addActionListener(this.button2Listener);
         
         // * * BOTON [☀️]
         JButton fillButton = new JButton("☀️");
-        fillButton.addActionListener(new ActionListener() {
-        	@Override
-            public void actionPerformed(ActionEvent e){
-	        	performAction(3);
-        	}
-        });
+        fillButton.addActionListener(this.button3Listener);
+
+        // * * BOTON [Show Stats]
+        JButton statsButton = new JButton("Show stats");
+        statsButton.addActionListener(this.statsListener);
         
         // * AGRUPAR BOTONES BOTONERA
         JPanel actionPanel = new JPanel();
@@ -119,25 +171,81 @@ public class GameMenu extends MenusBasic{
         actionPanel.add(removeButton);
         actionPanel.add(saveButton);
         actionPanel.add(fillButton);
-        bottomPanel.add(actionPanel);
+        
+        
+        bottomPanel.add(statsButton, BorderLayout.EAST);
+        bottomPanel.add(actionPanel, BorderLayout.WEST);
         
         this.frame.add(bottomPanel, BorderLayout.SOUTH);
         this.frame.setVisible(true);
     }
 	
-	public Integer listenAction() {
-		Integer action = this.pendingAction;
-		this.pendingAction = 0;
-		return action;
+	public Integer getPendingAction() {
+		return this.pendingAction;
+	}
+	public void setPendingAction(Integer n) {
+		this.pendingAction = n;
+	}
+	
+	public Integer getShowStats() {
+		return this.showStats;
+	}
+	public void setShowStats(Integer n) {
+		this.showStats = n;
+	}
+	
+	public void refresh() {
+		this.terminalList.revalidate();
+		this.terminalList.repaint();
+		
+		this.liveList.revalidate();
+		this.liveList.repaint();
+		
+		this.statsList.revalidate();
+		this.statsList.repaint();
+	}
+	
+	public static void tryWaitSeconds(Integer time) {
+		try {
+			TimeUnit.MICROSECONDS.sleep(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	// MODIFIERS
 	public void addTerminalLine(String line) {
 		this.listModelTerminal.addElement(line);
+		this.terminalList.revalidate();
+		this.terminalList.repaint();
 	}
 	
 	public void addBoardLine(String line) {
 		this.listModelLive.addElement(line);
+		this.liveList.revalidate();
+		this.liveList.repaint();
+		tryWaitSeconds(100);
+	}
+	
+	public void clearStatsLine() {
+		this.listModelStats.clear();
+	}
+	
+	public void addStatsLine(String line) {
+		this.listModelStats.addElement(line);
+		this.statsList.revalidate();
+		this.statsList.repaint();
+		tryWaitSeconds(100);
+	}
+	
+	public void setLiveVisibility(Boolean n) {
+		live.setVisible(false);
+		listModelLive.addElement("a");
+	}
+	
+	public void scrollDown() {
+		//this.verticalBar.setAlignmentY(this.verticalBar.BOTTOM_ALIGNMENT);
 	}
 	
 	

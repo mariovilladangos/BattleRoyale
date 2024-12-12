@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import com.utad.poo.battleroyale.ui.*;
 
@@ -37,33 +38,28 @@ public class GameManager2 {
 		Integer action = 0;
 		
 		while(!endgame) {
-
-	        System.out.println(game.buttonListener.p);
-			//wait(game, action, 2);
-			//System.out.println(action);
+			GameManager.saveStats(players, day);
 			
-			/*day++;
+			day++;
+			game.addTerminalLine("Día " + day);
 			System.out.println("Día " + day);
 			
 			for(Player player:players) {
-				player.lootear();
+				player.lootear(game);
 			}
-			wait(game, action, 2);
 			
     		Collections.shuffle(players);
     		Integer length = players.size();
     		if(length % 2 != 0) {
     			length -= 1;
-    			players.get(length).autoDamage();
-    			wait(game, action, 2);
+    			players.get(length).autoDamage(game);
     		}
     		
     		for(int i=0;i<length; i+=2) {
 				Random rand = new Random();
 				Integer probLucha = rand.nextInt(100);
 				if(probLucha <= 50) {
-					players.get(i).combat(players.get(i+1));
-	    			wait(game, action, 2);
+					players.get(i).combat(game, players.get(i+1));
 				}
 			}
     		
@@ -77,24 +73,65 @@ public class GameManager2 {
 	    	players.removeAll(deadPlayers);
 	    	eliminated.addAll(deadPlayers);
 	    	deadPlayers.clear();
-
-			wait(game, action, 1);
+	    	
 	    	if (players.size() <= 1) {
 	    		endgame = true;
+		    	
+
 	    	}
 	    	else {
+	    		game.addTerminalLine("Jugadores vivos: " + players.size());
 		    	System.out.println("Jugadores vivos: " + players.size());
-    			wait(game, action, 3);
-	    	}*/
+		    	//System.out.println("Pulsa la tecla 's' para ver las estadísticas e ir al día siguiente: ");
+		    	wait(game, players, action, 3);
+		    	/*String pulsaTecla = scanner.nextLine();
+		    	if(pulsaTecla.equals("s")) {
+		    		for(Player player:players) {
+		    			player.showStats();
+		    		}
+		    	}*/
+		    	// utiliar el collections.shufle para randomiar la lista y asi poder hacer los combates
+		    	//Cada jugador pelea aleatoriamente con otro
+		    	//el que gane obteendra una mejora en el arma de 1 
+		    	//el que pierda sera eliminado
+	    	}
+    	
+    	}while(!endgame);
+    	
+		System.out.println("\n🥇 Victory Royale jugador:" + players.get(0).getName());
+		for (int i = eliminated.size() - 1; i >= 0; i--) {
+			System.out.println("  #" + (CharacterMenu.NPLAYERS - i) + " " + eliminated.get(i).getName());
 		}
+		
+		System.out.println("Pulsa ENTER para cerrar");
+    	String pulsaTecla = scanner.nextLine();
 	}
 	
-	public static Integer wait(GameMenu game, Integer actualAction, Integer StopAction) {
+	public static Integer wait(GameMenu game, List<Player> players, Integer actualAction, Integer stopAction){
 
-		if (actualAction <= StopAction) actualAction = 0;
+		if (actualAction <= stopAction) {
+			actualAction = 0;
+			//game.scrollDown();
+			game.setShowStats(0);
+			game.setPendingAction(0);
+			//game.refresh();
+			game.clearStatsLine();
+		}
 		
+		Integer statsShown = 0;
 		while(actualAction == 0) {
-			actualAction = game.listenAction();
+			actualAction = game.getPendingAction();
+			if (game.getShowStats() == 1 && statsShown == 0) {
+				
+				for(Player player: players) {
+					player.showStats(game);
+					
+				}
+				
+				game.refresh();
+				statsShown = 1;
+			}
+			System.out.print("");
 		}
 		
 		return actualAction;
