@@ -7,6 +7,8 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
+
 import com.utad.poo.battleroyale.ui.*;
 
 public class GameManager2 {
@@ -23,7 +25,7 @@ public class GameManager2 {
 	    List<Player> totalPlayers = new ArrayList();
 		List<Player> realPlayers = new ArrayList();
 		List<Player> botPlayers = new ArrayList();
-		
+		fillLobby();
 		for(Player p: menu.getPlayers()) {
 			realPlayers.add(p);
 			totalPlayers.add(p);
@@ -139,5 +141,28 @@ public class GameManager2 {
 			System.out.print("");
 		}
 		return actualAction;
+	}
+	
+	public static Integer fillLobby(){
+		PodiumMenu podium = new PodiumMenu();
+		Boolean saved = false;
+		Integer option = 0;
+		while(option == 0) {
+			option = podium.getOption();
+			if (option == 3) {
+				option = 0;
+				podium.setOption(0);
+				String fName = null;
+				if (!saved) fName = podium.saveFileName();
+				if (fName != null && !fName.isBlank()) saved = true;
+			}
+			System.out.print("");
+		}
+		
+		System.out.println(option);
+		
+		podium.hide();
+		
+		return option;
 	}
 }

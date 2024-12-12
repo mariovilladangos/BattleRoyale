@@ -58,7 +58,7 @@ public class GameMenu extends MenusBasic{
 	}
 	public GameMenu(Integer nPlayers) {
 		this.nPlayers = nPlayers;
-		this.visualGameWindow();
+		this.visualMenuWindow();
 	}
 	
 	
@@ -82,17 +82,8 @@ public class GameMenu extends MenusBasic{
 			action = 0;
         }
 	}
-	/*
-	public class StatsButtonListener implements ActionListener {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			showStats = 1;
-		}
-	}
-	*/
-
-	public void visualGameWindow(){
+	public void visualMenuWindow(){
 		
         // VENTANA PRINCIPAL
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,30 +166,24 @@ public class GameMenu extends MenusBasic{
         
         // * BOTONERA
         // * * BOTON  [▶️]
-        JButton removeButton = new JButton("▶️");
-        removeButton.addActionListener(this.button1Listener);
+        JButton actionButton = new JButton("▶️");
+        actionButton.addActionListener(this.button1Listener);
         
         // * * BOTON [▶️▶️]
-        JButton saveButton = new JButton("▶️▶️");
-        saveButton.addActionListener(this.button2Listener);
+        JButton eventButton = new JButton("▶️▶️");
+        eventButton.addActionListener(this.button2Listener);
         
         // * * BOTON [☀️]
-        JButton fillButton = new JButton("☀️");
-        fillButton.addActionListener(this.button3Listener);
+        JButton dayButton = new JButton("☀️");
+        dayButton.addActionListener(this.button3Listener);
 
-        /*
-        // * * BOTON [Show Stats]
-        JButton statsButton = new JButton("Show stats");
-        statsButton.addActionListener(this.statsListener);
-        */
-        
         // * AGRUPAR BOTONES BOTONERA
         JPanel actionPanel = new JPanel();
         actionPanel.setBorder(new EmptyBorder(0, 6, 5, 6));
         actionPanel.setLayout(new GridLayout(1, 3, 5, 5));
-        actionPanel.add(removeButton);
-        actionPanel.add(saveButton);
-        actionPanel.add(fillButton);
+        actionPanel.add(actionButton);
+        actionPanel.add(eventButton);
+        actionPanel.add(dayButton);
         
         
         //bottomPanel.add(statsButton, BorderLayout.EAST);
@@ -285,6 +270,7 @@ public class GameMenu extends MenusBasic{
 	// SETTERS
 	public void setPlayers (List<Player> players) {
 		this.players = players;
+		this.board.setBorder(BorderFactory.createTitledBorder("Vivos (" + players.size() + "/" + this.nPlayers + ")"));
 	}
 	
 	

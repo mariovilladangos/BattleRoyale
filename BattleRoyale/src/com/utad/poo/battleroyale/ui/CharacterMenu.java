@@ -32,9 +32,6 @@ public class CharacterMenu extends MenusBasic {
 		return this.botPlayers;
 	}
 	public boolean isLobbyReady() {
-		/*if (this.players.size() + this.botPlayers.size() >= NPLAYERS) return true;
-		else return false;*/
-		
 		return isReady;
 	}
 
@@ -218,7 +215,7 @@ public class CharacterMenu extends MenusBasic {
         	}
         });
         
-     // * * BOTON [fill]
+     // * * BOTON [play]
         JButton playButton = new JButton("play");
         playButton.addActionListener(new ActionListener() {
         	@Override
