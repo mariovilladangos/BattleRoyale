@@ -41,9 +41,8 @@ public class PodiumMenu extends MenusBasic {
 	public static final Integer FHEIGHT = 600;
 	public static final Integer NPLAYERS = 10;
 	
-	private List<Player> players = new ArrayList();
-	private List<Player> botPlayers = new ArrayList();
-	private JFrame frame = new JFrame("Menú de Personajes");
+	private JFrame frame = new JFrame("Endgame");
+	private DefaultListModel<String> listModel;
 	private Integer option = 0;
 	
 	public PodiumMenu() {
@@ -70,11 +69,11 @@ public class PodiumMenu extends MenusBasic {
         this.frame.setLayout(new BorderLayout());
         
         // LISTA PERSONAJES
-        DefaultListModel<String> listModel = new DefaultListModel<>();
+        this.listModel = new DefaultListModel<>();
         JList<String> characterList = new JList<>(listModel);
         characterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(characterList);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Personajes Guardados"));
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Podium"));
         this.frame.add(scrollPane, BorderLayout.CENTER);
 
         // PANEL ABAJO
@@ -121,6 +120,11 @@ public class PodiumMenu extends MenusBasic {
         this.frame.add(bottomPanel, BorderLayout.SOUTH);
         this.frame.setVisible(true);
     }
+	
+	public void printPodium(List<String> podiumList) {
+		this.listModel.clear();
+		this.listModel.addAll(podiumList);
+	}
 	
 	public String saveFileName() {
 		return JOptionPane.showInputDialog(frame, "¿Como quieres guardar el archivo?", "Save Log", JOptionPane.PLAIN_MESSAGE);
