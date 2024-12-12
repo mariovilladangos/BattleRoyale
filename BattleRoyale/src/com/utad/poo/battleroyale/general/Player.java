@@ -102,15 +102,57 @@ public class Player {
     
     
     public void heal() {
-    	Integer heal = 50;
-    	System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida");
-    	System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+    	Random probi = new Random();
+		Integer chanci = probi.nextInt(4);
+		Integer heal = 0;
+			if(chanci == 0) {
+				heal=20;
+				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida diminuta");
+				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}else if(chanci == 1) {
+				heal=30;
+				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida pequeña");
+				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}else if(chanci == 2) {
+				heal=40;
+				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida mediana");
+				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}else if(chanci == 3) {
+				heal=50;
+				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida grande");
+				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}else if(chanci == 3) {
+				heal=70;
+				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida gigante");
+				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}
     	this.hp += heal;
     }
     public void heal(GameMenu game) {
-    	Integer heal = 50;
-    	game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida");
-    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+    	Random probi = new Random();
+		Integer chanci = probi.nextInt(4);
+		Integer heal = 0;
+			if(chanci == 0) {
+				heal=20;
+				game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida diminuta");
+		    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}else if(chanci == 1) {
+				heal=30;
+				game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida pequeña");
+		    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}else if(chanci == 2) {
+				heal=40;
+				game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida mediana");
+		    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}else if(chanci == 3) {
+				heal=50;
+				game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida grande");
+		    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}else if(chanci == 3) {
+				heal=70;
+				game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida gigante");
+		    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
+			}
     	this.hp += heal;
     	this.addHpRestored(heal);
     }
