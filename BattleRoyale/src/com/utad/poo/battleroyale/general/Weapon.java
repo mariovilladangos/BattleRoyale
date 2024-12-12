@@ -51,21 +51,18 @@ public class Weapon {
 		System.out.println("\n" + playerName.toUpperCase() + " ha encontrado una piedra de mejora");
     	if (this.level < MAX_LEVEL) {
     		this.level += 1;
-        	System.out.println("  🪨 " + playerName + " ha mejorado el arma");
+        	System.out.println("  💎 " + playerName + " ha mejorado el arma");
     	}
     	else System.out.println("  🚫 Pero " + playerName + " ya tiene su arma a nivel máximo");
     }
 	public void upgrade(GameMenu game, String playerName) {
 		game.addTerminalLine("\n" + playerName.toUpperCase() + " ha encontrado una piedra de mejora");
-		System.out.println("\n" + playerName.toUpperCase() + " ha encontrado una piedra de mejora");
     	if (this.level < MAX_LEVEL) {
     		this.level += 1;
-    		game.addTerminalLine("  🪨 " + playerName + " ha mejorado el arma");
-        	System.out.println("  🪨 " + playerName + " ha mejorado el arma");
+    		game.addTerminalLine("  💎 " + playerName + " ha mejorado el arma");
     	}
     	else{
     		game.addTerminalLine("  🚫 Pero " + playerName + " ya tiene su arma a nivel máximo");
-    		System.out.println("  🚫 Pero " + playerName + " ya tiene su arma a nivel máximo");
     	}
     }
 }

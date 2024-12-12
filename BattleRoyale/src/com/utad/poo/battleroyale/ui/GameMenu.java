@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +24,21 @@ public class GameMenu extends MenusBasic{
 	
 	private JFrame frame = new JFrame("Battle Royale");
 	private DefaultListModel<String> listModelTerminal;
-	private DefaultListModel<String> listModelLive;
+	private List<String> tLines = new ArrayList();
+	
+	private DefaultListModel<String> listModelBoard;
+	private List<String> bLines = new ArrayList();
+	
 	private DefaultListModel<String> listModelStats;
+	private List<String> sLines = new ArrayList();
 	
 	private JList<String> terminalList;
-	private JList<String> liveList;
+	private JList<String> boardList;
 	private JList<String> statsList;
 	//private JScrollBar verticalBar;
 	
 	private JScrollPane terminal;
-	private JScrollPane live;
+	private JScrollPane board;
 	private JScrollPane stats;
 	
 	private JPanel sidePanel;
@@ -42,7 +49,7 @@ public class GameMenu extends MenusBasic{
 	public ButtonListener button1Listener = new ButtonListener();
 	public ButtonListener button2Listener = new ButtonListener();
 	public ButtonListener button3Listener = new ButtonListener();
-	public StatsButtonListener statsListener = new StatsButtonListener();
+	//public StatsButtonListener statsListener = new StatsButtonListener();
 	
 	public GameMenu() {
 		this(CharacterMenu.NPLAYERS);
@@ -73,7 +80,7 @@ public class GameMenu extends MenusBasic{
 			action = 0;
         }
 	}
-	
+	/*
 	public class StatsButtonListener implements ActionListener {
 
 		@Override
@@ -81,7 +88,7 @@ public class GameMenu extends MenusBasic{
 			showStats = 1;
 		}
 	}
-	
+	*/
 
 	public void visualGameWindow(){
 		
@@ -98,6 +105,7 @@ public class GameMenu extends MenusBasic{
         
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
+        centerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         
         // LISTA PERSONAJES
         this.listModelTerminal = new DefaultListModel<>();
@@ -106,24 +114,28 @@ public class GameMenu extends MenusBasic{
         this.terminal = new JScrollPane(this.terminalList);
         this.terminal.setBorder(BorderFactory.createTitledBorder("Eventos"));
         centerPanel.add(this.terminal, BorderLayout.CENTER);
-        //this.verticalBar = this.terminal.getVerticalScrollBar();
-		/*verticalBar.addAdjustmentListener(new AdjustmentListener() {
-			@Override
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				if (pendingAction == 0) {
-					Adjustable adjustable = e.getAdjustable();
-				    adjustable.setValue(adjustable.getMaximum());
-				}
-			}
-		});*/
         
-        this.listModelLive = new DefaultListModel<>();
-        this.liveList = new JList<>(this.listModelLive);
-        this.liveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.live = new JScrollPane(this.liveList);
-        this.live.setBorder(BorderFactory.createTitledBorder("Vivos (" + this.nPlayers + "/" + this.nPlayers + ")"));
-        //centerPanel.add(this.live, BorderLayout.EAST);
-        this.liveList.setVisibleRowCount(100000);
+        this.listModelBoard = new DefaultListModel<>();
+        this.boardList = new JList<>(this.listModelBoard);
+        this.boardList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.boardList.setFixedCellHeight(15);
+        this.boardList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Get the index of the clicked item
+                int index = boardList.locationToIndex(e.getPoint());
+
+                // Check if the index is valid
+                if (index != -1) {
+                    // Get the clicked item
+                    String item = boardList.getModel().getElementAt(index);
+                    System.out.println("Clicked on: " + item);
+                }
+            }
+        });
+        
+        this.board = new JScrollPane(this.boardList);
+        this.board.setBorder(BorderFactory.createTitledBorder("Vivos (" + this.nPlayers + "/" + this.nPlayers + ")"));
         
         this.listModelStats = new DefaultListModel<>();
         this.statsList = new JList<>(this.listModelStats);
@@ -134,7 +146,7 @@ public class GameMenu extends MenusBasic{
         
         sidePanel = new JPanel();
         sidePanel.setLayout(new BorderLayout());
-        sidePanel.add(this.live, BorderLayout.CENTER);
+        sidePanel.add(this.board, BorderLayout.CENTER);
         sidePanel.add(this.stats, BorderLayout.SOUTH);
         sidePanel.setBorder(new EmptyBorder(0, 4, 0, 0));
         centerPanel.add(sidePanel, BorderLayout.EAST);
@@ -161,22 +173,25 @@ public class GameMenu extends MenusBasic{
         JButton fillButton = new JButton("☀️");
         fillButton.addActionListener(this.button3Listener);
 
+        /*
         // * * BOTON [Show Stats]
         JButton statsButton = new JButton("Show stats");
         statsButton.addActionListener(this.statsListener);
+        */
         
         // * AGRUPAR BOTONES BOTONERA
         JPanel actionPanel = new JPanel();
+        actionPanel.setBorder(new EmptyBorder(0, 6, 5, 6));
         actionPanel.setLayout(new GridLayout(1, 3, 5, 5));
         actionPanel.add(removeButton);
         actionPanel.add(saveButton);
         actionPanel.add(fillButton);
         
         
-        bottomPanel.add(statsButton, BorderLayout.EAST);
-        bottomPanel.add(actionPanel, BorderLayout.WEST);
+        //bottomPanel.add(statsButton, BorderLayout.EAST);
+        bottomPanel.add(actionPanel, BorderLayout.CENTER);
         
-        this.frame.add(bottomPanel, BorderLayout.SOUTH);
+        this.frame.add(actionPanel, BorderLayout.SOUTH);
         this.frame.setVisible(true);
     }
 	
@@ -194,60 +209,65 @@ public class GameMenu extends MenusBasic{
 		this.showStats = n;
 	}
 	
-	public void refresh() {
-		this.terminalList.revalidate();
-		this.terminalList.repaint();
-		
-		this.liveList.revalidate();
-		this.liveList.repaint();
-		
-		this.statsList.revalidate();
-		this.statsList.repaint();
-	}
-	
-	public static void tryWaitSeconds(Integer time) {
-		try {
-			TimeUnit.MICROSECONDS.sleep(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	// MODIFIERS
 	public void addTerminalLine(String line) {
-		this.listModelTerminal.addElement(line);
-		this.terminalList.revalidate();
-		this.terminalList.repaint();
+		this.tLines.add(line);
+	}
+	public void printTerminalLines() {
+		this.listModelTerminal.addAll(this.tLines);
+		this.tLines.clear();
 	}
 	
 	public void addBoardLine(String line) {
-		this.listModelLive.addElement(line);
-		this.liveList.revalidate();
-		this.liveList.repaint();
-		tryWaitSeconds(100);
+		this.bLines.add(line);
+	}
+	public void printBoardLines() {
+		this.listModelBoard.clear();
+		this.listModelBoard.addAll(this.bLines);
+		this.bLines.clear();
 	}
 	
+	public void addStatsLine(String line) {
+		this.sLines.add(line);
+	}
+	public void printStatsLines() {
+		this.listModelStats.clear();
+		this.listModelStats.addAll(this.sLines);
+		this.sLines.clear();
+	}
+	
+	public void printAllLines() {
+		this.printTerminalLines();
+		this.printBoardLines();
+		this.printStatsLines();
+	}
 	public void clearStatsLine() {
 		this.listModelStats.clear();
 	}
 	
-	public void addStatsLine(String line) {
-		this.listModelStats.addElement(line);
-		this.statsList.revalidate();
-		this.statsList.repaint();
-		tryWaitSeconds(100);
-	}
+	public static void scrollToBottom(JScrollPane scrollPane) {
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
+            verticalBar.setValue(verticalBar.getMaximum());
+        });
+    }
 	
-	public void setLiveVisibility(Boolean n) {
-		live.setVisible(false);
-		listModelLive.addElement("a");
+	// GETTERS
+	public JScrollPane getTerminal() {
+		return terminal;
 	}
-	
-	public void scrollDown() {
-		//this.verticalBar.setAlignmentY(this.verticalBar.BOTTOM_ALIGNMENT);
+	public JScrollPane getBoard() {
+		return board;
 	}
-	
+	public JScrollPane getStats() {
+		return stats;
+	}
+	public DefaultListModel<String> getListModelTerminal() {
+		return listModelTerminal;
+	}
+	public DefaultListModel<String> getListModelBoard() {
+		return listModelBoard;
+	}
 	
 	
 	// FRAME IMPLEMENTS
@@ -256,12 +276,6 @@ public class GameMenu extends MenusBasic{
 		this.frame.setVisible(true);
 	}
 	
-	public DefaultListModel<String> getListModelTerminal() {
-		return listModelTerminal;
-	}
-	public DefaultListModel<String> getListModelLive() {
-		return listModelLive;
-	}
 	public void hide() {
 		this.frame.setVisible(false);
 	}

@@ -1,5 +1,6 @@
 package com.utad.poo.battleroyale.general;
 
+import java.util.List;
 //import java.util.Arrays;
 import java.util.Random;
 
@@ -82,9 +83,11 @@ public class Player {
         Integer probabilidad = rand.nextInt(100);
     	
         if (probabilidad < probabilidades[0]) {
-            this.heal();
+            this.heal(game);
+            game.addTerminalLine(" ");
         } else if (probabilidad < probabilidades[0] + probabilidades[1]) {
             weapon.upgrade(game, this.getName());
+            game.addTerminalLine(" ");
         }
     }
     
@@ -92,16 +95,13 @@ public class Player {
     public void heal() {
     	Integer heal = 50;
     	System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida");
-    	System.out.println("  ❤️‍🩹 " + this.getName() + " recupera " + heal + "ps");
+    	System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
     	this.hp += heal;
     }
     public void heal(GameMenu game) {
     	Integer heal = 50;
     	game.addTerminalLine("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida");
-    	game.addTerminalLine("  ❤️‍🩹 " + this.getName() + " recupera " + heal + "ps");
-    	
-    	System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida");
-    	System.out.println("  ❤️‍🩹 " + this.getName() + " recupera " + heal + "ps");
+    	game.addTerminalLine("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
     	this.hp += heal;
     }
     
@@ -131,34 +131,34 @@ public class Player {
     	// retornar el eliminado y eliminarlo de la lista
     	// mario te quiero
     }
-    public void combat(GameMenu game, Player enemigo) {
+    public int combat(GameMenu game, Integer action, List<Player> players, Player enemigo) {
     	Integer damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
     	Integer enemyDamage=enemigo.getWeapon().getDamage()[this.weapon.getLevel()-1];
     	Boolean activeCombat = true;
     	
     	game.addTerminalLine("\n" + this.getName().toUpperCase() + " ⚔️ " + enemigo.getName().toUpperCase());
-    	System.out.println("\n" + this.getName().toUpperCase() + " ⚔️ " + enemigo.getName().toUpperCase());
+		
     	while (activeCombat){
-    		game.addTerminalLine("  → " + this.getName() + " ataca a " + enemigo.getName() + " causandole " + damage + "hp de daño");
-	    	System.out.println("  → " + this.getName() + " ataca a " + enemigo.getName() + " causandole " + damage + "hp de daño");
+    		action = GameManager2.wait(game, players, action, 1);
+    		if (action <= 1) game.addTerminalLine("  → " + this.getName() + " ataca a " + enemigo.getName() + " causandole " + damage + "hp de daño");
 	    	enemigo.hp -= damage;
 	    	
 	    	if(enemigo.hp <= 0) {
 	    		game.addTerminalLine("  💀 " + enemigo.getName() + " ha sido eliminado");
-	        	System.out.println("  💀 " + enemigo.getName() + " ha sido eliminado");
 	        	activeCombat = false;
 	    	}else{
-	    		game.addTerminalLine("  → " + enemigo.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "hp de daño");
-	    		System.out.println("  → " + enemigo.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "hp de daño");
+	    		action = GameManager2.wait(game, players, action, 1);
+	    		if (action <= 1) game.addTerminalLine("  → " + enemigo.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "hp de daño");
 		    	this.hp -= enemyDamage;
 	    		
 		    	if(this.hp <= 0) {
 		    		game.addTerminalLine("  💀 " + this.getName() + " ha sido eliminado");
-		    		System.out.println("  💀 " + this.getName() + " ha sido eliminado");
 		    		activeCombat = false;
 		    	}
 	    	}
     	}
+	    game.addTerminalLine(" ");
+    	return action;
     	// retornar el eliminado y eliminarlo de la lista
     	// mario te quiero
     }
@@ -184,9 +184,8 @@ public class Player {
     	if(probAutoDamage < 50) {
     		game.addTerminalLine(this.getName() + " se ha clavado su " + this.weapon.getWeaponType()+ ":(" +
     							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + " puntos de vida");
-    		System.out.println( this.getName() + " se ha clavado su " + this.weapon.getWeaponType()+ ":(" +
-    							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + " puntos de vida");
     		this.hp -= this.weapon.getDamage()[this.weapon.getLevel()-1];
+    		game.addTerminalLine(" ");
     	}
     }
     
@@ -203,16 +202,6 @@ public class Player {
     public void showStats(GameMenu game) {
     	game.addStatsLine(this.name + "[(" + this.getClassType() + " | " + this.getHp() + "ps) : ("
     		+ this.getWeaponType() + " Lvl." + this.weapon.getLevel() + " | DMG:" + this.weapon.getDamage()[this.weapon.getLevel()-1] + ")]");
-    	
-    	
-    	System.out.println("---------------------------------------------------------------------------------");
-    	System.out.println(" - " + this.name);
-    	System.out.println("    Salud restante: " + this.getHp());
-    	System.out.println("    Clase: " + this.getClassType());
-    	System.out.println("    -Arma: "+ this.getWeaponType());
-    	System.out.println("       Nivel del arma: "+this.weapon.getLevel());
-    	System.out.println("       Daño del arma: "+this.weapon.getDamage()[this.weapon.getLevel()-1]);
-    	System.out.println("---------------------------------------------------------------------------------");
     }
 
     

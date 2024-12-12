@@ -18,7 +18,8 @@ public class CharacterMenu extends MenusBasic {
 	
 	private List<Player> players = new ArrayList();
 	private List<Player> botPlayers = new ArrayList();
-	private JFrame frame = new JFrame("Menú de Personajes");;
+	private JFrame frame = new JFrame("Menú de Personajes");
+	private Boolean isReady = false;
 	
 	public CharacterMenu() {
 		this.visualMenuWindow();
@@ -31,8 +32,10 @@ public class CharacterMenu extends MenusBasic {
 		return this.botPlayers;
 	}
 	public boolean isLobbyReady() {
-		if (this.players.size() + this.botPlayers.size() >= NPLAYERS) return true;
-		else return false;
+		/*if (this.players.size() + this.botPlayers.size() >= NPLAYERS) return true;
+		else return false;*/
+		
+		return isReady;
 	}
 
 	public void visualMenuWindow(){
@@ -114,9 +117,23 @@ public class CharacterMenu extends MenusBasic {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if (listModel.size() < NPLAYERS) {
+            	if (isReady == false) {
 	                if (listModel.size() > 0) {
-	                    listModel.remove(listModel.size() - 1);
+	                	if (players.size() > 0) {
+		                	String line = listModel.get(listModel.size() - 1);
+		                	Player player = players.getLast();
+		                	String name = player.getName() + " (" + player.getClassType() + " : " + player.getWeapon().getWeaponType() + ")";
+	                		if (name.equals(line)) players.remove(player);
+	                		else botPlayers.remove(botPlayers.getLast());
+	                	}
+	                	else if (botPlayers.size() > 0) {
+	                		botPlayers.remove(botPlayers.getLast());
+	                	}
+	                	else {
+	                		JOptionPane.showMessageDialog(frame, "No hay personajes que eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+	                	}
+	                	
+	                	listModel.remove(listModel.size() - 1);
 	                    lobbyFill.setText(listModel.size() + "/" + NPLAYERS);
 	                } else {
 	                    JOptionPane.showMessageDialog(frame, "No hay personajes que eliminar", "Error", JOptionPane.ERROR_MESSAGE);
@@ -152,26 +169,36 @@ public class CharacterMenu extends MenusBasic {
                 
                 if (listModel.size() < NPLAYERS) {
 	                if (!name.isEmpty() && characterClass != null && weapon != null) {
+		                name = name.replaceFirst("" + name.charAt(0), "" + name.toUpperCase().charAt(0));
+		                
+	                	Boolean validName = true;
+	                	for(Player player: players) {
+	                		if (name.toUpperCase().equals(player.getName().toUpperCase())) {
+	                			validName = false;
+	                			break;
+	                		}
+	                	}
 	                	
-	                	// Create player
-	                	Player player;
-	        			if (characterClass.equals("Warrior")) player = new Warrior(name, weapon);
-	        			else if (characterClass.equals("Healer")) player = new Healer(name, weapon);
-	        			else player = new Prisoner(name, weapon);
-	        			
-	        			players.add(player);
-	                	
-	        			// Update UI
-	                    listModel.addElement(name + " (" + characterClass + " : " + weapon.getWeaponType() + ")");
-	                    nameField.setText("");
-	                    classGroup.clearSelection();
-	                    weaponGroup.clearSelection();
-	                    
-	                    lobbyFill.setText(listModel.size() + "/" + NPLAYERS);
-	                    
-	                } else {
-	                    JOptionPane.showMessageDialog(frame, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-	                }
+	                	if (validName) {
+		                	// Create player
+		                	Player player;
+		        			if (characterClass.equals("Warrior")) player = new Warrior(name, weapon);
+		        			else if (characterClass.equals("Healer")) player = new Healer(name, weapon);
+		        			else player = new Prisoner(name, weapon);
+		        			
+		        			players.add(player);
+		                	
+		        			// Update UI
+		                    listModel.addElement(name + " (" + characterClass + " : " + weapon.getWeaponType() + ")");
+		                    nameField.setText("");
+		                    classGroup.clearSelection();
+		                    weaponGroup.clearSelection();
+		                    
+		                    lobbyFill.setText(listModel.size() + "/" + NPLAYERS);
+	                	}
+	                	else JOptionPane.showMessageDialog(frame, "Por favor, no presente nombres repetidos", "Error", JOptionPane.ERROR_MESSAGE);
+		                    
+	                } else JOptionPane.showMessageDialog(frame, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -182,7 +209,7 @@ public class CharacterMenu extends MenusBasic {
         	@Override
             public void actionPerformed(ActionEvent e){
 	        	Integer playersLeft = NPLAYERS - listModel.size();
-				List<Player> bots = Bots.getBots(playersLeft);
+				List<Player> bots = Bots.getBots(players, playersLeft);
 				for (Player bot: bots) {
 					botPlayers.add(bot);
 					listModel.addElement(bot.getName() + " (" + bot.getClassType() + " : " + bot.getWeaponType() + ")");
@@ -191,12 +218,25 @@ public class CharacterMenu extends MenusBasic {
         	}
         });
         
+     // * * BOTON [fill]
+        JButton playButton = new JButton("play");
+        playButton.addActionListener(new ActionListener() {
+        	@Override
+            public void actionPerformed(ActionEvent e){
+	        	if(players.size() + botPlayers.size() >= NPLAYERS) {
+	        		isReady = true;
+	        	}
+				else JOptionPane.showMessageDialog(frame, "El lobby no está lleno.", "Error", JOptionPane.ERROR_MESSAGE);
+        	}
+        });
+        
         // * AGRUPAR BOTONES BOTONERA
         JPanel actionPanel = new JPanel();
-        actionPanel.setLayout(new GridLayout(1, 3, 5, 5));
+        actionPanel.setLayout(new GridLayout(1, 4, 5, 5));
         actionPanel.add(removeButton);
         actionPanel.add(saveButton);
         actionPanel.add(fillButton);
+        actionPanel.add(playButton);
         bottomPanel.add(actionPanel);
         
         this.frame.add(bottomPanel, BorderLayout.SOUTH);

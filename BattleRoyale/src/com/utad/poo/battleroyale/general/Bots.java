@@ -38,7 +38,7 @@ public class Bots {
 		return allBots;
 	}
 	
-	public static List<Player> getBots(Integer n){
+	public static List<Player> getBots(List<Player> players, Integer n){
 		
 		List<Player> allBots = null;
 		try {
@@ -59,7 +59,15 @@ public class Bots {
 		        while(!found) {
 		        	found = true;
 		        	for (Player bot: bots) {
-			        	if (bot.getName().equals(allBots.get(index).getName())) {
+			        	if (bot.getName().toUpperCase().equals(allBots.get(index).getName().toUpperCase())) {
+			        		index++;
+			        		if (index >= allBots.size()) index = 0;
+			        		found = false;
+			        		break;
+			        	}
+			        }
+		        	if (found == true) for (Player player: players) {
+			        	if (player.getName().toUpperCase().equals(allBots.get(index).getName().toUpperCase())) {
 			        		index++;
 			        		if (index >= allBots.size()) index = 0;
 			        		found = false;
