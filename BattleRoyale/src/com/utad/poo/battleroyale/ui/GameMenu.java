@@ -23,6 +23,8 @@ public class GameMenu extends MenusBasic{
 	private Integer nPlayers;
 	
 	private JFrame frame = new JFrame("Battle Royale");
+	private List<Player> players = null;
+	
 	private DefaultListModel<String> listModelTerminal;
 	private List<String> tLines = new ArrayList();
 	
@@ -122,18 +124,23 @@ public class GameMenu extends MenusBasic{
         this.boardList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Get the index of the clicked item
                 int index = boardList.locationToIndex(e.getPoint());
-
-                // Check if the index is valid
-                if (index != -1) {
-                    // Get the clicked item
+                // Comprobar que sea válido
+                if (index >= 0 && index % 3 == 0) {
                     String item = boardList.getModel().getElementAt(index);
-                    System.out.println("Clicked on: " + item);
+                    Player p = null;
+                    for(Player player: players) {
+                    	if (item.equals(player.getName() + " (" + player.getClassType() + ": " + player.getHp() + "ps)")) {
+                    		p = player;
+                    		break;
+                    	}
+                    }
+                    if (p != null) {
+                    	//print stats
+                    }
                 }
             }
         });
-        
         this.board = new JScrollPane(this.boardList);
         this.board.setBorder(BorderFactory.createTitledBorder("Vivos (" + this.nPlayers + "/" + this.nPlayers + ")"));
         
@@ -267,6 +274,11 @@ public class GameMenu extends MenusBasic{
 	}
 	public DefaultListModel<String> getListModelBoard() {
 		return listModelBoard;
+	}
+	
+	// SETTERS
+	public void setPlayers (List<Player> players) {
+		this.players = players;
 	}
 	
 	
