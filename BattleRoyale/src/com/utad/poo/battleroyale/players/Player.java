@@ -188,16 +188,31 @@ public class Player {
     	Integer enemyDamage=enemy.getWeapon().getDamage()[this.weapon.getLevel()-1];
     	Boolean activeCombat = true;
     	
+    	// random para parry 
+    	Random seed = new Random();
+    	
+    	Integer multiplicador = 2;
+    	
     	game.addTerminalLine("\n" + this.getName().toUpperCase() + " ⚔️ " + enemy.getName().toUpperCase());
 		
     	while (activeCombat){
     		action = GameManager2.wait(game, players, action, 1);
-    		if (action <= 1) game.addTerminalLine("  → " + this.getName() + " ataca a " + enemy.getName() + " causandole " + damage + "puntos de daño");
-    		enemy.hp -= damage;
-    		this.addDamageDeal(damage);
-    		enemy.addDamageReceived(damage);
+    		if (action <= 1) {
+    			Integer parry = seed.nextInt(10);
+    			if(parry <=1) {
+        			System.out.println(" → "+ enemy.getName()+ "hace parry y no recibe daño ");
+        		}else if(parry>=9){
+        			if (action <= 1) game.addTerminalLine("  → " + this.getName() + " ataca a " + enemy.getName() + " causandole un daño critico de  " + damage*multiplicador + "puntos de daño");
+        			enemy.hp -= damage*multiplicador;
+        		}else {
+        			game.addTerminalLine("  → " + this.getName() + " ataca a " + enemy.getName() + " causandole " + damage + "puntos de daño");
+        			enemy.hp -= damage;
+        		}
+    		}
+    		this.addDamageDeal(damage); // ns si con lo que modifique tambien afecta a esto
+    		enemy.addDamageReceived(damage); 
 	    	
-	    	if(enemy.hp <= 0) {
+	    	if(enemy.hp <= 0){
 	    		game.addTerminalLine("  💀 " + enemy.getName() + " ha sido eliminado");
 	    		this.addKills();
 	        	activeCombat = false;
@@ -215,6 +230,8 @@ public class Player {
 		    	}
 	    	}
     	}
+    	
+    	//Ya va pero no se imprime en la interfaz luego lo pongo con mario 
 	    game.addTerminalLine(" ");
     	return action;
     	// retornar el eliminado y eliminarlo de la lista
