@@ -263,7 +263,7 @@ public class Player {
     			this.addDamageReceived(damage);
     			
     			if(this.getHp()<=0) {
-    				game.addTerminalLine("  💀 Lamentablemente " + this.getName() + "no lo logró ");
+    				game.addTerminalLine("  💀 Lamentablemente " + this.getName() + " no lo logró ");
     			}
     			game.addTerminalLine(" ");
     	}

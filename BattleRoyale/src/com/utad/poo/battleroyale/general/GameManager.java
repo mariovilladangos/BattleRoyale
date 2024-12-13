@@ -44,9 +44,11 @@ public class GameManager {
 		players = totalPlayers;
 		
     	do{
+    		day++;
     		saveStats(players, day);
+    		saveActions(players,eliminated,day);
 			//PASA AL SIGUIENTE DIA (empieza en el uno)
-			day++;
+			
 			System.out.println("Día " + day);
 			// PRIMERA PARTE DEL DIA        		
 		    // Cada jugador realiza su acción de lootear
@@ -91,8 +93,7 @@ public class GameManager {
 	    	
 	    	if (players.size() <= 1) {
 	    		endgame = true;
-		    	
-
+	    		
 	    	}
 	    	else {
 		    	System.out.println("Jugadores vivos: " + players.size());
@@ -152,6 +153,70 @@ public class GameManager {
     	}catch (IOException e) {
     		System.out.println("Error al guardar las estadísticas: " + e.getMessage());
     	}
+    }
+    // preguntar mario no se registran todas las acciones(eliminados y demas ) bien si hay mas de un combate 
+    // ns porque en el dia 0 ya muere 1 xdd
+    private static void ActionsLogAdd(List<Player> players, List<Player> eliminated, Integer day) throws Exception {
+        String nombreArchivo = "Actions.txt";  // Nombre del archivo
+
+        File currentDir = new File(System.getProperty("user.dir"));
+        File actionsLog = new File(currentDir.getCanonicalPath() + "\\files\\ActionsLog.txt");
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(actionsLog, true))) {
+            writer.write("- Día " + day + "\n");
+            writer.write("Registro de Acciones del Juego en el día\n");
+            writer.write("--------------------------------\n");
+
+            // Mezclamos el orden de los jugadores
+            Collections.shuffle(players);
+            Integer length = players.size();
+
+            // Si el número de jugadores es impar, el último se autoinflinge daño
+            if (length % 2 != 0) {
+                Player oddPlayer = players.get(length - 1);
+                oddPlayer.autoDamage();
+                writer.write("- " + oddPlayer.getName() + " se autoinfligió daño. Salud restante: " + oddPlayer.getHp() + "\n");
+                length -= 1;
+            }
+
+            // Generamos combates entre pares de jugadores
+            for (int i = 0; i < length; i += 2) {
+                Random rand = new Random();
+                Integer probLucha = rand.nextInt(100);
+
+                Player player = players.get(i);
+                Player enemy = players.get(i + 1);
+
+                if (probLucha <= 50) {
+                    writer.write("- Combate entre " + player.getName() + " y " + enemy.getName() + "\n");
+                    player.combat(enemy);
+                    if (player.getHp() <= 0) {
+                        eliminated.add(player);
+                        writer.write("  -> " + player.getName() + " ha sido eliminado.\n");
+                    }
+                    if (enemy.getHp() <= 0) {
+                        eliminated.add(enemy);
+                        writer.write("  -> " + enemy.getName() + " ha sido eliminado.\n");
+                    }
+                } else {
+                    writer.write("- " + player.getName() + " y " + enemy.getName() + " no se encontraron.\n");
+                }
+            }
+
+            writer.write("--------------------------------\n");
+            System.out.println("Las acciones han sido registradas en '" + nombreArchivo + "'");
+        } catch (IOException e) {
+            System.out.println("Error al guardar las acciones: " + e.getMessage());
+        }
+    }
+    
+    public static void saveActions(List<Player> players,List<Player> eliminated, Integer day) {
+    	try {
+    		ActionsLogAdd(players,eliminated,day);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public static CharacterMenu lobby(){
