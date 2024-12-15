@@ -1,1 +1,135 @@
 
+- Día 1
+Registro de Acciones del Juego en el día
+--------------------------------
+- Señor del Caos y Dama del Acero no se encontraron.
+- Combate entre Destructor de Mundos y Luz de la Aurora
+  -> Luz de la Aurora ha sido eliminado.
+- Fénix Errante y Lancero Temerario no se encontraron.
+- Sombra del Alba y Sanador Experimentado no se encontraron.
+- Combate entre Guardia de Ébano y Bardo de la Niebla
+  -> Bardo de la Niebla ha sido eliminado.
+--------------------------------
+- Día 1
+Registro de Acciones del Juego en el día
+--------------------------------
+- Combate entre Guardia de Ébano y Fénix Errante
+  -> Fénix Errante ha sido eliminado.
+- Destructor de Mundos y Señor del Caos no se encontraron.
+- Combate entre Luz de la Aurora y Arconte Sombrío
+  -> Arconte Sombrío ha sido eliminado.
+- Dama del Acero y Sanador Experimentado no se encontraron.
+- Combate entre Sombra del Alba y Bardo de la Niebla
+  -> Sombra del Alba ha sido eliminado.
+--------------------------------
+- Día 2
+Registro de Acciones del Juego en el día
+--------------------------------
+- Sanador Experimentado y Señor del Caos no se encontraron.
+- Destructor de Mundos y Guardia de Ébano no se encontraron.
+- Combate entre Luz de la Aurora y Bardo de la Niebla
+  -> Bardo de la Niebla ha sido eliminado.
+--------------------------------
+- Día 3
+Registro de Acciones del Juego en el día
+--------------------------------
+- Combate entre Destructor de Mundos y Señor del Caos
+  -> Destructor de Mundos ha sido eliminado.
+- Sanador Experimentado y Guardia de Ébano no se encontraron.
+--------------------------------
+- Día 1
+Registro de Acciones del Juego en el día
+--------------------------------
+- Combate entre Sombra del Alba y Bardo de la Niebla
+  -> Bardo de la Niebla ha sido eliminado.
+- Peregrino Perdido y Guardia de Ébano no se encontraron.
+- Caballero Oscuro y Sanador Experimentado no se encontraron.
+- Lancero Temerario y Luz de la Aurora no se encontraron.
+- Fénix Errante y Señor del Caos no se encontraron.
+--------------------------------
+- Día 1
+Registro de Acciones del Juego en el día
+--------------------------------
+- Destructor de Mundos y Señor del Caos no se encontraron.
+- Combate entre Sombra del Alba y Arconte Sombrío
+  -> Arconte Sombrío ha sido eliminado.
+- Merlín y Sanador Experimentado no se encontraron.
+- Combate entre Luz de la Aurora y Dama del Acero
+  -> Dama del Acero ha sido eliminado.
+- Combate entre Caballero Oscuro y Lancero Temerario
+  -> Lancero Temerario ha sido eliminado.
+--------------------------------
+- Día 1
+Registro de Acciones del Juego en el día
+--------------------------------
+- Combate entre Sanador Experimentado y Caballero Oscuro
+  -> Caballero Oscuro ha sido eliminado.
+- Combate entre Fénix Errante y Merlín
+  -> Merlín ha sido eliminado.
+- Sombra del Alba y Guardia de Ébano no se encontraron.
+- Lancero Temerario y Luz de la Aurora no se encontraron.
+- Combate entre Gran Lancelot y Bardo de la Niebla
+  -> Bardo de la Niebla ha sido eliminado.
+--------------------------------
+- Día 1
+Registro de Acciones del Juego en el día
+--------------------------------
+- Arconte Sombrío y Señor del Caos no se encontraron.
+- Viento Carmesí y Sombra del Alba no se encontraron.
+- Bardo de la Niebla y Caballero Oscuro no se encontraron.
+- Combate entre Lancero Temerario y Fénix Errante
+  -> Fénix Errante ha sido eliminado.
+- Dama del Acero y Gran Lancelot no se encontraron.
+--------------------------------
+- Día 2
+Registro de Acciones del Juego en el día
+--------------------------------
+- Sombra del Alba se autoinfligió daño. Salud restante: 120
+- Combate entre Caballero Oscuro y Dama del Acero
+  -> Caballero Oscuro ha sido eliminado.
+- Combate entre Viento Carmesí y Arconte Sombrío
+  -> Arconte Sombrío ha sido eliminado.
+- Combate entre Gran Lancelot y Bardo de la Niebla
+  -> Bardo de la Niebla ha sido eliminado.
+--------------------------------
+- Día 3
+Registro de Acciones del Juego en el día
+--------------------------------
+- Viento Carmesí se autoinfligió daño. Salud restante: 90
+- Combate entre Bardo de la Niebla y Caballero Oscuro
+  -> Caballero Oscuro ha sido eliminado.
+- Combate entre Dama del Acero y Sombra del Alba
+  -> Dama del Acero ha sido eliminado.
+--------------------------------
+- Día 4
+Registro de Acciones del Juego en el día
+--------------------------------
+- Combate entre Sombra del Alba y Bardo de la Niebla
+  -> Sombra del Alba ha sido eliminado.
+--------------------------------
+- Día 1
+Registro de Acciones del Juego en el día
+--------------------------------
+- Arconte Sombrío y Guardia de Ébano no se encontraron.
+- Combate entre Lancero Temerario y Gran Lancelot
+  -> Gran Lancelot ha sido eliminado.
+- Caballero Oscuro y Merlín no se encontraron.
+- Combate entre Sombra del Alba y Señor del Caos
+  -> Sombra del Alba ha sido eliminado.
+- Combate entre Sanador Experimentado y Bardo de la Niebla
+  -> Sanador Experimentado ha sido eliminado.
+--------------------------------
+- Día 1
+Registro de Acciones del Juego en el día
+--------------------------------
+- Combate entre Viento Carmesí y Bardo de la Niebla
+  -> Bardo de la Niebla ha sido eliminado.
+- Combate entre Lancero Temerario y Fénix Errante
+  -> Lancero Temerario ha sido eliminado.
+- Combate entre Destructor de Mundos y Señor del Caos
+  -> Señor del Caos ha sido eliminado.
+- Combate entre Sombra del Alba y Luz de la Aurora
+  -> Luz de la Aurora ha sido eliminado.
+- Combate entre Dama del Acero y Arconte Sombrío
+  -> Arconte Sombrío ha sido eliminado.
+--------------------------------

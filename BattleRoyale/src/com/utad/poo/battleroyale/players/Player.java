@@ -1,10 +1,9 @@
 package com.utad.poo.battleroyale.players;
 
 import java.util.List;
-//import java.util.Arrays;
 import java.util.Random;
 
-import com.utad.poo.battleroyale.general.GameManager2;
+import com.utad.poo.battleroyale.general.GameManagerUI;
 import com.utad.poo.battleroyale.ui.*;
 import com.utad.poo.battleroyale.weapons.Weapon;
 
@@ -84,22 +83,27 @@ public class Player {
         }
         // Si no cae en ninguna de las anteriores, no pasa nada
     }
-    public Integer lootear(GameMenu game, List<Player> players, Integer action) {
+    public Integer[] lootear(GameMenu game, List<Player> players, Integer action) {
+    	
+    	Integer resultado = 0;
     	
     	Random rand = new Random();
         Integer probabilidad = rand.nextInt(100);
     	
         if (probabilidad < probabilidades[0]) {
-        	action = GameManager2.wait(game, players, action, 1);
+        	action = GameManagerUI.wait(game, players, action, 1);
             this.heal(game);
             game.addTerminalLine(" ");
+            resultado = 1;
         } else if (probabilidad < probabilidades[0] + probabilidades[1]) {
-        	action = GameManager2.wait(game, players, action, 1);
+        	action = GameManagerUI.wait(game, players, action, 1);
             weapon.upgrade(game, this.getName());
             game.addTerminalLine(" ");
+            resultado = 2;
         }
-        
-        return action;
+
+        Integer[] res = {action, resultado};
+        return res;
     }
     
     
@@ -184,46 +188,63 @@ public class Player {
     	// mario te quiero
     }
     public int combat(GameMenu game, Integer action, List<Player> players, Player enemy) {
-    	Integer damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
-    	Integer enemyDamage=enemy.getWeapon().getDamage()[this.weapon.getLevel()-1];
+    	Integer damage = this.weapon.getDamage()[this.weapon.getLevel()-1];
+    	Integer enemyDamage = enemy.getWeapon().getDamage()[this.weapon.getLevel()-1];
     	Boolean activeCombat = true;
     	
-    	// random para parry 
-    	Random seed = new Random();
-    	
-    	Integer multiplicador = 2;
+    	Random rand = new Random();
+    	String thisAtk = ("  → " + this.getName() + " ataca a " + enemy.getName());
+    	String enemyAtk = ("  → " + enemy.getName() + " ataca a " + this.getName());
+    	String specificAtk = "";
     	
     	game.addTerminalLine("\n" + this.getName().toUpperCase() + " ⚔️ " + enemy.getName().toUpperCase());
-		
     	while (activeCombat){
-    		action = GameManager2.wait(game, players, action, 1);
-    		if (action <= 1) {
-    			Integer parry = seed.nextInt(10);
-    			if(parry <=1) {
-        			System.out.println(" → "+ enemy.getName()+ "hace parry y no recibe daño ");
-        		}else if(parry>=9){
-        			if (action <= 1) game.addTerminalLine("  → " + this.getName() + " ataca a " + enemy.getName() + " causandole un daño critico de  " + damage*multiplicador + "puntos de daño");
-        			enemy.hp -= damage*multiplicador;
-        		}else {
-        			game.addTerminalLine("  → " + this.getName() + " ataca a " + enemy.getName() + " causandole " + damage + "puntos de daño");
-        			enemy.hp -= damage;
-        		}
-    		}
+    		action = GameManagerUI.wait(game, players, action, 1);
+    		
+    		Integer thisMult = 1;
+			Integer thisLuck = rand.nextInt(8);
+			
+			if(thisLuck <= 0) {
+				thisMult = 0;
+    			specificAtk = (" pero FALLA el golpe");
+    			
+    		} else if(thisLuck >= 7){
+    			thisMult = 2;
+    			specificAtk = (" causandole un DAÑO CRÍTICO de " + damage * thisMult + "puntos de daño");
+    			
+    		} else specificAtk = (" causandole " + damage + "puntos de daño");
+			
+			if (action <= 1) game.addTerminalLine(thisAtk + specificAtk);
+			enemy.hp -= damage * thisMult;
     		this.addDamageDeal(damage); // ns si con lo que modifique tambien afecta a esto
     		enemy.addDamageReceived(damage); 
 	    	
-	    	if(enemy.hp <= 0){
+	    	if(enemy.getHp() <= 0){
 	    		game.addTerminalLine("  💀 " + enemy.getName() + " ha sido eliminado");
 	    		this.addKills();
 	        	activeCombat = false;
 	    	}else{
-	    		action = GameManager2.wait(game, players, action, 1);
-	    		if (action <= 1) game.addTerminalLine("  → " + enemy.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "puntos de daño");
-		    	this.hp -= enemyDamage;
+	    		action = GameManagerUI.wait(game, players, action, 1);
+	    		
+	    		Integer enemyMult = 1;
+				Integer enemyLuck = rand.nextInt(8);
+				
+				if(enemyLuck <= 0) {
+					enemyMult = 0;
+	    			specificAtk = (" pero FALLA el golpe");
+	    			
+	    		} else if(enemyLuck >= 7){
+	    			enemyMult = 2;
+	    			specificAtk = (" causandole un DAÑO CRÍTICO de " + damage * enemyMult + "puntos de daño");
+	    			
+	    		} else specificAtk = (" causandole " + damage + "puntos de daño");
+				
+				if (action <= 1) game.addTerminalLine(enemyAtk + specificAtk);
+	    		this.hp -= enemyDamage * enemyMult;
 	    		enemy.addDamageDeal(enemyDamage);
 	    		this.addDamageReceived(enemyDamage);
 	    		
-		    	if(this.hp <= 0) {
+		    	if(this.getHp() <= 0) {
 		    		game.addTerminalLine("  💀 " + this.getName() + " ha sido eliminado");
 		    		enemy.addKills();
 		    		activeCombat = false;
@@ -265,13 +286,13 @@ public class Player {
     							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + "ps");
     			damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
     			}else if(chance == 1) {
-    				game.addTerminalLine(this.getName() + " se ha cegado mirando al sol y se ha tropezado perdiendo: 20ps");
+    				game.addTerminalLine(this.getName() + " se ha cegado mirando al sol y se ha tropezado perdiendo -20ps");
     				damage=20;
     			}else if(chance == 2) {
-    				game.addTerminalLine(this.getName() + " ha sido atacado de la nada por un dragón, logrando escapar, pero ha escapado perdiendo: 70ps");
+    				game.addTerminalLine(this.getName() + " ha sido atacado de la nada por un dragón, logrando escapar, pero ha escapado perdiendo -70ps");
     				damage=70;
     			}else if(chance == 3) {
-    				game.addTerminalLine("A " + this.getName() + " le ha dado un chungo, perdiendo la mitad de sus puntos de vida: " + this.getHp()/2 + "ps");
+    				game.addTerminalLine("A " + this.getName() + " le ha dado un chungo, perdiendo la mitad de sus puntos de vida: -" + (this.getHp()/2) + "ps");
     				damage=this.getHp()/2;
     			}
     			    			

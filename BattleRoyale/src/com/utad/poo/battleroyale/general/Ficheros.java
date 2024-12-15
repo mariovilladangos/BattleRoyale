@@ -13,6 +13,7 @@ import com.utad.poo.battleroyale.weapons.*;
 import com.utad.poo.battleroyale.players.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Ficheros {
 	
@@ -82,7 +83,7 @@ public class Ficheros {
 			        	}
 			        }
 		        }
-	
+		        
 		        bots.add(allBots.get(index));
 			}
 			
@@ -90,6 +91,8 @@ public class Ficheros {
 		}
 		else return null;
 	}
+	
+	
 	
 	public static void saveStats(List<Player> players, Integer day) {
     	try {
@@ -106,7 +109,6 @@ public class Ficheros {
         File currentDir = new File(System.getProperty("user.dir"));
 		File statsLog = new File(currentDir.getCanonicalPath() + "\\files\\statsLog");
         
-        
     	try (BufferedWriter writer = new BufferedWriter(new FileWriter(statsLog, true))) {
     
     		writer.write("- Día " + (day) + "\n");
@@ -120,9 +122,31 @@ public class Ficheros {
                 writer.write("       Daño del arma: " + player.getWeapon().getDamage()[player.getWeapon().getLevel()-1]+"\n");
                 writer.write("---------------------------------------------------------------------------------\n");
             }  
-            System.out.println("Las estadísticas han sido guardadas en '" + nombreArchivo + "'");	
+            System.out.println("Las estadísticas han sido guardadas en '" + nombreArchivo + "'");
     	}catch (IOException e) {
     		System.out.println("Error al guardar las estadísticas: " + e.getMessage());
     	}
     }
+
+    
+    
+    public static void saveActions(List<String> log, String fileName) {
+    	try { ActionsLogAdd(log, fileName); }
+    	catch (Exception e) { e.printStackTrace(); }
+    }
+    
+	private static void ActionsLogAdd(List<String> log, String fileName) throws Exception {
+	    String nombreArchivo = "Actions.txt";
+	    
+	    File currentDir = new File(System.getProperty("user.dir"));
+	    File actionsLog = new File(currentDir.getCanonicalPath() + "\\files\\" + fileName + ".txt");
+
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(actionsLog, false))) {
+	        for (String line: log) writer.write(line + "\n");
+	        
+	    } catch (IOException e) {
+	        System.out.println("Error al guardar las acciones: " + e.getMessage());
+	    }
+	}
+	
 }

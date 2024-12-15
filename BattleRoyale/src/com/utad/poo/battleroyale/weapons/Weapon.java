@@ -1,7 +1,6 @@
 package com.utad.poo.battleroyale.weapons;
 
 import java.util.Arrays;
-
 import com.utad.poo.battleroyale.ui.*;
 
 public class Weapon {
