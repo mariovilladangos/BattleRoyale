@@ -22,6 +22,4 @@ public final class Spear extends Weapon{
 	public String toString() {
 		return "Spear [damage=" + Arrays.toString(damage) + ", level=" + level + "]";
 	}
-	
-	
 }

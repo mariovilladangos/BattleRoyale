@@ -325,7 +325,7 @@ public class Player {
     
     
     
-    // GETTER / ADDERS :v
+    // Modificacion de stats
 	public Integer getKills() {
 		return kills;
 	}

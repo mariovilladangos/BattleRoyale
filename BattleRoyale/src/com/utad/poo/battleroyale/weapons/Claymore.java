@@ -22,6 +22,4 @@ public final class Claymore extends Weapon{
 	public String toString() {
 		return "Claymore [damage=" + Arrays.toString(damage) + ", level=" + level + "]";
 	}
-	
-	
 }

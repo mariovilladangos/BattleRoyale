@@ -12,7 +12,6 @@ public final class Warrior extends Player {
 	
 	public Warrior(String name, Weapon weapon) {
 		super(name, weapon, Warrior.WARRIOR_HEALTH, Warrior.DEF_PROB);
-		
 	}
 	
 	@Override
@@ -24,6 +23,4 @@ public final class Warrior extends Player {
 	public String toString() {
 		return super.toString() + " Classname=" + Warrior.CLASS_NAME +" ]";
 	}
-
-		
 }

@@ -148,7 +148,6 @@ public class GameMenu extends MenusBasic{
         this.statsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.stats = new JScrollPane(this.statsList);
         this.stats.setBorder(BorderFactory.createTitledBorder("Stats"));
-        //centerPanel.add(this.stats, BorderLayout.EAST);
         
         sidePanel = new JPanel();
         sidePanel.setLayout(new BorderLayout());
@@ -187,8 +186,6 @@ public class GameMenu extends MenusBasic{
         actionPanel.add(eventButton);
         actionPanel.add(dayButton);
         
-        
-        //bottomPanel.add(statsButton, BorderLayout.EAST);
         bottomPanel.add(actionPanel, BorderLayout.CENTER);
         
         this.frame.add(actionPanel, BorderLayout.SOUTH);

@@ -23,8 +23,4 @@ public final class Healer extends Player {
 	public String toString() {
 		return super.toString()+" ClassName=" + Healer.CLASS_NAME+ " ]";
 	}
-	
-	
-	
-	
 }
