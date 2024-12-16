@@ -189,7 +189,7 @@ public class GameManagerUI {
         for (Player player : players) {
         	stats.add("---------------------------------------------------------------------------------");
         	stats.add(" -  " + player.getName());
-        	stats.add("    Salud restante: " + player.getHp());
+        	stats.add("    Salud restante: " + player.getHp() + "ps");
         	stats.add("    Clase: " + player.getClassType());
         	stats.add("    Arma: " + player.getWeaponType());
         	stats.add("       Nivel del arma: " + player.getWeapon().getLevel());
