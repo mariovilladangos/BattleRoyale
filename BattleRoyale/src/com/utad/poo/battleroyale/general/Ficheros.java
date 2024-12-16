@@ -94,35 +94,19 @@ public class Ficheros {
 	
 	
 	
-	public static void saveStats(List<Player> players, Integer day) {
-    	try {
-			statsLogAdd(players, day);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void saveStats(List<String> stats, String fileName) {
+    	try { statsLogAdd(stats, fileName); }
+    	catch (Exception e) { e.printStackTrace(); }
     }
 	
-    private static void statsLogAdd(List<Player> players, Integer day) throws Exception{
-        String nombreArchivo = "statsLog.txt";  // Nombre del archivo
-
+    private static void statsLogAdd(List<String> stats, String fileName) throws Exception{
         File currentDir = new File(System.getProperty("user.dir"));
-		File statsLog = new File(currentDir.getCanonicalPath() + "\\files\\statsLog");
+		File statsLog = new File(currentDir.getCanonicalPath() + "\\files\\" + fileName + "_playerStats.txt");
         
-    	try (BufferedWriter writer = new BufferedWriter(new FileWriter(statsLog, true))) {
-    
-    		writer.write("- Día " + (day) + "\n");
-            for (Player player : players) {
-            	writer.write("---------------------------------------------------------------------------------\n");
-                writer.write(" -  " + player.getName() + "\n");
-                writer.write("    Salud restante: " + player.getHp() + "\n");
-                writer.write("    Clase: " + player.getClassType() + "\n");
-                writer.write("    Arma: " + player.getWeaponType() + "\n");
-                writer.write("       Nivel del arma: " + player.getWeapon().getLevel()+"\n");
-                writer.write("       Daño del arma: " + player.getWeapon().getDamage()[player.getWeapon().getLevel()-1]+"\n");
-                writer.write("---------------------------------------------------------------------------------\n");
-            }  
-            System.out.println("Las estadísticas han sido guardadas en '" + nombreArchivo + "'");
+		// Añade linea final (estética)
+		stats.add("=================================================================================");
+    	try (BufferedWriter writer = new BufferedWriter(new FileWriter(statsLog, false))) {
+    		for (String line: stats) writer.write(line + "\n");
     	}catch (IOException e) {
     		System.out.println("Error al guardar las estadísticas: " + e.getMessage());
     	}
@@ -136,8 +120,6 @@ public class Ficheros {
     }
     
 	private static void ActionsLogAdd(List<String> log, String fileName) throws Exception {
-	    String nombreArchivo = "Actions.txt";
-	    
 	    File currentDir = new File(System.getProperty("user.dir"));
 	    File actionsLog = new File(currentDir.getCanonicalPath() + "\\files\\" + fileName + ".txt");
 

@@ -1,0 +1,299 @@
+=================================================================================
+- Día 0
+---------------------------------------------------------------------------------
+ -  Bardo de la Niebla
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Lanza
+       Nivel del arma: 1
+       Daño del arma: 20
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 100
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Destructor de Mundos
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+---------------------------------------------------------------------------------
+ -  Sombra del Alba
+    Salud restante: 120
+    Clase: Prisionero
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Guardia de Ébano
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Lanza
+       Nivel del arma: 1
+       Daño del arma: 20
+---------------------------------------------------------------------------------
+ -  Gran Lancelot
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+---------------------------------------------------------------------------------
+ -  Arconte Sombrío
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Lanza
+       Nivel del arma: 1
+       Daño del arma: 20
+---------------------------------------------------------------------------------
+ -  Fénix Errante
+    Salud restante: 100
+    Clase: Sanador
+    Arma: Lanza
+       Nivel del arma: 1
+       Daño del arma: 20
+---------------------------------------------------------------------------------
+ -  Sanador Experimentado
+    Salud restante: 100
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Peregrino Perdido
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+=================================================================================
+- Día 1
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 140
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Destructor de Mundos
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+---------------------------------------------------------------------------------
+ -  Sombra del Alba
+    Salud restante: 130
+    Clase: Prisionero
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Guardia de Ébano
+    Salud restante: 20
+    Clase: Guerrero
+    Arma: Lanza
+       Nivel del arma: 1
+       Daño del arma: 20
+---------------------------------------------------------------------------------
+ -  Gran Lancelot
+    Salud restante: 50
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+---------------------------------------------------------------------------------
+ -  Arconte Sombrío
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Lanza
+       Nivel del arma: 2
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Sanador Experimentado
+    Salud restante: 120
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+=================================================================================
+- Día 2
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 140
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Destructor de Mundos
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 2
+       Daño del arma: 50
+---------------------------------------------------------------------------------
+ -  Sombra del Alba
+    Salud restante: 130
+    Clase: Prisionero
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Guardia de Ébano
+    Salud restante: 20
+    Clase: Guerrero
+    Arma: Lanza
+       Nivel del arma: 2
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Gran Lancelot
+    Salud restante: 80
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+---------------------------------------------------------------------------------
+ -  Sanador Experimentado
+    Salud restante: 120
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+=================================================================================
+- Día 3
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 140
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+---------------------------------------------------------------------------------
+ -  Destructor de Mundos
+    Salud restante: 150
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 3
+       Daño del arma: 65
+---------------------------------------------------------------------------------
+ -  Sombra del Alba
+    Salud restante: 130
+    Clase: Prisionero
+    Arma: Claymore
+       Nivel del arma: 2
+       Daño del arma: 50
+---------------------------------------------------------------------------------
+ -  Guardia de Ébano
+    Salud restante: 20
+    Clase: Guerrero
+    Arma: Lanza
+       Nivel del arma: 3
+       Daño del arma: 70
+---------------------------------------------------------------------------------
+ -  Gran Lancelot
+    Salud restante: 110
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+---------------------------------------------------------------------------------
+ -  Sanador Experimentado
+    Salud restante: 150
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 1
+       Daño del arma: 40
+=================================================================================
+- Día 4
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 140
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 2
+       Daño del arma: 50
+---------------------------------------------------------------------------------
+ -  Gran Lancelot
+    Salud restante: 50
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+---------------------------------------------------------------------------------
+ -  Sanador Experimentado
+    Salud restante: 20
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 2
+       Daño del arma: 50
+=================================================================================
+- Día 5
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 170
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 2
+       Daño del arma: 50
+---------------------------------------------------------------------------------
+ -  Gran Lancelot
+    Salud restante: 20
+    Clase: Guerrero
+    Arma: Espada
+       Nivel del arma: 1
+       Daño del arma: 30
+---------------------------------------------------------------------------------
+ -  Sanador Experimentado
+    Salud restante: 20
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 2
+       Daño del arma: 50
+=================================================================================
+- Día 6
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 170
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 3
+       Daño del arma: 55
+---------------------------------------------------------------------------------
+ -  Sanador Experimentado
+    Salud restante: 20
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 3
+       Daño del arma: 55
+=================================================================================
+- Día 7
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 190
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 3
+       Daño del arma: 55
+---------------------------------------------------------------------------------
+ -  Sanador Experimentado
+    Salud restante: 40
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 3
+       Daño del arma: 55
+=================================================================================
+- Día 8
+---------------------------------------------------------------------------------
+ -  Luz de la Aurora
+    Salud restante: 135
+    Clase: Sanador
+    Arma: Claymore
+       Nivel del arma: 3
+       Daño del arma: 55
+=================================================================================

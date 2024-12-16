@@ -1,5 +1,9 @@
 package com.utad.poo.battleroyale.general;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +34,7 @@ public class GameManagerUI {
 			List<Player> botPlayers = new ArrayList();
 			
 			List<String> actionsLog = new ArrayList();
+			List<String> stats = new ArrayList();
 			
 			for(Player p: menu.getPlayers()) {
 				realPlayers.add(p);
@@ -50,11 +55,15 @@ public class GameManagerUI {
 			Integer action = 0;
 			while(!endgame) {
 				
+				// Guarda las stats antes de empezar el dia. Ejemplo salida:
+				// - Dia 0: muestra el estado de los jugadores antes de empezar el dia 1
+				// - Dia 2: el estado de los juagadores al fianl del dia 2
+				stats = loadStats(stats, players, day);
+				
 				day++;
 				game.addTerminalLine("Día " + day);
     			actionsLog.add("Empieza el dia " + day);
 				
-				Ficheros.saveStats(players, day);
 				
 				for(Player player:shufflePlayers) {
 					Integer hp = player.getHp();
@@ -130,7 +139,10 @@ public class GameManagerUI {
 	    		podiumList.add("  #" + (CharacterMenu.NPLAYERS - i) + " " + eliminated.get(i).getName());
 	    	}
 	    	
-	    	Integer option = podium(podiumList, actionsLog);
+	    	// Guarda las stats al acabar la partida (estado del jugador ganador)
+	    	stats = loadStats(stats, players, day);
+	    	
+	    	Integer option = podium(podiumList, actionsLog, stats);
 			if (option == 1) play = false;
 		}
 	}
@@ -170,6 +182,22 @@ public class GameManagerUI {
 		return actualAction;
 	}
 	
+
+	private static List<String> loadStats(List<String> stats, List<Player> players, Integer day){
+		stats.add("=================================================================================");
+		stats.add("- Día " + (day));
+        for (Player player : players) {
+        	stats.add("---------------------------------------------------------------------------------");
+        	stats.add(" -  " + player.getName());
+        	stats.add("    Salud restante: " + player.getHp());
+        	stats.add("    Clase: " + player.getClassType());
+        	stats.add("    Arma: " + player.getWeaponType());
+        	stats.add("       Nivel del arma: " + player.getWeapon().getLevel());
+        	stats.add("       Daño del arma: " + player.getWeapon().getDamage()[player.getWeapon().getLevel()-1]);
+        }
+        
+        return stats;
+    }
 	
 	public static CharacterMenu lobby(){
 		CharacterMenu menu = new CharacterMenu();
@@ -181,7 +209,7 @@ public class GameManagerUI {
 		return menu;
 	}
 	
-	public static Integer podium(List<String> podiumList, List<String> actionsLog){
+	public static Integer podium(List<String> podiumList, List<String> actionsLog, List<String> stats){
 		PodiumMenu podium = new PodiumMenu();
 		podium.printPodium(podiumList);
 		
@@ -196,6 +224,7 @@ public class GameManagerUI {
 				if (!saved) fName = podium.saveFileName();
 				if (fName != null && !fName.isBlank()) {
 					Ficheros.saveActions(actionsLog, fName);
+					Ficheros.saveStats(stats, fName);
 					saved = true;
 				}
 			}
