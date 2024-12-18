@@ -37,52 +37,33 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public Weapon getWeapon() {
 		return weapon;
 	}
-
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 	}
-	
 	public String getWeaponType() {
 		return weapon.getWeaponType();
 	}
-	
 	public String getClassType() {
 		return "[-]";
 	}
-	
 	public Integer getHp() {
 		return hp;
 	}
 	public void setHp(Integer hp) {
 		this.hp = hp;
 	}
+	
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", weapon=" + weapon + ", hp=" + hp + " ";
 	}
 	
-	 
-    public void lootear() {
-    	
-    	//Generamos un numero aleatorio
-    	Random rand = new Random();
-        Integer probabilidad = rand.nextInt(100);
-    	
-        if (probabilidad < probabilidades[0]) {
-            this.heal(); // Implementar este método
-        } else if (probabilidad < probabilidades[0] + probabilidades[1]) {
-            weapon.upgrade(this.getName()); // Método a implementar
-        }
-        // Si no cae en ninguna de las anteriores, no pasa nada
-    }
     public Integer[] lootear(GameMenu game, List<Player> players, Integer action) {
     	
     	Integer resultado = 0;
@@ -106,31 +87,6 @@ public class Player {
         return res;
     }
     
-    
-    public void heal() {
-    	Random probi = new Random();
-		Integer chanci = probi.nextInt(4);
-		Integer heal = 0;
-			if(chanci == 0) {
-				heal=20;
-				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida diminuta");
-				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
-			}else if(chanci == 1) {
-				heal=30;
-				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida pequeña");
-				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
-			}else if(chanci == 2) {
-				heal=40;
-				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida mediana");
-				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
-			}else if(chanci == 3) {
-				heal=50;
-				System.out.println("\n" + this.getName().toUpperCase() + " ha encontrado una pocion de vida grande");
-				System.out.println("  ❤️‍ " + this.getName() + " recupera " + heal + "ps");
-			}
-			
-    	this.hp += heal;
-    }
     public void heal(GameMenu game) {
     	Random probi = new Random();
 		Integer chanci = probi.nextInt(5);
@@ -161,32 +117,6 @@ public class Player {
     	this.addHpRestored(heal);
     }
     
-    public void combat(Player enemy) {
-    	Integer damage=this.weapon.getDamage()[this.weapon.getLevel()-1];
-    	Integer enemyDamage=enemy.getWeapon().getDamage()[enemy.weapon.getLevel() - 1];
-    	Boolean activeCombat = true;
-    	
-    	System.out.println("\n" + this.getName().toUpperCase() + " ⚔️ " + enemy.getName().toUpperCase());
-    	while (activeCombat){
-	    	System.out.println("  → " + this.getName() + " ataca a " + enemy.getName() + " causandole " + damage + "hp de daño");
-	    	enemy.hp -= damage;
-	    	
-	    	if(enemy.hp <= 0) {
-	        	System.out.println("  💀 " + enemy.getName() + " ha sido eliminado");
-	        	activeCombat = false;
-	    	}else{
-	    		System.out.println("  → " + enemy.getName() + " ataca a " + this.getName() + " causandole " + enemyDamage + "hp de daño");
-		    	this.hp -= enemyDamage;
-	    		
-		    	if(this.hp <= 0) {
-		    		System.out.println("  💀 " + this.getName() + " ha sido eliminado");
-		    		activeCombat = false;
-		    	}
-	    	}
-    	}
-    	// retornar el eliminado y eliminarlo de la lista
-    	// mario te quiero
-    }
     public int combat(GameMenu game, Integer action, List<Player> players, Player enemy) {
     	Integer damage = this.weapon.getDamage()[this.weapon.getLevel()-1];
     	Integer enemyDamage = enemy.getWeapon().getDamage()[this.weapon.getLevel()-1];
@@ -216,7 +146,7 @@ public class Player {
 			
 			if (action <= 1) game.addTerminalLine(thisAtk + specificAtk);
 			enemy.hp -= damage * thisMult;
-    		this.addDamageDeal(damage); // ns si con lo que modifique tambien afecta a esto
+    		this.addDamageDeal(damage);
     		enemy.addDamageReceived(damage); 
 	    	
 	    	if(enemy.getHp() <= 0){
@@ -252,22 +182,15 @@ public class Player {
 	    	}
     	}
     	
-    	//Ya va pero no se imprime en la interfaz luego lo pongo con mario 
 	    game.addTerminalLine(" ");
     	return action;
-    	// retornar el eliminado y eliminarlo de la lista
-    	// mario te quiero
     }
     
     public void autoDamage() {
-    	//Cada vez que se llama a la funcion, se genera una nueva probabilidad
     	Random seed = new Random();
     	Integer probAutoDamage = seed.nextInt(100);
-    	//Si la probabilidad es menor o igual a 50, 
-    	// el jugador se hace daño a sí mismo
     	if(probAutoDamage < 50) {
-    		System.out.println( this.getName() + " se ha clavado su " + this.weapon.getWeaponType()+ ":(" +
-    							" y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + " puntos de vida");
+    		System.out.println( this.getName() + " se ha clavado su " + this.weapon.getWeaponType()+ ":(" + " y ha perdido: " + this.weapon.getDamage()[this.weapon.getLevel() - 1] + " puntos de vida");
     		this.hp -= this.weapon.getDamage()[this.weapon.getLevel()-1];
     	}
     }
@@ -307,22 +230,10 @@ public class Player {
     	}
     }
     
-    public void showStats() {
-    	System.out.println("---------------------------------------------------------------------------------");
-    	System.out.println(" - " + this.name);
-    	System.out.println("    Salud restante: " + this.getHp());
-    	System.out.println("    Clase: " + this.getClassType());
-    	System.out.println("    -Arma: "+ this.getWeaponType());
-    	System.out.println("       Nivel del arma: "+this.weapon.getLevel());
-    	System.out.println("       Daño del arma: "+this.weapon.getDamage()[this.weapon.getLevel()-1]);
-    	System.out.println("---------------------------------------------------------------------------------");
-    }
     public void showStats(GameMenu game) {
     	game.addStatsLine(this.name + "[(" + this.getClassType() + " | " + this.getHp() + "ps) : ("
     		+ this.getWeaponType() + " Lvl." + this.weapon.getLevel() + " | DMG:" + this.weapon.getDamage()[this.weapon.getLevel()-1] + ")]");
     }
-    
-    
     
     
     // Modificacion de stats

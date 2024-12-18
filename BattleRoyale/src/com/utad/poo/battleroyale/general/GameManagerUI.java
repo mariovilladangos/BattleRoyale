@@ -55,9 +55,6 @@ public class GameManagerUI {
 			Integer action = 0;
 			while(!endgame) {
 				
-				// Guarda las stats antes de empezar el dia. Ejemplo salida:
-				// - Dia 0: muestra el estado de los jugadores antes de empezar el dia 1
-				// - Dia 2: el estado de los juagadores al fianl del dia 2
 				stats = loadStats(stats, players, day);
 				
 				day++;
@@ -139,7 +136,6 @@ public class GameManagerUI {
 	    		podiumList.add("  #" + (CharacterMenu.NPLAYERS - i) + " " + eliminated.get(i).getName());
 	    	}
 	    	
-	    	// Guarda las stats al acabar la partida (estado del jugador ganador)
 	    	stats = loadStats(stats, players, day);
 	    	
 	    	Integer option = podium(podiumList, actionsLog, stats);

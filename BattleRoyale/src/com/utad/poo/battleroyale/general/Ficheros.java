@@ -21,7 +21,7 @@ public class Ficheros {
 				
 		List<Player> allBots = new ArrayList();
 		File currentDir = new File(System.getProperty("user.dir"));
-		File ejemplo1File = new File(currentDir.getCanonicalPath() + "\\files\\BotPresets");
+		File ejemplo1File = new File(currentDir.getCanonicalPath() + "\\files\\presets\\BotPresets");
 		
 		BufferedReader br = new BufferedReader(new FileReader(ejemplo1File));
 		String lineaDeFichero;
@@ -101,7 +101,7 @@ public class Ficheros {
 	
     private static void statsLogAdd(List<String> stats, String fileName) throws Exception{
         File currentDir = new File(System.getProperty("user.dir"));
-		File statsLog = new File(currentDir.getCanonicalPath() + "\\files\\" + fileName + "_playerStats.txt");
+		File statsLog = new File(currentDir.getCanonicalPath() + "\\files\\saves\\" + fileName + "_playerStats.txt");
         
 		// Añade linea final (estética)
 		stats.add("=================================================================================");
@@ -121,7 +121,7 @@ public class Ficheros {
     
 	private static void ActionsLogAdd(List<String> log, String fileName) throws Exception {
 	    File currentDir = new File(System.getProperty("user.dir"));
-	    File actionsLog = new File(currentDir.getCanonicalPath() + "\\files\\" + fileName + ".txt");
+	    File actionsLog = new File(currentDir.getCanonicalPath() + "\\files\\saves\\" + fileName + ".txt");
 
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(actionsLog, false))) {
 	        for (String line: log) writer.write(line + "\n");
